@@ -1,0 +1,30 @@
+{
+  "generator-jhipster": {
+    "jhipsterVersion": "3.4.0",
+    "baseName": "EdgeServer",
+    "packageName": "de.extremeenvironment.edgeserver",
+    "packageFolder": "de/extremeenvironment/edgeserver",
+    "serverPort": "8080",
+    "authenticationType": "uaa",
+    "uaaBaseName": "userservice",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "no",
+    "buildTool": "gradle",
+    "jwtSecretKey": "d8ac6f2183f07be2d5662e242cd7dd944e8345ea",
+    "useSass": false,
+    "applicationType": "gateway",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "enableSocialSignIn": false
+  }
+}
