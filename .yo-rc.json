@@ -16,7 +16,7 @@
     "searchEngine": "no",
     "buildTool": "gradle",
     "jwtSecretKey": "d8ac6f2183f07be2d5662e242cd7dd944e8345ea",
-    "useSass": false,
+    "useSass": true,
     "applicationType": "gateway",
     "testFrameworks": [],
     "jhiPrefix": "jhi",

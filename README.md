@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/ExtremeEnvironment/edge-server.svg?branch=master)](https://travis-ci.org/ExtremeEnvironment/edge-server)
-
 # EdgeServer
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
@@ -39,7 +37,7 @@ This application was generated using JHipster, you can find documentation and he
             V                                             |
         +-------+                                         |
         |       |                 /------------------------------------------------\
-        |  Git  |                 | ELK                   |                        |
+        |  Git  |                 | ELK                   |                        | 
         |  Repo |                 |                       V 5000                   |
         +-------+                 | +---------+      +----------+      +--------+  |
                                   | | Elastic |      | Logstash |      | Kibana |  |
