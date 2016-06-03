@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('edgeServerApp')
-        .config(stateConfig);
+    .module('edgeServerApp')
+    .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
 
@@ -19,9 +19,9 @@
             },
             resolve: {
                 authorize: ['Auth',
-                    function (Auth) {
-                        return Auth.authorize();
-                    }
+                function (Auth) {
+                    return Auth.authorize();
+                }
                 ],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('global');

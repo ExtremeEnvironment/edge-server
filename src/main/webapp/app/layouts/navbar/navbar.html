@@ -6,36 +6,43 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
-                <img class="logo-img" src="content/images/logo-jhipster.png"/>
-                <span translate="global.title">Extere Environments</span> <span class="navbar-version">v{{VERSION}}</span>
-            </a>
-            
+            </button>            
         </div>
         <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-left">
                 <li ui-sref-active="active">
                     <a ui-sref="home" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-home"></span>
-                        <span class="hidden-sm" translate="global.menu.home">Home</span>
+                        <span class="hidden-sm" translate="global.menu.home">Homes</span>
                     </a>
                 </li>
-                <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-                <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true"  uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
                         <span>
                             <span class="glyphicon glyphicon-th-list"></span>
                             <span class="hidden-sm" translate="global.menu.entities.main">
-                                Entities
+                                Actions
                             </span>
                             <b class="caret"></b>
                         </span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu>
-                        <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                        <li ui-sref-active="active" >
+                            <a ui-sref="search" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-zoom-in"></span>&nbsp;
+                                <span translate="global.menu.entities.search">Search</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" >
+                            <a ui-sref="give" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-gift"></span>&nbsp;
+                                <span translate="global.menu.entities.give">Search</span>
+                            </a>
+                        </li>
                     </ul>
-                </li>
+                </li>   
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
                         <span>
