@@ -1,27 +1,43 @@
 <div ng-cloak>
-    <div class="row">
-        <div class="col-md-12">
-            <h1 translate="home.title">Welcome!!!</h1>
-            <p class="lead" translate="home.subtitle">This is your homepage</p>
+  <div class="row">
+    <div class="col-md-12">
+      <h1 align="center" translate="home.title" >Welcome!!!</h1>
+      <div ng-switch="vm.isAuthenticated()">
+        <div class="alert alert-success" ng-switch-when="true" translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
+          You are logged in as user "{{vm.account.login}}".
+        </div>
 
-            <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true" translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
-                    You are logged in as user "{{vm.account.login}}".
-                </div>
+        <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.register" translate-compile>
+          You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+        </div>
 
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.register" translate-compile>
-                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
-                </div>
+
+        <md-toolbar class="md-hue-3">
+          <div class="md-toolbar-tools">
+            <h2>
+              <span>Katastrophen</span>
+            </h2>
+            <span flex></span>
+            <div  ng-switch-when="true">
+              <md-button class="md-accent md-raised md-hue-2"  ui-sref="newdisaster">Neue Katastrophe</md-button>
             </div>
-
-                <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-                  <md-button class="md-raised md-primary" ui-sref="entity" >SUCHEN</md-button>
-                  <md-button class="md-raised md-warn">ANBIETEN</md-button>
-                  <md-button class="md-raised md-warn">KATASTOPHE MELDEN</md-button>
-              </section>
-
-          <div id="map"></div>          
-
+          </div>
+        </md-toolbar>
+        <md-content>
+          <md-list flex>
+            <md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="null">
+              <img ng-src="{{item.katsymbol}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+              <div class="md-list-item-text" layout="column">
+                <h3>{{ item.what }}</h3>
+                <h4>{{ item.where }}</h4>
+                <p>{{ item.notes }}</p>
+              </div>
+              <md-button class="md-secondary"  ui-sref="disaster({disasterID: '1'})" ng-click="doSecondaryAction($event)">More Info</md-button>
+            </md-list-item>
+          </md-content>
+        </div>
+        <div id="map"></div>    
       </div>
+    </div>
   </div>
 </div>

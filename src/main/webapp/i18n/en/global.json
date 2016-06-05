@@ -6,9 +6,13 @@
             "home": "Home",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
+                "offer" : "Offers",
+                "message" : "Messages",
                 "main": "Actions",
                 "search": "Search",
                 "give": "Give",
+                "disaster": "Disaster",
+                "newdisaster": "Newdisaster",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
