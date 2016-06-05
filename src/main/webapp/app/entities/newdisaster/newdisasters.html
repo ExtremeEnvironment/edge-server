@@ -1,0 +1,41 @@
+<div ng-cloak>
+  <div class="row">
+    <div class="col-md-12">
+      <md-toolbar class="md-hue-3">
+          <div class="md-toolbar-tools">
+            <h2>
+              <span>Neue Katastrophe</span>
+          </h2>
+          <span flex></span>
+          <md-button class="md-accent md-raised md-hue-2" ui-sref="newdisaster">Erstellen</md-button>
+      </div>
+  </md-toolbar>
+  <div layout="column" ng-cloak class="md-inline-form">
+      <md-content layout-padding>
+        <div>
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Beschreibung</label>
+            <input ng-model="disaster.title">
+        </md-input-container>
+    </div>
+    <div layout-gt-xs="row">
+       <md-datepicker ng-model="disaster.date" md-placeholder="Wann?"></md-datepicker>
+       <span flex></span>
+       <md-input-container class="md-block" flex-gt-xs>
+          <label>Art</label>
+          <md-select ng-model="art">
+              <md-option ng-repeat="art in arten" value="{{art}}">{{art}}</md-option>
+          </md-select>
+      </md-input-container> 
+  </div>
+  <md-input-container class="md-block">
+      <label>Details</label>
+      <textarea ng-model="disaster.details" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+  </md-input-container>
+</md-content>
+</div>
+<div id="map"></div>    
+</div>
+</div>
+</div>
+</div>
