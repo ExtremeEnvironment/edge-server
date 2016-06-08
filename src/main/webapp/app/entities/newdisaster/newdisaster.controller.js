@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('NewdisasterController', NewdisasterController);
 
-  NewdisasterController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+  NewdisasterController.$inject = ['$scope', 'Principal', 'LoginService', '$state','$window'];
 
-  function NewdisasterController ($scope, Principal, LoginService, $state ) {
+  function NewdisasterController ($scope, Principal, LoginService, $state , $window ) {
     var vm = this;
     var citymap = {
       chicago: {
@@ -15,9 +15,16 @@
         population: 2714856
       },
     };
-    initMap();
 
-    function initMap() {
+    function greeting() {
+    //createAction(lat,lon,actionType(Knowledge),user,actionObjets,disasterType(ID))
+     $window.alert('Eine neue Katastrophe wurde eingetragen!');
+   };
+   $scope.greeting = greeting;
+
+   initMap();
+
+   function initMap() {
         // Create the map.
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,
@@ -56,7 +63,7 @@
 
 
       $scope.arten = [
-       "Erdbeben","Tsunami","Flut","Waldbrand"
+      "Erdbeben","Tsunami","Flut","Waldbrand"
       ];
 
 
