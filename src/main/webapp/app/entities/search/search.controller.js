@@ -2,22 +2,79 @@
     'use strict';
 
     angular
-        .module('edgeServerApp')
-        .controller('SearchController', SearchController);
+    .module('edgeServerApp')
+    .controller('SearchController', SearchController);
 
-    SearchController.$inject = ['$scope', '$state', 'Search'];
+    SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log'];
 
-    function SearchController ($scope, $state, Search) {
-        var vm = this;
+    function SearchController ( $scope, $state, $timeout, $q, $log) {
+
+        $scope.filters = { };
         
-        vm.searches = [];
-
-        loadAll();
-
-        function loadAll() {
-            Search.query(function(result) {
-                vm.searches = result;
-            });
-        }
+        var self = this;
+        self.simulateQuery = false;
+        self.isDisabled    = false;
+    // list of `state` value/display objects
+    self.Items      = loadAll();
+    self.querySearch   = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange   = searchTextChange;
+    self.newItem = newItem;
+    function newItem(Item) {
+      alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
+  }
+  function querySearch (query) {
+    var results = query ? self.Items.filter( createFilterFor(query) ) : self.Item,
+    deferred;
+    if (self.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        return deferred.promise;
+    } else {
+        return results;
     }
+}
+function searchTextChange(text) {
+  $log.info('Text changed to ' + text);
+}
+function selectedItemChange(item) {
+  $log.info('Item changed to ' + JSON.stringify(item));
+}
+
+function loadAll() {
+    var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
+    $scope.categories = [
+    "Medizin","Nahrung","Baumaterialien","Unterkunft","Kleidung"];
+    $scope.items=[  {name:'Schmerzmittel' , category:'Medizin'},
+    {name:'Antibiotika' , category:'Medizin'},
+    {name:'Verbände' , category:'Medizin'},
+    {name:'Baby-Nahrung' , category:'Nahrung'},
+    {name:'Supplements' ,   category:'Nahrung'},
+    {name:'Wasser' , category:'Nahrung'},
+    {name:'Standardessen' , category:'Nahrung'},
+    {name:'Holz' , category:'Baumaterialien'},
+    {name:'Stein' , category:'Baumaterialien'},
+    {name:'Sand' , category:'Baumaterialien'},
+    {name:'Hose' , category:'Kleidung'},
+    {name:'Schuhe' , category:'Kleidung'},
+    {name:'Jacke' , category:'Kleidung'},
+    {name:'Bett' , category:'Unterkunft'},
+    {name:'Zelt' , category:'Unterkunft'}];
+    return allItems.split(/, +/g).map( function (item) {
+        return {
+          value: item.toLowerCase(),
+          display: item
+      };
+  });
+}
+    /**
+     * Create filter function for a query string
+     */
+     function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(Item) {
+        return (Item.value.indexOf(lowercaseQuery) === 0);
+    };
+}
+}
 })();

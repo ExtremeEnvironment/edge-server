@@ -1,54 +1,54 @@
-<div>
-    <h2 translate="edgeServerApp.search.home.title">Searches</h2>
-    <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="search.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span  translate="edgeServerApp.search.home.createLabel">
-                        Create new Search
-                    </span>
-                </button>
+
+<div layout="column">
+    <div layout="column">
+        <div flex>
+            <form ng-submit="$event.preventDefault()">
+              <md-autocomplete
+              ng-disabled="vm.isDisabled"
+              md-no-cache="vm.noCache"
+              md-selected-item="vm.selectedItem"
+              md-search-text-change="vm.searchTextChange(vm.searchText)"
+              md-search-text="vm.searchText"
+              md-selected-item-change="vm.selectedItemChange(item)"
+              md-items="item in vm.querySearch(vm.searchText)"
+              md-item-text="item.display"
+              md-min-length="0"
+              placeholder="Was möchten sie zu Verfügung stellen?">
+              <md-item-template>
+                  <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+              </md-item-template>
+          </md-autocomplete>
+      </form>
+  </div>
+
+
+
+  <div flex>
+      <div flex layout="row">
+        <md-list class="md-dense">
+          <md-subheader class="md-no-sticky" ng-click="filters.category = ''">Kategorien</md-subheader>
+          <md-list-item class="md-1-line" ng-repeat="category in categories" ng-click="filters.category = category">
+              <div class="md-list-item-text">
+                <h4> {{category}} </h4>
             </div>
+            <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+        </md-list-item>
+    </md-list>
+
+
+    <md-list class="md-dense">
+      <md-subheader class="md-no-sticky">Resourcen</md-subheader>
+      <md-list-item class="md-2-line" ng-repeat="item in items | filter:filters">
+          <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+          <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
+          ng-if="phone.options.face"/>
+          <div class="md-list-item-text">
+            <h3> {{ item.name }} </h3>
+            <p> {{ item.category }} </p>
         </div>
-    </div>
-    <br/>
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
-            <thead>
-                <tr>
-                    <th><span translate="global.field.id">ID</span></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="search in vm.searches track by search.id">
-                    <td><a ui-sref="search-detail({id:search.id})">{{search.id}}</a></td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="search-detail({id:search.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="search.edit({id:search.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="search.delete({id:search.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    </md-list-item>
+</md-list>
+</div>
+</div>
+</div>
 </div>

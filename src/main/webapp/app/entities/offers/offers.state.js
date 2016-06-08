@@ -9,62 +9,62 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('give', {
-            parent: 'disaster',
-            url: '/give',
+        .state('offers', {
+            parent: 'entity',
+            url: '/offers',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'edgeServerApp.give.home.title'
+                pageTitle: 'edgeServerApp.offers.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/give/gives.html',
-                    controller: 'GiveController',
+                    templateUrl: 'app/entities/offers/offers.html',
+                    controller: 'OffersController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('give');
+                    $translatePartialLoader.addPart('offers');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('give-detail', {
+        .state('offers-detail', {
             parent: 'entity',
-            url: '/give/{id}',
+            url: '/offers/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'edgeServerApp.give.detail.title'
+                pageTitle: 'edgeServerApp.offers.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/give/give-detail.html',
-                    controller: 'GiveDetailController',
+                    templateUrl: 'app/entities/offers/offers-detail.html',
+                    controller: 'OffersDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('give');
+                    $translatePartialLoader.addPart('offers');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Give', function($stateParams, Give) {
-                    return Give.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Offers', function($stateParams, Offers) {
+                    return Offers.get({id : $stateParams.id}).$promise;
                 }]
             }
         })
-        .state('give.new', {
-            parent: 'give',
+        .state('offers.new', {
+            parent: 'offers',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/give/give-dialog.html',
-                    controller: 'GiveDialogController',
+                    templateUrl: 'app/entities/offers/offers-dialog.html',
+                    controller: 'OffersDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -76,56 +76,56 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('give', null, { reload: true });
+                    $state.go('offers', null, { reload: true });
                 }, function() {
-                    $state.go('give');
+                    $state.go('offers');
                 });
             }]
         })
-        .state('give.edit', {
-            parent: 'give',
+        .state('offers.edit', {
+            parent: 'offers',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/give/give-dialog.html',
-                    controller: 'GiveDialogController',
+                    templateUrl: 'app/entities/offers/offers-dialog.html',
+                    controller: 'OffersDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Give', function(Give) {
-                            return Give.get({id : $stateParams.id}).$promise;
+                        entity: ['Offers', function(Offers) {
+                            return Offers.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('give', null, { reload: true });
+                    $state.go('offers', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('give.delete', {
-            parent: 'give',
+        .state('offers.delete', {
+            parent: 'offers',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/give/give-delete-dialog.html',
-                    controller: 'GiveDeleteController',
+                    templateUrl: 'app/entities/offers/offers-delete-dialog.html',
+                    controller: 'OffersDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Give', function(Give) {
-                            return Give.get({id : $stateParams.id}).$promise;
+                        entity: ['Offers', function(Offers) {
+                            return Offers.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('give', null, { reload: true });
+                    $state.go('offers', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
