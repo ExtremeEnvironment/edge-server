@@ -10,8 +10,8 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('newdisaster', {
-            parent: 'home',
-            url: '/newdisaster',
+            parent: 'app',
+            url: '/newdisaster?userID',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'edgeServerApp.newdisaster.home.title'

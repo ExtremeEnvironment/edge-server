@@ -10,38 +10,71 @@
     function GiveController ( $scope, $state, $timeout, $q, $log) {
 
         $scope.filters = { };
+
+        var selectedItems=['Holz'];
+        $scope.selectedItems= selectedItems;
         
         var self = this;
         self.simulateQuery = false;
         self.isDisabled    = false;
-    // list of `state` value/display objects
-    self.Items      = loadAll();
-    self.querySearch   = querySearch;
-    self.selectedItemChange = selectedItemChange;
-    self.searchTextChange   = searchTextChange;
-    self.newItem = newItem;
-    function newItem(Item) {
-      alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
-  }
-  function querySearch (query) {
-    var results = query ? self.Items.filter( createFilterFor(query) ) : self.Item,
-    deferred;
-    if (self.simulateQuery) {
-        deferred = $q.defer();
-        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-        return deferred.promise;
-    } else {
-        return results;
+        // list of `state` value/display objects
+        self.Items      = loadAll();
+        self.querySearch   = querySearch;
+        self.selectedItemChange = selectedItemChange;
+        self.searchTextChange   = searchTextChange;
+        self.newItem = newItem;
+        function newItem(Item) {
+          alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
+      };
+      function querySearch (query) {
+        var results = query ? self.Items.filter( createFilterFor(query) ) : self.Item,
+        deferred;
+        if (self.simulateQuery) {
+            deferred = $q.defer();
+            $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+            return deferred.promise;
+        } else {
+            return results;
+        }
     }
-}
-function searchTextChange(text) {
-  $log.info('Text changed to ' + text);
-}
-function selectedItemChange(item) {
-  $log.info('Item changed to ' + JSON.stringify(item));
+    function searchTextChange(text) {
+      $log.info('Text changed to ' + text);
+  }
+  function selectedItemChange(item) {
+      var value = item.display;
+      $scope.pushToArray(value);
+  }
+
+
+  $scope.pushToArray = function (item){  
+     var marker; 
+     selectedItems.forEach( function(entry) {
+       if (entry===item) {
+        marker = 1;
+    }})
+     if (marker===1) {
+        return
+    }
+    selectedItems.push(item);
+    $log.info(selectedItems);
+};
+
+$scope.delFromArray = function (item){  
+ var marker; 
+ selectedItems.forEach( function(entry) {
+   if (entry===item) {
+     selectedItems.splice(selectedItems.indexOf(item), 1);
+ }})
+};
+
+
+$scope.writeDB = function (){
+//WRITE TO DATABASE
 }
 
+
 function loadAll() {
+    // get all data from DB
     var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
     $scope.categories = [
     "Medizin","Nahrung","Baumaterialien","Unterkunft","Kleidung"];
@@ -67,14 +100,12 @@ function loadAll() {
       };
   });
 }
-    /**
-     * Create filter function for a query string
-     */
-     function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(Item) {
-        return (Item.value.indexOf(lowercaseQuery) === 0);
-    };
+
+function createFilterFor(query) {
+  var lowercaseQuery = angular.lowercase(query);
+  return function filterFn(Item) {
+    return (Item.value.indexOf(lowercaseQuery) === 0);
+};
 }
 this.infiniteItems = {
   numLoaded_: 0,
