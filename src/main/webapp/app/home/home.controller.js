@@ -111,7 +111,7 @@
 
       }
 
-/*      var imagePath = 'content/images/logo-jhipster.png';
+      var imagePath = 'content/images/logo-jhipster.png';
       $scope.todos = [
       {
         katsymbol : imagePath,
@@ -128,7 +128,7 @@
         notes: "Feuer Überall!"
       },
       ];
-*/
+
 
 
     }

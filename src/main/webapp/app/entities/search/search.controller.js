@@ -47,30 +47,39 @@
 
 
   $scope.pushToArray = function (item){  
-     var marker; 
-     selectedItems.forEach( function(entry) {
-       if (entry===item) {
+   var marker; 
+   selectedItems.forEach( function(entry) {
+     if (entry===item) {
         marker = 1;
     }})
-     if (marker===1) {
-        return
-    }
-    selectedItems.push(item);
-    $log.info(selectedItems);
+   if (marker===1) {
+    return
+}
+selectedItems.push(item);
+$log.info(selectedItems);
 };
 
 $scope.delFromArray = function (item){  
- var marker; 
- selectedItems.forEach( function(entry) {
-   if (entry===item) {
-     selectedItems.splice(selectedItems.indexOf(item), 1);
- }})
+   var marker; 
+   selectedItems.forEach( function(entry) {
+     if (entry===item) {
+       selectedItems.splice(selectedItems.indexOf(item), 1);
+   }})
 };
 
 
 $scope.writeDB = function (){
 //WRITE TO DATABASE
 }
+
+    $scope.selectedItem;
+$scope.getSelectedText = function() {
+    if ($scope.selectedItem !== undefined) {
+        return ($scope.selectedItem.what+" |  "+$scope.selectedItem.where+"  |  "+$scope.selectedItem.notes);
+  } else {
+      return "Wählen sie eine gemeldete Katastrophe:";
+  }
+};
 
 
 function loadAll() {
@@ -100,6 +109,52 @@ function loadAll() {
       };
   });
 }
+
+var imagePath = 'content/images/logo-jhipster.png';
+$scope.todos = [
+{
+    katsymbol : imagePath,
+    what: 'Erdbeben',
+    where: 'Berlin, 10823',
+    when: '12.08.2016',
+    notes: "Überall Wasser!"
+},
+{
+    katsymbol : imagePath,
+    what: 'Brand',
+    where: 'Berlin, 12205',
+    when: '12.08.2017',
+    notes: "Feuer Überall!"
+},
+{
+    katsymbol : imagePath,
+    what: 'Hallejuliua',
+    where: 'Berlin, 12205',
+    when: '12.08.2017',
+    notes: "Feuer Überall!"
+},
+{
+    katsymbol : imagePath,
+    what: 'Erdbeben',
+    where: 'Berlin, 10823',
+    when: '12.08.2016',
+    notes: "Überall Wasser!"
+},
+{
+    katsymbol : imagePath,
+    what: 'Brand',
+    where: 'Berlin, 12205',
+    when: '12.08.2017',
+    notes: "Feuer Überall!"
+},
+{
+    katsymbol : imagePath,
+    what: 'Hallejuliua',
+    where: 'Berlin, 12205',
+    when: '12.08.2017',
+    notes: "Feuer Überall!"
+}
+];
 
 function createFilterFor(query) {
   var lowercaseQuery = angular.lowercase(query);
