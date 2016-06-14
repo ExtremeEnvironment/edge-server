@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('offers', {
-            parent: 'entity',
+            parent: 'app',
             url: '/offers',
             data: {
                 authorities: ['ROLE_USER'],

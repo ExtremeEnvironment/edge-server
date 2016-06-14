@@ -1,8 +1,42 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+      <h2>
+          <span>Katastrophe wählen:</span>
+      </h2>
+      <span flex></span>
+      <md-button class="md-raised" ui-sref="newdisaster" aria-label="Learn More">
+          Neue Katastrophe
+      </md-button>
+  </div>
+</md-toolbar>
+
 <div class="md-whiteframe-z1" flex>
-    <md-subheader class="md-no-sticky" >Wo brauchen sie etwas :</md-subheader>
+    <div layout="column">
+    <md-input-container class="md-select-menu">
+            <md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
+                <md-optgroup label="Katastrophen">
+                    <md-option ng-value="item" ng-repeat="item in todos"> 
+                        <div class="md-ripple-container" layout="row">
+                            <div flex>
+                                <h5>{{ item.what }}</h5>
+                            </div>
+                            <div flex>
+                                <h5>{{ item.where }}</h5>
+                            </div>
+                            <div flex>
+                                <h6>{{ item.notes }}</h6>
+                            </div>
+                        </div>
+                        <md-divider></md-divider>
+                    </md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <md-subheader class="md-no-sticky" >Wo suchen sie etwas?</md-subheader>
     <div id=map></div>
 </div>
-
 
 <div layout="column">
     <div flex>
@@ -75,8 +109,8 @@
     </md-list>
 </div>
 </div>
-<md-button class="md-raised" ui-sref="home" ng-click="writeDB()" >Abgeben</md-button>
+<md-button class="md-raised" ng-click="createAction()" >Abgeben</md-button>
 </div>
 
 
-
+<!-- ui-sref="home" -->
