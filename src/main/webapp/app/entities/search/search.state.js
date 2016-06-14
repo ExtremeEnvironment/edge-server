@@ -11,7 +11,7 @@
         $stateProvider
         .state('search', {
             parent: 'app',
-            url: '/search',
+            url: '/search?userID',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'edgeServerApp.search.home.title'

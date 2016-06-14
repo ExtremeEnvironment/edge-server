@@ -10,8 +10,8 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('give', {
-            parent: 'disaster',
-            url: '/give',
+            parent: 'app',
+            url: '/give?userID',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'edgeServerApp.give.home.title'

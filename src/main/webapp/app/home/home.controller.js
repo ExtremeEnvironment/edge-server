@@ -79,7 +79,7 @@
           });
           google.maps.event.addListener(cityCircle, 'center_changed', function() {
             console.log(cityCircle.getCenter());
-            console.log('Bounds changed.');
+            console.log('Bounds changed.'); 
           });
         }
         var drawingManager = new google.maps.drawing.DrawingManager({
@@ -111,12 +111,7 @@
 
       }
 
-
-      
-
-
-
-      var imagePath = 'content/images/logo-jhipster.png';
+/*      var imagePath = 'content/images/logo-jhipster.png';
       $scope.todos = [
       {
         katsymbol : imagePath,
@@ -133,7 +128,7 @@
         notes: "Feuer Überall!"
       },
       ];
-
+*/
 
 
     }

@@ -65,30 +65,6 @@
       $scope.arten = [
       "Erdbeben","Tsunami","Flut","Waldbrand"
       ];
-
-
-
-
-      var imagePath = 'content/images/logo-jhipster.png';
-      $scope.todos = [
-      {
-        katsymbol : imagePath,
-        what: 'Erdbeben',
-        where: 'Berlin, 10823',
-        when: '12.08.2016',
-        notes: "Überall Wasser!"
-      },
-      {
-        katsymbol : imagePath,
-        what: 'Brand',
-        where: 'Berlin, 12205',
-        when: '12.08.2017',
-        notes: "Feuer Überall!"
-      },
-      ];
-
-
-
     }
   })();
 
