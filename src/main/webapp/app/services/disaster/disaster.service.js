@@ -5,7 +5,7 @@
         .module('edgeServerApp')
         .factory('Disaster', Disaster);
 
-    User.$inject = ['$resource'];
+    Disaster.$inject = ['$resource'];
 
     function Disaster ($resource) {
         $scope.console.log('service');
