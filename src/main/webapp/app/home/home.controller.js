@@ -111,7 +111,7 @@
 
       }
 
-      var imagePath = 'content/images/logo-jhipster.png';
+      var imagePath = 'content/images/globe.png';
       $scope.todos = [
       {
         katsymbol : imagePath,

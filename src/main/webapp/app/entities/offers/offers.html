@@ -45,10 +45,12 @@
     </tr>
     <tr ng-repeat="offer in listOffers | orderBy:propertyName:reverse" ng-click="pushToArray(offer)">
       <td>{{offer.location}}</td>
-      <td>{{offer.actionObjects}}</td>
+      <td>
+          <div ng-repeat="offer in offer.actionObjects">{{offer}}</div>
+      </td>
       <td>{{offer.date}}</td>
       <td>            
-          <md-button class="md-icon-button" ng-click="delFromArray(item)"  aria-label="call">
+          <md-button class="md-icon-button" ng-click="delFromArray(offer)" aria-label="call">
             <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
         </md-button>
     </td>
@@ -64,29 +66,33 @@
 
 
 <div class="md-whiteframe-z1">
-    <div layout="row">
+    <div layout="column">
         <md-list flex>
           <md-subheader class="md-no-sticky" ">Angebot: </md-subheader>
           <md-list-item class="md-4-line">
-              <div class="md-list-item-text">
+              <div class="md-list-item-text" flex>
                 <h4>Ort: {{selectedItem.location}} </h4>
             </div>
             <div flex></div>
-            <h4>Angebot:</h4>
-            <div ng-repeat="object in selectedItem.actionObjects" layout="row">
-             <md-list-item class="md-1-line">
-                 <h3>{{object}}</h3>
-             </md-list-item>
+            <h4>Erstellt am:  {{selectedItem.date}}</h4>
+        </md-list-item>
+    </md-list>
+    <md-list flex>
+      <md-subheader class="md-no-sticky" ">Ressourcen: </md-subheader>
+      <md-list-item class="md-1-line" ng-repeat="object in selectedItem.actionObjects">
 
-         </div>
+         <h3>{{object}}</h3>
          <div class="md-secondary">
             <md-datepicker ng-model="disaster.date" md-placeholder="{{selectedItem.date}}"></md-datepicker>
         </div>
-        <md-button class="md-secondary md-icon-button" ng-click="delFromArray(item)"  aria-label="call">
+        <md-button class="md-secondary md-icon-button" ng-click="delFromObjects(object)"  aria-label="call">
             <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
         </md-button>
     </md-list-item>
 </md-list>
+<md-button class="md-secondary md-icon-button" ng-click="delFromObjects(object)"  aria-label="call">
+    <md-icon md-svg-icon="content/images/add.svg"></md-icon>
+</md-button>
 </div>
 </div>
 <md-button class="md-raised" ui-sref="home" ng-click="writeDB()" >Abgeben</md-button>
