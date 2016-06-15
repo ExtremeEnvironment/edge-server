@@ -2,11 +2,11 @@
     'use strict';
     angular
         .module('edgeServerApp')
-        .factory('Give', Give);
+        .factory('Disaster', Disaster);
 
-    Give.$inject = ['$resource'];
+    Disaster.$inject = ['$resource'];
 
-    function Give ($resource) {
+    function Disaster ($resource) {
         var resourceUrl =  'api/disasters/:id';
 
         return $resource(resourceUrl, {}, {
@@ -24,3 +24,5 @@
         });
     }
 })();
+
+

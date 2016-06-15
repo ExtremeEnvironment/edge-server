@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('edgeServerApp')
-        .factory('Give', Give);
+        .factory('Message', Message);
 
-    Give.$inject = ['$resource'];
+    Message.$inject = ['$resource'];
 
-    function Give ($resource) {
-        var resourceUrl =  'api/disasters/:id';
+    function Message ($resource) {
+        var resourceUrl =  'api/messages/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
