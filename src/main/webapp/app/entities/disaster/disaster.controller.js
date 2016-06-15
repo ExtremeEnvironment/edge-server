@@ -42,6 +42,7 @@
     function loadAll() {
         Disaster.query(function(result) {
             vm.disasters = result;
+            console.log(result)
         });
     }
     function initMap() {

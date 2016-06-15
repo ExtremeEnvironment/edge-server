@@ -7,7 +7,7 @@
     Give.$inject = ['$resource'];
 
     function Give ($resource) {
-        var resourceUrl =  'api/gives/:id';
+        var resourceUrl =  'api/actions/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

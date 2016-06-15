@@ -16,19 +16,28 @@
         $scope.selectedItem = selectedItem;
 
         $scope.pushToArray = function (item){  
-        $scope.selectedItem = item;
-        $log.info(selectedItem);
-    };
+            $scope.selectedItem = item;
+            selectedItem = $scope.selectedItem;
+        };
 
-    $scope.delFromArray = function (item){  
-       listOffers.forEach( function(entry) {
-         if (entry.$hashKey===item.$hashKey) {
-           listOffers.splice(listOffers.indexOf(item), 1);
-       }})
-   };
+        $scope.delFromArray = function (item){  
+            listOffers.forEach( function(entry) {
+                if (item.$$hashKey===entry.$$hashKey) {
+
+                   listOffers.splice(listOffers.indexOf(item), 1);
+               }})
+        };
+
+        $scope.delFromObjects = function (item){  
+            selectedItem.actionObjects.forEach( function(entry) {
+                if (item===entry) {
+
+                  selectedItem.actionObjects.splice( selectedItem.actionObjects.indexOf(item), 1);
+              }})
+        };
 
 
-   $scope.writeDB = function (){
+        $scope.writeDB = function (){
 //WRITE TO DATABASE
 }
 
