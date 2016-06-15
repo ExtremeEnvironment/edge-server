@@ -1,7 +1,8 @@
 body {
   background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333; }
+  font-family: Roboto, "Open Sans", Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+}
 
 /* ==========================================================================
 Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
@@ -197,7 +198,7 @@ Custom alerts for notification
   text-overflow: ellipsis; }
   .alerts .alert pre {
     background: none;
-    border: none; 
+    border: none;
     font: inherit;
     color: inherit;
     padding: 0;
@@ -305,74 +306,86 @@ ui bootstrap tweaks
         margin: 2px 0px;
       }
 
-      a.md-whiteframe-15dp{
-        text-decoration: none;
-/*         margin-right: 0px;
-margin-left: 0px; */
-height:95%;
-background-color: #9AC4EF ;
+a.md-whiteframe-15dp{
+  text-decoration: none;
+  /* margin-right: 0px;
+  margin-left: 0px; */
+  height: 95%;
+  background-color: #bbc9d8;
 }
 /* .alert{
   margin: 15px;
   } */
 
-  .dashboard-text {
-    color: #FFA200;
-    font-size: 1em;
-    text-align: center;
-    display: block;
-    height: 20px;
-  }
-  .dashboard-link {
-    text-decoration: none;
-    color: white;
-    text-align: center;
-    padding-top: 20px;
-    position: relative;
-    width: 100%;
-  }
-  .dashboard-icons {
-    color: #FFA200;
-    font-size:70px !important;
-    padding-top: 60px;
-    display: block !important;
-  }
-/*   .col-md-12{
+.dashboard-text, .dashboard-icons {
+  color: #ff6d05;
+}
+
+.dashboard-text {
+  font-size: 1.3em;
+  text-align: center;
+  display: block;
+  height: 20px;
+  font-weight: 300;
+}
+
+.dashboard-link {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.dashboard-icons {
+  font-size:70px !important;
+  padding-top: 60px;
+  display: block !important;
+}
+
+/*
+.col-md-12{
   margin: 15px;
-  
-  } */
-  .md-select-menu{
-    margin: 40px;
-    padding: 10px;
-  }
+}
+*/
 
-  .md-ripple-container{
-    padding: 5px;
-  }
+.md-select-menu{
+  margin: 40px;
+  padding: 10px;
+}
 
-  .virtualRepeatdemoInfiniteScroll #vertical-container {
-    height: 100px;
-    width: 100%;
-    max-width: 400px; }
-    .virtualRepeatdemoInfiniteScroll .repeated-item {
-      border-bottom: 1px solid #ddd;
-      box-sizing: border-box;
-      height: 40px;
-      padding-top: 10px; }
-      .virtualRepeatdemoInfiniteScroll md-content {
-        margin: 16px; }
-        .virtualRepeatdemoInfiniteScroll md-virtual-repeat-container {
-          height: 100px;
-          border: solid 1px grey; }
-          .virtualRepeatdemoInfiniteScroll .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
-            padding-left: 16px; }
+.md-ripple-container{
+  padding: 5px;
+}
 
+.virtualRepeatdemoInfiniteScroll #vertical-container {
+  height: 100px;
+  width: 100%;
+  max-width: 400px;
+}
+.virtualRepeatdemoInfiniteScroll .repeated-item {
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  height: 40px;
+  padding-top: 10px;
+}
+.virtualRepeatdemoInfiniteScroll md-content {
+  margin: 16px;
+}
+.virtualRepeatdemoInfiniteScroll md-virtual-repeat-container {
+  height: 100px;
+  border: solid 1px grey;
+}
+.virtualRepeatdemoInfiniteScroll .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
+  padding-left: 16px;
+}
 
-            .friends {
-              border-collapse: collapse;
-              padding: 50px;
-              width: 100%;
-            }
+.friends {
+  border-collapse: collapse;
+  padding: 50px;
+  width: 100%;
+}
 
             .friends th {
               /*   border-bottom: 1px solid; */
