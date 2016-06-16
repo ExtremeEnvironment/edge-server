@@ -1,0 +1,21 @@
+{
+    "edgeServerApp": {
+        "disaster" : {
+            "home": {
+                "title": "DisasterXY",
+                "createLabel": "Create a new Disaster",
+                "createOrEditLabel": "Create or edit a Disaster",
+                "search": "Search for Disaster"
+            },
+            "created": "A new Disaster is created with identifier {{ param }}",
+            "updated": "A Disaster is updated with identifier {{ param }}",
+            "deleted": "A Disaster is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Disaster {{ id }}?"
+            },
+            "detail": {
+                "title": "Disaster"
+            }
+        }
+    }
+}

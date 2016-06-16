@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('edgeServerApp')
-        .config(stateConfig);
+    .module('edgeServerApp')
+    .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
 

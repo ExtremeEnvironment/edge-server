@@ -1,4 +1,4 @@
-<!doctype html>
+    <!doctype html>
 <html class="no-js">
 <head>
     <meta charset="utf-8">
@@ -13,26 +13,27 @@
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
-    <link rel="stylesheet" href="content/css/main.css">
+    <link rel="stylesheet" href="content/css/main.css"> 
     <!-- endbuild -->
 </head>
 <body ng-app="edgeServerApp" ng-strict-di>
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
-    <div class="container">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
+        <![endif]-->
+        <div ui-view="navbar" ng-cloak></div>
+        <div class="container">
+            <div class="well" ui-view="content">
+                <!-- Angular views -->
+            </div>
 
-        <div class="footer" ng-cloak>
-            <p translate="footer">This is your footer</p>
+            <div class="footer" ng-cloak>
+                <p translate="footer">This is your footer</p>
+            </div>
         </div>
-    </div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -43,12 +44,23 @@
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
         ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
+    
+
+</head>
+<body>
+
+    <!-- Angular Material Dependencies -->
+    
+
+    <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNDfM3kq6Dz4mDqvCBj_edyfERu7lwUys&libraries=drawing"></script>
 
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -69,13 +81,19 @@
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
 
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
     <script src="app/app.module.js"></script>
     <script src="app/services/user/user.service.js"></script>
     <script src="app/services/profiles/profile.service.js"></script>
     <script src="app/services/profiles/page-ribbon.directive.js"></script>
+    <script src="app/services/disaster/disaster.service.js"></script>
     <script src="app/services/auth/register.service.js"></script>
     <script src="app/services/auth/principal.service.js"></script>
     <script src="app/services/auth/password-reset-init.service.js"></script>
@@ -93,7 +111,43 @@
     <script src="app/layouts/error/error.state.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
-    <script src="app/entities/entity.state.js"></script>
+    <script src="app/entities/search/search-dialog.controller.js"></script>
+    <script src="app/entities/search/search-detail.controller.js"></script>
+    <script src="app/entities/search/search-delete-dialog.controller.js"></script>
+    <script src="app/entities/search/search.state.js"></script>
+    <script src="app/entities/search/search.service.js"></script>
+    <script src="app/entities/search/search.controller.js"></script>
+    <script src="app/entities/offers/offers-dialog.controller.js"></script>
+    <script src="app/entities/offers/offers-detail.controller.js"></script>
+    <script src="app/entities/offers/offers-delete-dialog.controller.js"></script>
+    <script src="app/entities/offers/offers.state.js"></script>
+    <script src="app/entities/offers/offers.service.js"></script>
+    <script src="app/entities/offers/offers.controller.js"></script>
+    <script src="app/entities/newdisaster/newdisaster-dialog.controller.js"></script>
+    <script src="app/entities/newdisaster/newdisaster-detail.controller.js"></script>
+    <script src="app/entities/newdisaster/newdisaster-delete-dialog.controller.js"></script>
+    <script src="app/entities/newdisaster/newdisaster.state.js"></script>
+    <script src="app/entities/newdisaster/newdisaster.service.js"></script>
+    <script src="app/entities/newdisaster/newdisaster.controller.js"></script>
+    <script src="app/entities/message/message-dialog.controller.js"></script>
+    <script src="app/entities/message/message-detail.controller.js"></script>
+    <script src="app/entities/message/message-delete-dialog.controller.js"></script>
+    <script src="app/entities/message/message.state.js"></script>
+    <script src="app/entities/message/message.service.js"></script>
+    <script src="app/entities/message/message.controller.js"></script>
+    <script src="app/entities/give/give-dialog.controller.js"></script>
+    <script src="app/entities/give/give-detail.controller.js"></script>
+    <script src="app/entities/give/give-delete-dialog.controller.js"></script>
+    <script src="app/entities/give/give.state.js"></script>
+    <script src="app/entities/give/give.service.js"></script>
+    <script src="app/entities/give/give.controller.js"></script>
+    <script src="app/entities/disaster/disaster-dialog.controller.js"></script>
+    <script src="app/entities/disaster/disaster-detail.controller.js"></script>
+    <script src="app/entities/disaster/disaster-delete-dialog.controller.js"></script>
+    <script src="app/entities/disaster/disaster.state.js"></script>
+    <script src="app/entities/disaster/disaster.service.js"></script>
+    <script src="app/entities/disaster/disaster.controller.js"></script>
+    <script src="app/entities/disaster/action.service.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>

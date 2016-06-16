@@ -1,0 +1,21 @@
+{
+    "edgeServerApp": {
+        "give" : {
+            "home": {
+                "title": "Gives",
+                "createLabel": "Create a new Give",
+                "createOrEditLabel": "Create or edit a Give",
+                "search": "Search for Give"
+            },
+            "created": "A new Give is created with identifier {{ param }}",
+            "updated": "A Give is updated with identifier {{ param }}",
+            "deleted": "A Give is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Give {{ id }}?"
+            },
+            "detail": {
+                "title": "Give"
+            }
+        }
+    }
+}
