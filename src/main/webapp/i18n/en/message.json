@@ -2,8 +2,8 @@
     "edgeServerApp": {
         "message" : {
             "home": {
-                "title": "Messages",
-                "createLabel": "Create a new Message",
+                "title": "Your Conversations",
+                "createLabel": "Start a conversation",
                 "createOrEditLabel": "Create or edit a Message",
                 "search": "Search for Message"
             },
