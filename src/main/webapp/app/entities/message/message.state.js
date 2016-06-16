@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('message', {
-            parent: 'entity',
+            parent: 'app',
             url: '/message',
             data: {
                 authorities: ['ROLE_USER'],
@@ -32,7 +32,7 @@
             }
         })
         .state('message-detail', {
-            parent: 'entity',
+            parent: 'app',
             url: '/message/{id}',
             data: {
                 authorities: ['ROLE_USER'],
