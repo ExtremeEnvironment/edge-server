@@ -4,18 +4,17 @@
         <h2><span>Your Conversations</span></h2>
         <span flex></span>
         <md-button ng-disabled="true" class="md-icon-button" style="background-color: rgba(15, 15, 15, 0.4); border-radius: 50%; color: white;">
-          <span>{{ vm.messages.length }}</span>
+          <span>{{ vm.conversations.length }}</span>
         </md-button>
       </div>
     </md-toolbar>
     <jhi-alert></jhi-alert>
     <md-whiteframe class="md-whiteframe-3dp" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center">
       <md-list flex>
-        <md-list-item class="md-2-line" ng-repeat="conversation in vm.messages track by conversation.other.username" ng-click="null">
-          <img ng-src={{conversation.other.avatar}} class="md-avatar" alt="{{conversation.other.username}}" />
+        <md-list-item class="md-2-line" ng-repeat="conversation in vm.conversations track by conversation.id" ng-click="null">
           <div class="md-list-item-text">
-            <h3>{{ conversation.other.username }}</h3>
-            <p>{{ conversation.messages.length > 0 ? conversation.messages[conversation.messages.length - 1].content : "" }}</p>
+            <h3>{{ conversation.title }}</h3>
+            <p>(user {{ vm.lastMessage(conversation).user }}): {{ vm.lastMessage(conversation).messageText }}</p>
           </div>
         </md-list-item>
       </md-list>

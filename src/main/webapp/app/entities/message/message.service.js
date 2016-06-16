@@ -7,7 +7,7 @@
     Message.$inject = ['$resource'];
 
     function Message ($resource) {
-        var resourceUrl =  'api/messages/:id';
+        var resourceUrl =  'http://localhost:3000/conversations/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
