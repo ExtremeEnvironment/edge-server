@@ -3,11 +3,11 @@
     angular
         .module('edgeServerApp')
         .factory('Offers', Offers);
-
+    
     Offers.$inject = ['$resource'];
 
     function Offers ($resource) {
-        var resourceUrl =  'api/offers/:id';
+        var resourceUrl =  'api/disasters/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

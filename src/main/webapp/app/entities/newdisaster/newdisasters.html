@@ -8,7 +8,7 @@
             <span>Neue Katastrophe</span>
           </h2>
           <span flex></span>
-          <md-button class="md-raised" ng-click="greeting()" ui-sref="home" aria-label="Erstellen">Erstellen</md-button>
+          <md-button class="md-raised" ng-click="greeting()" ui-sref="newdisaster.new" aria-label="Erstellen">Erstellen</md-button>
         </div>
       </md-toolbar>
 
@@ -37,9 +37,13 @@
     </div>
 
 
-    <div id="map"></div>  
-
+    <div id="controllerMaps">
+      <label class="btn btn-default" ng-model="radioModel" ng-click='removeMarker()'>Delete Marker</label>
+    </div>
+    <div id=map></div>
   </div>
+
+</div>
 </div>
 </div>
 
