@@ -302,14 +302,16 @@ ui bootstrap tweaks
       /* jhipster-needle-scss-add-main JHipster will add new css style */
       #map {
         height: 400px;
+        margin-bottom: 8px;
+        margin-top: 8px;
       }
 
       .md-raised{
         margin: 2px 0px;
       }
 
-a.md-whiteframe-15dp{
-  text-decoration: none;
+      a.md-whiteframe-15dp{
+        text-decoration: none;
   /* margin-right: 0px;
   margin-left: 0px; */
   height: 95%;
@@ -319,38 +321,59 @@ a.md-whiteframe-15dp{
   margin: 15px;
   } */
 
-.dashboard-text, .dashboard-icons {
-  color: #ff6d05;
-}
+  .dashboard-text, .dashboard-icons {
+    color: #ff6d05;
+  }
 
-.dashboard-text {
-  font-size: 1.3em;
-  text-align: center;
-  display: block;
-  height: 20px;
-  font-weight: 300;
-}
+  .dashboard-text {
+    font-size: 1.3em;
+    text-align: center;
+    display: block;
+    height: 20px;
+    font-weight: 300;
+  }
 
-.dashboard-link {
-  text-decoration: none;
-  color: white;
-  text-align: center;
-  padding-top: 20px;
-  position: relative;
-  width: 100%;
-}
+  .dashboard-linke{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    margin: 0px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 
-.dashboard-icons {
-  font-size:70px !important;
-  padding-top: 60px;
-  display: block !important;
-}
+
+  .dashboard-link {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    margin: 0px;
+  }
+
+  .dashboard-icons {
+    font-size:70px !important;
+    padding-top: 60px;
+    display: block !important;
+  }
 
 /*
 .col-md-12{
   margin: 15px;
 }
 */
+.md-subheader{
+  position: static;
+}
+
+.md-list{
+  padding: 0px;
+}
 
 .md-select-menu{
   margin: 40px;
@@ -389,24 +412,24 @@ a.md-whiteframe-15dp{
   width: 100%;
 }
 
-            .friends th {
-              /*   border-bottom: 1px solid; */
-            }
+.friends th {
+  /*   border-bottom: 1px solid; */
+}
 
-            .friends tr {
-              border-bottom: 0.5px solid  rgb(219, 218, 218) ;
-            }
-            .friends td, .friends th {
-              /*   border-left: 1px solid; */
-              padding: 5px 10px;
-            }
-            .friends td:first-child, .friends th:first-child {
-              border-left: none;
-            }
+.friends tr {
+  border-bottom: 0.5px solid  rgb(219, 218, 218) ;
+}
+.friends td, .friends th {
+  /*   border-left: 1px solid; */
+  padding: 5px 10px;
+}
+.friends td:first-child, .friends th:first-child {
+  border-left: none;
+}
 
-            .sortorder:after {
-              content: '\25b2';   // BLACK UP-POINTING TRIANGLE
-            }
-            .sortorder.reverse:after {
-              content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
-            }
+.sortorder:after {
+  content: '\25b2';   // BLACK UP-POINTING TRIANGLE
+}
+.sortorder.reverse:after {
+  content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
+}

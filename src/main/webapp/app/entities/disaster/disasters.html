@@ -1,58 +1,76 @@
-<div layout="column">
   <div layout="column">
     <h2 translate="edgeServerApp.disaster.home.title" align="center">Disasters</h2>
     <md-button class="md-raised md-primary" ui-sref="search">Suchen</md-button>
     <md-button class="md-raised md-primary" ui-sref="give">Bieten</md-button>
-  </div>
-  <div layout="row">
-    <div flex>
-      <div flex layout="column">
-        <md-list class="md-dense" ng-repeat="disaster in disaster">
-          <md-subheader class="md-no-sticky">Informationen</md-subheader>
-          <md-list-item class="md-1-line">
-            <div class="md-list-item-text">
-              <h4>Datum: {{disaster.date}}</h4>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-1-line">
-            <div class="md-list-item-text">
-             <h4>Art: {{disaster.art}}</h4>
-           </div>
-         </md-list-item>
-         <md-list-item class="md-1-line">
-          <div class="md-list-item-text">
-            Details: {{disaster.details}}
-          </div>
-        </md-list-item>
-      </md-list>
-    </div>
-  </div>
-  <div id="map"></div>    
-
+    <div class="md-whiteframe-z1" layout="row">
+     <md-subheader class="md-no-sticky" flex>Informationen</md-subheader>
+     <md-subheader class="md-no-sticky" flex>Pinnwand</md-subheader>
+   </div>
+ </div>
+ <div layout="row">
   <div flex>
-    <div flex layout="column">
-      <md-list class="md-dense">
-        <md-subheader class="md-no-sticky">Nachrichten</md-subheader>
-        <md-list-item class="md-2-line" ng-repeat="message in messages">
-          <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
-          <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
-          ng-if="phone.options.face"/>
+    <div class="md-whiteframe-z1">
+      <md-list ng-repeat="disaster in disaster">
+        <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-            <h3> {{ message.text }} </h3>
-            <p> {{ message.user }} </p>
+            <h4>Datum: {{disaster.date}}</h4>
           </div>
-          
-          <md-button class="md-secondary md-icon-button" ng-click="doSecondaryAction($event)"  aria-label="call">
-            <md-icon md-svg-icon="content/images/like.svg"></md-icon>
-          </md-button>
-          <md-button class="md-secondary md-raised md-primary">Antworten</md-button>
         </md-list-item>
-      </md-list>
-    </div>
+        <md-list-item class="md-1-line">
+          <div class="md-list-item-text">
+           <h4>Art: {{disaster.art}}</h4>
+         </div>
+       </md-list-item>
+       <md-list-item class="md-1-line">
+        <div class="md-list-item-text">
+          Details: {{disaster.details}}
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
+  <div id="map"></div>  
+  <div class="md-whiteframe-z1"> 
+    <md-list>
+      <md-subheader class="md-sticky">TOP TEN</md-subheader>
+      <md-list-item class="md-2-line" ng-repeat="item in topList">
+        <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+        <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
+        ng-if="phone.options.face"/>
+        <div class="md-list-item-text">
+          <h3> {{ item.name }} </h3>
+          <p> {{ item.category }} </p>
+        </div>
+        <md-button class="md-secondary md-raised md-primary">Bieten</md-button>
+      </md-list-item>
+    </md-list> 
+  </div>
+</div>
+
+
+
+<div flex>
+  <div flex layout="column">
+    <div class="md-whiteframe-z1">
+      <md-list>
+       <md-list-item class="md-2-line" ng-repeat="message in messages">
+        <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+        <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
+        ng-if="phone.options.face"/>
+        <div class="md-list-item-text">
+          <h3> {{ message.text }} </h3>
+          <p> {{ message.user }} </p>
+        </div>
+        <md-button class="md-secondary md-icon-button" ng-click="doSecondaryAction($event)"  aria-label="call">
+          <md-icon md-svg-icon="content/images/like.svg"></md-icon>
+        </md-button>
+        <md-button class="md-secondary md-raised md-primary">Antworten</md-button>
+        <md-divider></md-divider>
+      </md-list-item>
+    </md-list>
   </div>
 </div>
 </div>
-
+</div>
 
 
 

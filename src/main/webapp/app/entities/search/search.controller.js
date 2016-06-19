@@ -194,7 +194,7 @@ function loadAll() {
 
 
 
-        var map;
+        var map;  
 
 
         navigator.geolocation.getCurrentPosition(function(position){ 
