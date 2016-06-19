@@ -32,7 +32,7 @@
             }
         })
         .state('message-detail', {
-            parent: 'entity',
+            parent: 'app',
             url: '/message/{id}',
             data: {
                 authorities: ['ROLE_USER'],
