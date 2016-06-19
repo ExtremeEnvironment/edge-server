@@ -206,5 +206,46 @@
           }
         };
 
-      }
-    })();
+        var map;
+
+        navigator.geolocation.getCurrentPosition(function(position){ 
+          initialize(position.coords);
+        }, function(){
+          var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+          initialize(sanFrancisco) ;
+        });
+
+        function initialize(coords) {
+         var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+         var myOptions = {
+          zoom: 8,
+          center: latlng,
+          layerId: '06673056454046135537-08896501997766553811'
+        };
+        map = new google.maps.Map(document.getElementById('map'), myOptions);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+
+
+
+//mouselistener for click event
+map.addListener('click', function(event) {    
+  addMarker(event.latLng);    
+});       
+
+};
+
+
+function addMarker(location) {  
+  var marker = new google.maps.Marker({  
+    position: location,  
+    map: map  
+  });  
+  markers.push(marker);
+} 
+
+$scope.removeMarker = function(){
+  markers = [];
+}
+
+}
+})();

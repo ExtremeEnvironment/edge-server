@@ -55,6 +55,11 @@
                 }]
             }
         })
+
+
+
+
+        
         .state('offers.new', {
             parent: 'offers',
             url: '/new',
@@ -82,6 +87,11 @@
                 });
             }]
         })
+
+
+
+
+
         .state('offers.edit', {
             parent: 'offers',
             url: '/{id}/edit',

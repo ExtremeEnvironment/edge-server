@@ -45,12 +45,20 @@
                 <h4>{{ item.where }}</h4>
                 <p>{{ item.notes }}</p>
               </div>
-              <md-button class="md-secondary"  ui-sref="disaster({disasterID: '1'})" ng-click="doSecondaryAction($event)">More Info</md-button>
+              <md-button  class="md-secondary"  ui-sref="disaster({disasterID: '1'})" ng-click="doSecondaryAction($event)">More Info</md-button>
             </md-list-item>
           </md-list>
         </md-content>
 
-      <div id="map"></div>    
+        <div>  
+          <div id="controllerMaps" class="btn-group">
+            <label class="btn btn-default" ng-model="radioModel" ng-click='allHeatMapData()'>All</label>
+            <label class="btn btn-default" ng-model="radioModel" ng-click='disasterHeatMapData()'>Disaster</label>
+            <label class="btn btn-default" ng-model="radioModel" ng-click='offerHeatMapData()'>Offer</label>
+          </div>
+          <div id="map"></div>  
+        </div>
+
+      </div>
     </div>
   </div>
-</div>

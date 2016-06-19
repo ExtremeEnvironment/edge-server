@@ -18,53 +18,59 @@
 
     function greeting() {
     //createAction(lat,lon,actionType(Knowledge),user,actionObjets,disasterType(ID))
-     $window.alert('Eine neue Katastrophe wurde eingetragen!');
-   };
-   $scope.greeting = greeting;
-
-   initMap();
-
-   function initMap() {
-        // Create the map.
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: {lat: 37.090, lng: -95.712},
-          mapTypeId: google.maps.MapTypeId.TERRAIN
-        });
-
-        var drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: google.maps.drawing.OverlayType.MARKER,
-          drawingControl: true,
-          drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: [
-            google.maps.drawing.OverlayType.CIRCLE,
-            ]
-          },
-          markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-          circleOptions: {
-            fillColor: '#FF0000',
-            fillOpacity: 0.1,
-            strokeWeight: 1,
-            clickable: true,
-            editable: true,
-            zIndex: 1,
-            map : map
-          }
-        });
-        drawingManager.setMap(map);
-
-        google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
-          var radius = circle.getRadius();
-          console.log(radius)
-        });
-
-      }
+    $window.alert('Eine neue Katastrophe wurde eingetragen!');
+  };
+  $scope.greeting = greeting;
 
 
-      $scope.arten = [
-      "Erdbeben","Tsunami","Flut","Waldbrand"
-      ];
-    }
-  })();
+  var map;
+
+  navigator.geolocation.getCurrentPosition(function(position){ 
+    initialize(position.coords);
+  }, function(){
+    var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+    initialize(sanFrancisco) ;
+  });
+
+  function initialize(coords) {
+   var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+   var myOptions = {
+    zoom: 8,
+    center: latlng,
+    layerId: '06673056454046135537-08896501997766553811'
+  };
+  map = new google.maps.Map(document.getElementById('map'), myOptions);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+
+
+
+
+           //create the heatmap
+           
+
+//mouselistener for click event
+map.addListener('click', function(event) {    
+  addMarker(event.latLng);    
+});       
+
+
+
+//sets the point of the user
+
+};
+
+
+function addMarker(location) {  
+  var marker = new google.maps.Marker({  
+    position: location,  
+    map: map  
+  });  
+} 
+
+
+$scope.arten = [
+"Erdbeben","Tsunami","Flut","Waldbrand"
+];
+}
+})();
 
