@@ -5,9 +5,9 @@
         .module('edgeServerApp')
         .controller('NewdisasterDetailController', NewdisasterDetailController);
 
-    NewdisasterDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Newdisaster'];
+    NewdisasterDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Disaster'];
 
-    function NewdisasterDetailController($scope, $rootScope, $stateParams, entity, Newdisaster) {
+    function NewdisasterDetailController($scope, $rootScope, $stateParams, entity, Disaster) {
         var vm = this;
 
         vm.newdisaster = entity;

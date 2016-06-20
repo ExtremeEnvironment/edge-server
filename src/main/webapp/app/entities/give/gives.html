@@ -14,7 +14,7 @@
         <md-input-container class="md-select-menu">
             <md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
                 <md-optgroup label="Katastrophen">
-                    <md-option ng-value="item" ng-repeat="item in todos"> 
+                    <md-option ng-value="item" ng-repeat="item in todos">
                         <div class="md-ripple-container" layout="row">
                             <div flex>
                                 <h5>{{ item.what }}</h5>
@@ -119,6 +119,6 @@
     </md-list>
   </div>
 </div>
-<md-button class="md-raised"  ng-click="loadAll()" >Abgeben</md-button>
+<md-button class="md-raised"  ng-click="greeting()" ui-sref="give.new" >Abgeben</md-button>
 </div>
 <!-- ui-sref="home" -->

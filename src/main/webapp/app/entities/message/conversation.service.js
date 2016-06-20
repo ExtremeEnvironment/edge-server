@@ -1,13 +1,16 @@
+/**
+ * Created by linus on 20.06.16.
+ */
 (function() {
     'use strict';
     angular
         .module('edgeServerApp')
-        .factory('Disaster', Disaster);
+        .factory('Conversation', Conversation);
 
-    Disaster.$inject = ['$resource'];
+    Conversation.$inject = ['$resource'];
 
-    function Disaster ($resource) {
-        var resourceUrl =  'disasterservice/api/disasters/:id';
+    function Conversation ($resource) {
+        var resourceUrl =  'messageservice/api/conversation/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -20,8 +23,8 @@
                     return data;
                 }
             },
-            'save': { method:'POST' },
             'update': { method:'PUT' },
+            'save': { method:'POST' },
             'delete':{ method:'DELETE'}
         });
     }

@@ -5,12 +5,12 @@
         .module('edgeServerApp')
         .controller('NewdisasterDialogController', NewdisasterDialogController);
 
-    NewdisasterDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Newdisaster'];
+    NewdisasterDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Disaster'];
 
-    function NewdisasterDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Newdisaster) {
+    function NewdisasterDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Disaster) {
         var vm = this;
 
-        vm.newdisaster = entity;
+        vm.disaster = entity;
         vm.clear = clear;
         vm.save = save;
 
@@ -24,10 +24,10 @@
 
         function save () {
             vm.isSaving = true;
-            if (vm.newdisaster.id !== null) {
-                Newdisaster.update(vm.newdisaster, onSaveSuccess, onSaveError);
+            if (vm.disaster.id !== null) {
+                Disaster.update(vm.disaster, onSaveSuccess, onSaveError);
             } else {
-                Newdisaster.save(vm.newdisaster, onSaveSuccess, onSaveError);
+               Disaster.save(vm.disaster, onSaveSuccess, onSaveError);
             }
         }
 

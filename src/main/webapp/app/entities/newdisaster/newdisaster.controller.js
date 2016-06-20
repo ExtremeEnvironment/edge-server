@@ -25,8 +25,8 @@
 
   var map;
 
-  navigator.geolocation.getCurrentPosition(function(position){ 
-    initialize(position.coords);
+  navigator.geolocation.getCurrentPosition(function(position){
+          initialize(position.coords);
   }, function(){
     var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
     initialize(sanFrancisco) ;

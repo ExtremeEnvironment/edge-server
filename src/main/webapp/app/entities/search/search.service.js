@@ -7,7 +7,7 @@
     Search.$inject = ['$resource'];
 
     function Search ($resource) {
-        var resourceUrl =  'api/searches/:id';
+        var resourceUrl =  'disasterservice/api/action/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -20,7 +20,9 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'save': { method:'POST' },
+            'delete':{ method:'DELETE'}
         });
     }
 })();

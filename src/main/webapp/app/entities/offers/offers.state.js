@@ -59,7 +59,7 @@
 
 
 
-        
+
         .state('offers.new', {
             parent: 'offers',
             url: '/new',
