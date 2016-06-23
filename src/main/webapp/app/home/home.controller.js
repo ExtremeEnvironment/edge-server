@@ -59,7 +59,7 @@
            heatmap = new google.maps.visualization.HeatmapLayer({
             data: getHeatMapPoints(),
             map: map,
-            radius: 60
+            radius: 50
           });
 
 //mouselistener for click event
@@ -106,11 +106,15 @@ function getHeatMapPoints() {
 
 // set of data for heatmap
 var heatMapDisasterData = [
-{location: new google.maps.LatLng(37.782, -122.447), weight: 0.2}
+{location: new google.maps.LatLng(52.520645, 13.409779), weight: 0.2},
+{location: new google.maps.LatLng(55.520645, 13.409779), weight: 0.2},
+{location: new google.maps.LatLng(58.520645, 13.409779), weight: 0.2}
 ];
 
 var heatMapOfferData = [
-{location: new google.maps.LatLng(38.782, -124.447), weight: 0.2}
+{location: new google.maps.LatLng(54.520645, 15.409779), weight: 1},
+{location: new google.maps.LatLng(60.520645, 15.409779), weight: 1},
+{location: new google.maps.LatLng(70.520645, 15.409779), weight: 1}
 ];
 
 var imagePath = 'content/images/globe.png';
