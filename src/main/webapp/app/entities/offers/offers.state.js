@@ -59,7 +59,11 @@
 
 
 
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> origin/Linus-Edge
         .state('offers.new', {
             parent: 'offers',
             url: '/new',

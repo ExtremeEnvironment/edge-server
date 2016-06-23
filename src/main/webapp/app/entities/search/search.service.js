@@ -7,7 +7,11 @@
     Search.$inject = ['$resource'];
 
     function Search ($resource) {
+<<<<<<< HEAD
         var resourceUrl =  'api/searches/:id';
+=======
+        var resourceUrl =  'disasterservice/api/action/:id';
+>>>>>>> origin/Linus-Edge
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -20,7 +24,13 @@
                     return data;
                 }
             },
+<<<<<<< HEAD
             'update': { method:'PUT' }
+=======
+            'update': { method:'PUT' },
+            'save': { method:'POST' },
+            'delete':{ method:'DELETE'}
+>>>>>>> origin/Linus-Edge
         });
     }
 })();

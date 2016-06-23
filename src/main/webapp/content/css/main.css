@@ -302,25 +302,38 @@ ui bootstrap tweaks
       /* jhipster-needle-scss-add-main JHipster will add new css style */
       #map {
         height: 400px;
+<<<<<<< HEAD
         margin-bottom: 8px;
         margin-top: 8px;
+=======
+>>>>>>> origin/Linus-Edge
       }
 
       .md-raised{
         margin: 2px 0px;
       }
 
+<<<<<<< HEAD
       a.md-whiteframe-15dp{
         text-decoration: none;
   /* margin-right: 0px;
   margin-left: 0px; */
   height: 95%;
   background-color: #3f51b5;
+=======
+a.md-whiteframe-15dp{
+  text-decoration: none;
+  /* margin-right: 0px;
+  margin-left: 0px; */
+  height: 95%;
+  background-color: #bbc9d8;
+>>>>>>> origin/Linus-Edge
 }
 /* .alert{
   margin: 15px;
   } */
 
+<<<<<<< HEAD
   .dashboard-text, .dashboard-icons {
     color: #ff6d05;
   }
@@ -361,12 +374,41 @@ ui bootstrap tweaks
     padding-top: 60px;
     display: block !important;
   }
+=======
+.dashboard-text, .dashboard-icons {
+  color: #ff6d05;
+}
+
+.dashboard-text {
+  font-size: 1.3em;
+  text-align: center;
+  display: block;
+  height: 20px;
+  font-weight: 300;
+}
+
+.dashboard-link {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.dashboard-icons {
+  font-size:70px !important;
+  padding-top: 60px;
+  display: block !important;
+}
+>>>>>>> origin/Linus-Edge
 
 /*
 .col-md-12{
   margin: 15px;
 }
 */
+<<<<<<< HEAD
 .md-subheader{
   position: static;
 }
@@ -374,6 +416,8 @@ ui bootstrap tweaks
 .md-list{
   padding: 0px;
 }
+=======
+>>>>>>> origin/Linus-Edge
 
 .md-select-menu{
   margin: 40px;
@@ -412,6 +456,7 @@ ui bootstrap tweaks
   width: 100%;
 }
 
+<<<<<<< HEAD
 .friends th {
   /*   border-bottom: 1px solid; */
 }
@@ -433,3 +478,26 @@ ui bootstrap tweaks
 .sortorder.reverse:after {
   content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
 }
+=======
+            .friends th {
+              /*   border-bottom: 1px solid; */
+            }
+
+            .friends tr {
+              border-bottom: 0.5px solid  rgb(219, 218, 218) ;
+            }
+            .friends td, .friends th {
+              /*   border-left: 1px solid; */
+              padding: 5px 10px;
+            }
+            .friends td:first-child, .friends th:first-child {
+              border-left: none;
+            }
+
+            .sortorder:after {
+              content: '\25b2';   // BLACK UP-POINTING TRIANGLE
+            }
+            .sortorder.reverse:after {
+              content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
+            }
+>>>>>>> origin/Linus-Edge

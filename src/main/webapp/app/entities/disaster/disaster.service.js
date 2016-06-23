@@ -7,7 +7,11 @@
     Disaster.$inject = ['$resource'];
 
     function Disaster ($resource) {
+<<<<<<< HEAD
         var resourceUrl =  'api/disasters/:id';
+=======
+        var resourceUrl =  'disasterservice/api/disasters/:id';
+>>>>>>> origin/Linus-Edge
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

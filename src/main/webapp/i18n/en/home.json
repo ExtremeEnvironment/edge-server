@@ -1,6 +1,10 @@
 {
     "home": {
+<<<<<<< HEAD
         "title": "Welcome to Extreme Environment",
+=======
+        "title": "Welcome to (Better name)...",
+>>>>>>> origin/Linus-Edge
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."
         },
