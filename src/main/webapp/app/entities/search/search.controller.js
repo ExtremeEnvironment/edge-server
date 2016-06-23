@@ -191,7 +191,6 @@ function loadAll() {
             }
           }
         };
-
         var map;  
 
 

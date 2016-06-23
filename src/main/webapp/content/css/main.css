@@ -317,47 +317,6 @@ ui bootstrap tweaks
   height: 95%;
   background-color: #3f51b5;
 }
-  .dashboard-text, .dashboard-icons {
-    color: #ff6d05;
-  }
-
-  .dashboard-text {
-    font-size: 1.3em;
-    text-align: center;
-    display: block;
-    height: 20px;
-    font-weight: 300;
-  }
-
-  .dashboard-linke{
-    text-decoration: none;
-    color: white;
-    text-align: center;
-    position: relative;
-    width: 100%;
-    margin: 0px;
-    margin-left: 8px;
-    margin-right: 8px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-
-
-  .dashboard-link {
-    text-decoration: none;
-    color: white;
-    text-align: center;
-    position: relative;
-    width: 100%;
-    margin: 0px;
-  }
-
-  .dashboard-icons {
-    font-size:70px !important;
-    padding-top: 60px;
-    display: block !important;
-  }
-=======
 .dashboard-text, .dashboard-icons {
   color: #ff6d05;
 }
@@ -370,19 +329,38 @@ ui bootstrap tweaks
   font-weight: 300;
 }
 
+.dashboard-linke{
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  margin: 0px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+
+
 .dashboard-link {
   text-decoration: none;
   color: white;
   text-align: center;
-  padding-top: 20px;
   position: relative;
   width: 100%;
+  margin: 0px;
 }
 
 .dashboard-icons {
   font-size:70px !important;
   padding-top: 60px;
   display: block !important;
+}
+
+.dashboard-text, .dashboard-icons {
+  color: #ff6d05;
 }
 
 .md-subheader{
