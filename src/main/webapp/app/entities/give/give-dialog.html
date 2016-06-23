@@ -3,7 +3,7 @@
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                ng-click="vm.clear()">&times;</button>
+        ng-click="vm.clear()">&times;</button>
         <h4 class="modal-title" id="myGiveLabel" translate="edgeServerApp.give.home.createOrEditLabel">Create or edit a Give</h4>
     </div>
     <div class="modal-body">
@@ -11,7 +11,7 @@
         <div class="form-group" ng-show="vm.give.id">
             <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.give.id" readonly />
+            ng-model="vm.give.id" readonly />
         </div>
 
     </div>
@@ -20,11 +20,7 @@
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
-<<<<<<< HEAD
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
-=======
-            <span translate="entity.action.save">Bestätigen</span>
->>>>>>> origin/Linus-Edge
         </button>
     </div>
 </form>

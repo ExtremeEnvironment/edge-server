@@ -192,13 +192,7 @@ function loadAll() {
           }
         };
 
-
-
-<<<<<<< HEAD
         var map;  
-=======
-        var map;
->>>>>>> origin/Linus-Edge
 
 
         navigator.geolocation.getCurrentPosition(function(position){ 

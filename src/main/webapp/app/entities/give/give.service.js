@@ -20,13 +20,9 @@
                     return data;
                 }
             },
-<<<<<<< HEAD
-            'update': { method:'PUT' }
-=======
             'update': { method:'PUT' },
             'save': { method:'POST' },
             'delete':{ method:'DELETE'}
->>>>>>> origin/Linus-Edge
         });
     }
 })();

@@ -59,11 +59,7 @@
            heatmap = new google.maps.visualization.HeatmapLayer({
             data: getHeatMapPoints(),
             map: map,
-<<<<<<< HEAD
-            radius: 50
-=======
             radius: 60
->>>>>>> origin/Linus-Edge
           });
 
 //mouselistener for click event
@@ -110,7 +106,6 @@ function getHeatMapPoints() {
 
 // set of data for heatmap
 var heatMapDisasterData = [
-<<<<<<< HEAD
 {location: new google.maps.LatLng(52.520645, 13.409779), weight: 0.2},
 {location: new google.maps.LatLng(55.520645, 13.409779), weight: 0.2},
 {location: new google.maps.LatLng(58.520645, 13.409779), weight: 0.2}
@@ -120,13 +115,6 @@ var heatMapOfferData = [
 {location: new google.maps.LatLng(54.520645, 15.409779), weight: 1},
 {location: new google.maps.LatLng(60.520645, 15.409779), weight: 1},
 {location: new google.maps.LatLng(70.520645, 15.409779), weight: 1}
-=======
-{location: new google.maps.LatLng(37.782, -122.447), weight: 0.2}
-];
-
-var heatMapOfferData = [
-{location: new google.maps.LatLng(38.782, -124.447), weight: 0.2}
->>>>>>> origin/Linus-Edge
 ];
 
 var imagePath = 'content/images/globe.png';

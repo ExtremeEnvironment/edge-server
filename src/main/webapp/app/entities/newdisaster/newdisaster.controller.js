@@ -25,13 +25,9 @@
 
   var map;
 
-<<<<<<< HEAD
-  navigator.geolocation.getCurrentPosition(function(position){ 
-    initialize(position.coords);
-=======
   navigator.geolocation.getCurrentPosition(function(position){
           initialize(position.coords);
->>>>>>> origin/Linus-Edge
+
   }, function(){
     var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
     initialize(sanFrancisco) ;

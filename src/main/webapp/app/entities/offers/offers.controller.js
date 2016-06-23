@@ -66,13 +66,8 @@ $scope.sortBy = function(propertyName) {
 };
 
 $scope.saveToDB = function  () {
-<<<<<<< HEAD
- $uibModalInstance.close();
- console.log('HALP')
-=======
    $uibModalInstance.close();
    console.log('HALP')
->>>>>>> origin/Linus-Edge
 }
 
 function loadAll() {
@@ -139,7 +134,6 @@ function loadAll() {
           }
         };
 
-<<<<<<< HEAD
         var heatmap;
 
         var map;
@@ -222,7 +216,4 @@ var heatMapOfferData = [
 
 }
 })();
-=======
-      }
-    })();
->>>>>>> origin/Linus-Edge
+

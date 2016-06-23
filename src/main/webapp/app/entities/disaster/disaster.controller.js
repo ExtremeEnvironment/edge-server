@@ -9,10 +9,7 @@
 
     function DisasterController ($scope, $state, Disaster) {
         var vm = this;
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Linus-Edge
         $scope.disaster = [
         {
             art: 'Erdbeben',
@@ -30,7 +27,6 @@
             text: 'Feuer',
             user: 'Olaf',
         },
-<<<<<<< HEAD
         {
             text: 'Erdbeben',
             user: 'Hans',
@@ -63,9 +59,7 @@
             text: 'Feuer',
             user: 'Olaf',
         }
-        ];
-=======
-        ];
+        ];        
         var citymap = {
           chicago: {
             center: {lat: 41.878, lng: -87.629},
@@ -73,23 +67,9 @@
         }
     };
     initMap();
->>>>>>> origin/Linus-Edge
-
     vm.disasters = [];
 
     loadAll();
-
-<<<<<<< HEAD
-/*    function loadAll() {
-=======
-    function loadAll() {
->>>>>>> origin/Linus-Edge
-        Disaster.query(function(result) {
-            vm.disasters = result;
-            console.log(result)
-        });
-<<<<<<< HEAD
-    }*/
 
     function loadAll() {
     // get all data from DB
@@ -148,10 +128,7 @@ $scope.removeMarker = function(){
   markers = [];
 }
 
-}
-=======
-    }
-    function initMap() {
+function initMap() {
         // Create the map.
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,
@@ -185,7 +162,5 @@ $scope.removeMarker = function(){
 
   }
 }
-
->>>>>>> origin/Linus-Edge
 
 })();
