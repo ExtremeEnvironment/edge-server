@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('edgeServerApp')
-        .factory('Newdisaster', Newdisaster);
+        .factory('Disaster', Disaster);
 
-    Newdisaster.$inject = ['$resource'];
+    Disaster.$inject = ['$resource'];
 
-    function Newdisaster ($resource) {
-        var resourceUrl =  'api/newdisasters/:id';
+    function Disaster ($resource) {
+        var resourceUrl =  'disasterservice/api/disasters/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -20,7 +20,9 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'save': { method:'POST' },
+            'update': { method:'PUT' },
+            'delete':{ method:'DELETE'}
         });
     }
 })();

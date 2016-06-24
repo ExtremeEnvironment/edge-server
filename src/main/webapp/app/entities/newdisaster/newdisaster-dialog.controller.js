@@ -24,10 +24,11 @@
 
         function save () {
             vm.isSaving = true;
-            if (vm.newdisaster.id !== null) {
-                Newdisaster.update(vm.newdisaster, onSaveSuccess, onSaveError);
+
+            if (vm.disaster.id !== null) {
+                Disaster.update(vm.disaster, onSaveSuccess, onSaveError);
             } else {
-                Newdisaster.save(vm.newdisaster, onSaveSuccess, onSaveError);
+               Disaster.save(vm.disaster, onSaveSuccess, onSaveError);
             }
         }
 

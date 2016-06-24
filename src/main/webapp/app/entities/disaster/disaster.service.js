@@ -7,7 +7,7 @@
     Disaster.$inject = ['$resource'];
 
     function Disaster ($resource) {
-        var resourceUrl =  'api/disasters/:id';
+        var resourceUrl =  'disasterservice/api/disasters/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

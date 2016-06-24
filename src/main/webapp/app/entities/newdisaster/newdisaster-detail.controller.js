@@ -8,6 +8,7 @@
     NewdisasterDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Newdisaster'];
 
     function NewdisasterDetailController($scope, $rootScope, $stateParams, entity, Newdisaster) {
+
         var vm = this;
 
         vm.newdisaster = entity;

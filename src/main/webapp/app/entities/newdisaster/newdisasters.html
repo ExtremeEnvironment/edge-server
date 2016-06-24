@@ -11,8 +11,6 @@
           <md-button class="md-raised" ng-click="greeting()" ui-sref="home" aria-label="Erstellen">Erstellen</md-button>
         </div>
       </md-toolbar>
-
-
       <div layout="column" ng-cloak class="md-inline-form">
         <div>
           <md-input-container class="md-block" flex-gt-xs>
@@ -37,9 +35,12 @@
     </div>
 
 
-    <div id="map"></div>  
-
+    <div id="controllerMaps">
+      <label class="btn btn-default" ng-model="radioModel" ng-click='removeMarker()'>Delete Marker</label>
+    </div>
+    <div id=map></div>
   </div>
 </div>
 </div>
+
 

@@ -9,25 +9,7 @@
 
   function HomeController ($scope, Principal, LoginService, $state ) {
     var vm = this;
-    var citymap = {
-      chicago: {
-        center: {lat: 41.878, lng: -87.629},
-        population: 2714856
-      },
-      newyork: {
-        center: {lat: 40.714, lng: -74.005},
-        population: 8405837
-      },
-      losangeles: {
-        center: {lat: 34.052, lng: -118.243},
-        population: 3857799
-      },
-      vancouver: {
-        center: {lat: 49.25, lng: -123.1},
-        population: 603502
-      }
-    };
-    initMap();
+    
     vm.account = null;
     vm.isAuthenticated = null;
     vm.login = LoginService.open;
@@ -51,85 +33,109 @@
 
 
 
-    function initMap() {
-        // Create the map.
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: {lat: 37.090, lng: -95.712},
-          mapTypeId: google.maps.MapTypeId.TERRAIN
-        });
+    var heatmap;
 
-        // Construct the circle for each value in citymap.
-        // Note: We scale the area of the circle based on the population.
-        for (var city in citymap) {
-          // Add the circle for this city to the map.
-          var cityCircle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
+    var map;
+
+    navigator.geolocation.getCurrentPosition(function(position){ 
+      initialize(position.coords);
+    }, function(){
+      var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+      initialize(sanFrancisco) ;
+    });
+
+    function initialize(coords) {
+     var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+     var myOptions = {
+      zoom: 8,
+      center: latlng,
+      layerId: '06673056454046135537-08896501997766553811',
+      disableDefaultUI : false
+    };
+    map = new google.maps.Map(document.getElementById('map'), myOptions);
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+
+           //create the heatmap
+           heatmap = new google.maps.visualization.HeatmapLayer({
+            data: getHeatMapPoints(),
             map: map,
-            editable: true,
-            center: citymap[city].center,
-            radius: Math.sqrt(citymap[city].population) * 100
+            radius: 60
           });
-          google.maps.event.addListener(cityCircle, 'radius_changed', function() {
-            console.log(cityCircle.getRadius());
-          });
-          google.maps.event.addListener(cityCircle, 'center_changed', function() {
-            console.log(cityCircle.getCenter());
-            console.log('Bounds changed.'); 
-          });
-        }
-        var drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: google.maps.drawing.OverlayType.MARKER,
-          drawingControl: true,
-          drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: [
-            google.maps.drawing.OverlayType.CIRCLE,
-            ]
-          },
-          markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-          circleOptions: {
-            fillColor: '#FF0000',
-            fillOpacity: 0.1,
-            strokeWeight: 1,
-            clickable: true,
-            editable: true,
-            zIndex: 1,
-            map : map
-          }
-        });
-        drawingManager.setMap(map);
 
-        google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
-          var radius = circle.getRadius();
-          console.log(radius)
-        });
-
-      }
-
-      var imagePath = 'content/images/globe.png';
-      $scope.todos = [
-      {
-        katsymbol : imagePath,
-        what: 'Erdbeben',
-        where: 'Berlin, 10823',
-        when: '12.08.2016',
-        notes: "Überall Wasser!"
-      },
-      {
-        katsymbol : imagePath,
-        what: 'Brand',
-        where: 'Berlin, 12205',
-        when: '12.08.2017',
-        notes: "Feuer Überall!"
-      },
-      ];
+//mouselistener for click event
+map.addListener('click', function(event) {    
+  addMarker(event.latLng);    
+});       
 
 
 
-    }
-  })();
+
+//sets the point of the user
+var marker = new google.maps.Marker({
+  position: latlng, 
+  map: map, 
+}); 
+};
+
+
+function addMarker(location) {  
+  var marker = new google.maps.Marker({  
+    position: location,  
+    map: map  
+  });  
+} 
+
+//sets the points
+$scope.allHeatMapData = function(){
+  heatmap.setData(getHeatMapPoints());
+}
+
+$scope.disasterHeatMapData = function(){
+  heatmap.setData(heatMapDisasterData);
+}
+
+$scope.offerHeatMapData = function(){
+  heatmap.setData(heatMapOfferData);
+}
+
+function getHeatMapPoints() {
+  var points = heatMapOfferData.concat(heatMapDisasterData);
+  return points;
+
+}
+
+// set of data for heatmap
+var heatMapDisasterData = [
+{location: new google.maps.LatLng(52.520645, 13.409779), weight: 0.2},
+{location: new google.maps.LatLng(55.520645, 13.409779), weight: 0.2},
+{location: new google.maps.LatLng(58.520645, 13.409779), weight: 0.2}
+];
+
+var heatMapOfferData = [
+{location: new google.maps.LatLng(54.520645, 15.409779), weight: 1},
+{location: new google.maps.LatLng(60.520645, 15.409779), weight: 1},
+{location: new google.maps.LatLng(70.520645, 15.409779), weight: 1}
+];
+
+var imagePath = 'content/images/globe.png';
+$scope.todos = [
+{
+  katsymbol : imagePath,
+  what: 'Erdbeben',
+  where: 'Berlin, 10823',
+  when: '12.08.2016',
+  notes: "Überall Wasser!"
+},
+{
+  katsymbol : imagePath,
+  what: 'Brand',
+  where: 'Berlin, 12205',
+  when: '12.08.2017',
+  notes: "Feuer Überall!"
+},
+];
+
+
+
+}
+})();

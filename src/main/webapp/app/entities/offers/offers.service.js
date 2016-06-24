@@ -1,13 +1,13 @@
 (function() {
     'use strict';
     angular
-        .module('edgeServerApp')
-        .factory('Offers', Offers);
+    .module('edgeServerApp')
+    .factory('Offers', Offers);
 
     Offers.$inject = ['$resource'];
 
     function Offers ($resource) {
-        var resourceUrl =  'api/offers/:id';
+        var resourceUrl =  'disasterservice/api/action/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -20,7 +20,11 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+
+            'update': { method:'PUT' },
+            'save': { method:'POST' },
+            'delete':{ method:'DELETE'}
+
         });
     }
 })();
