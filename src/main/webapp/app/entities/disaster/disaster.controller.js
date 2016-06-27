@@ -20,7 +20,7 @@
         ];
         $scope.messages = [
         {
-            text: 'Erdbeben',
+            text: 'Duo at aliquid mnesarchum, nec ne impetus hendrerit. Ius id aeterno debitis atomorum, et sed feugait voluptua, brute tibique no vix. Eos modo esse ex, ei omittam imperdiet pro. Vel assum albucius incorrupte no.',
             user: 'Hans',
         },
         {
