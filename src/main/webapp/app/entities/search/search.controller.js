@@ -5,77 +5,127 @@
   .module('edgeServerApp')
   .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log'];
+  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Search'];
 
-  function SearchController ( $scope, $state, $timeout, $q, $log) {
+  function SearchController ( $scope, $state, $timeout, $q, $log, Search) {
 
     $scope.filters = { };
+    $scope.itemToDB={
+      actionObjects: [],
+      actionType : "SEEK",
+      disaster : {
+        area : null, 
+        description : null ,
+        disasterType : {
+          id : 4,
+          name: "Stromausfall"
+        },
+        id :3,
+        isExpired: null,
+        lat :34,
+        lon: 34,
+        title: "London Brexit"
+      },
+      isExpired : null,
+      lat :34.03,
+      lon : 34.05,
+      user: null
+    };
 
-    var selectedItems=['Holz'];
+    $scope.actions=[];
+    $scope.disasters=[];
+    var selectedItems=[];
     $scope.selectedItems= selectedItems;
+    loadAll();
+
 
     var self = this;
     self.simulateQuery = false;
     self.isDisabled    = false;
-        // list of `state` value/display objects
-        self.Items      = loadAll();
-        self.querySearch   = querySearch;
-        self.selectedItemChange = selectedItemChange;
-        self.searchTextChange   = searchTextChange;
-        self.newItem = newItem;
-        function newItem(Item) {
-          alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
-        };
-        function querySearch (query) {
-          var results = query ? self.Items.filter( createFilterFor(query) ) : self.Item,
-          deferred;
-          if (self.simulateQuery) {
-            deferred = $q.defer();
-            $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-            return deferred.promise;
-          } else {
-            return results;
-          }
-        }
-        function searchTextChange(text) {
-          $log.info('Text changed to ' + text);
-        }
-        function selectedItemChange(item) {
-          var value = item.display;
-          $scope.pushToArray(value);
-        }
+    self.Items      = loadAlls();
+    self.querySearch   = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange   = searchTextChange;
+    self.newItem = newItem;
+
+    function loadAlls () {
+      Search.disaster.query(function(result) {
+       result.forEach(function (item) {
+         $scope.disasters.push(item)
+         console.log(item)
+       })
+     })
+      Search.action.query(function(result) {
+       result.forEach(function (item) {
+        $scope.actions.push(item)
+        console.log(item)
+      })
+     })
+    }
+
+    function newItem(Item) {
+      alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
+    };
+
+    function querySearch (query) {
+      var results = query ? self.Items.filter( createFilterFor(query) ) : self.Item,
+      deferred;
+      if (self.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function searchTextChange(text) {
+      $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+      var value = item.display;
+      $scope.pushToArray(value);
+    }
 
 
-        $scope.pushToArray = function (item){  
-         var marker; 
-         selectedItems.forEach( function(entry) {
-           if (entry===item) {
-            marker = 1;
-          }})
-         if (marker===1) {
-          return
-        }
-        selectedItems.push(item);
-        $log.info(selectedItems);
-      };
+    $scope.pushToArray = function (item){  
+     var marker; 
+     $scope.itemToDB.actionObjects.forEach( function(entry) {
+      console.log(item.name)
+      if (entry.name===item.name) {
 
-      $scope.delFromArray = function (item){  
-       var marker; 
-       selectedItems.forEach( function(entry) {
-         if (entry===item) {
-           selectedItems.splice(selectedItems.indexOf(item), 1);
-         }})
-     };
+        console.log('HEKPPPP')
+        marker = 1;
+      }})
+     if (marker===1) {
+      return
+    }
+    var object = {id:3,name:item.name}
+    console.log(object)
+    $scope.itemToDB.actionObjects.push(object);
+/*    selectedItems.push(item);
+$log.info(selectedItems);*/
+console.log( $scope.itemToDB.actionObjects)
+};
+
+$scope.delFromArray = function (item){  
+ var marker; 
+ $scope.itemToDB.actionObjects.forEach( function(entry) {
+   if (entry===item) {
+     $scope.itemToDB.actionObjects.splice( $scope.itemToDB.actionObjects.indexOf(item), 1);
+   }})
+};
 
 
-     $scope.writeDB = function (){
-//WRITE TO DATABASE
+$scope.writeDB = function (){
+  Search.action.save($scope.itemToDB);
 }
 
 $scope.selectedItem;
 $scope.getSelectedText = function() {
   if ($scope.selectedItem !== undefined) {
-    return ($scope.selectedItem.what+" |  "+$scope.selectedItem.where+"  |  "+$scope.selectedItem.notes);
+    return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
   } else {
     return "Wählen sie eine gemeldete Katastrophe:";
   }
@@ -87,21 +137,14 @@ function loadAll() {
     var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
     $scope.categories = [
     "Medizin","Nahrung","Baumaterialien","Unterkunft","Kleidung"];
-    $scope.items=[  {name:'Schmerzmittel' , category:'Medizin'},
-    {name:'Antibiotika' , category:'Medizin'},
-    {name:'Verbände' , category:'Medizin'},
-    {name:'Baby-Nahrung' , category:'Nahrung'},
-    {name:'Supplements' ,   category:'Nahrung'},
-    {name:'Wasser' , category:'Nahrung'},
+    $scope.items=[
+    {name:'Generator' , category:'Kleidung'},
+    {name:'Supplemente' ,   category:'Nahrung'},
+    {name:'Rollstuhl' , category:'Nahrung'},
+    {name:'Schrottflinte' , category:'Medizin'},
     {name:'Standardessen' , category:'Nahrung'},
-    {name:'Holz' , category:'Baumaterialien'},
-    {name:'Stein' , category:'Baumaterialien'},
-    {name:'Sand' , category:'Baumaterialien'},
-    {name:'Hose' , category:'Kleidung'},
-    {name:'Schuhe' , category:'Kleidung'},
-    {name:'Jacke' , category:'Kleidung'},
-    {name:'Bett' , category:'Unterkunft'},
-    {name:'Zelt' , category:'Unterkunft'}];
+    {name:'Betten' , category:'Unterkunft'},
+    {name:'Zelt' , category:'Baumaterialien'}];
     return allItems.split(/, +/g).map( function (item) {
       return {
         value: item.toLowerCase(),
@@ -111,50 +154,6 @@ function loadAll() {
   }
 
   var imagePath = 'content/images/logo-jhipster.png';
-  $scope.todos = [
-  {
-    katsymbol : imagePath,
-    what: 'Erdbeben',
-    where: 'Berlin, 10823',
-    when: '12.08.2016',
-    notes: "Überall Wasser!"
-  },
-  {
-    katsymbol : imagePath,
-    what: 'Brand',
-    where: 'Berlin, 12205',
-    when: '12.08.2017',
-    notes: "Feuer Überall!"
-  },
-  {
-    katsymbol : imagePath,
-    what: 'Hallejuliua',
-    where: 'Berlin, 12205',
-    when: '12.08.2017',
-    notes: "Feuer Überall!"
-  },
-  {
-    katsymbol : imagePath,
-    what: 'Erdbeben',
-    where: 'Berlin, 10823',
-    when: '12.08.2016',
-    notes: "Überall Wasser!"
-  },
-  {
-    katsymbol : imagePath,
-    what: 'Brand',
-    where: 'Berlin, 12205',
-    when: '12.08.2017',
-    notes: "Feuer Überall!"
-  },
-  {
-    katsymbol : imagePath,
-    what: 'Hallejuliua',
-    where: 'Berlin, 12205',
-    when: '12.08.2017',
-    notes: "Feuer Überall!"
-  }
-  ];
 
   function createFilterFor(query) {
     var lowercaseQuery = angular.lowercase(query);
