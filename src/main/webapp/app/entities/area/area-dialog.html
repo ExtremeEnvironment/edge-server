@@ -4,25 +4,25 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
-        <h4 class="modal-title" id="myActionObjectLabel" translate="edgeServerApp.actionObject.home.createOrEditLabel">Create or edit a Action Object</h4>
+        <h4 class="modal-title" id="myAreaLabel" translate="edgeServerApp.area.home.createOrEditLabel">Create or edit a Area</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.actionObject.id">
+        <div class="form-group" ng-show="vm.area.id">
             <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.actionObject.id" readonly />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="edgeServerApp.actionObject.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name"
-                    ng-model="vm.actionObject.name"
-                     />
+                    ng-model="vm.area.id" readonly />
         </div>
 
         <div class="form-group">
-            <label translate="edgeServerApp.actionObject.category" for="field_category">Category</label>
-            <select class="form-control" id="field_category" name="category" ng-model="vm.actionObject.category" ng-options="category as category.name for category in vm.categories track by category.id">
+            <label translate="edgeServerApp.area.ngo" for="field_ngo">Ngo</label>
+            <select class="form-control" id="field_ngo" name="ngo" ng-model="vm.area.ngo" ng-options="ngo as ngo.id for ngo in vm.ngos | orderBy:'id' track by ngo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="edgeServerApp.area.disaster" for="field_disaster">Disaster</label>
+            <select class="form-control" id="field_disaster" name="disaster" ng-model="vm.area.disaster" ng-options="disaster as disaster.id for disaster in vm.disasters track by disaster.id">
                 <option value=""></option>
             </select>
         </div>

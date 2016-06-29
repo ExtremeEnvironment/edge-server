@@ -7,7 +7,7 @@
 
     NgoDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Ngo', 'Area'];
 
-    function NgoDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Ngo, Area) {
+    function NgoDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Area, Ngo) {
         var vm = this;
 
         vm.ngo = entity;
