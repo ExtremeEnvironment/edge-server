@@ -38,7 +38,13 @@
     </div>
 </div>
 -->
-<md-subheader class="md-no-sticky" >Wo möchten sie etwas anbieten:</md-subheader>
+<md-toolbar>
+<div class="md-toolbar-tools">
+    <h2>
+      <span>Wo möchten sie etwas anbieten:</span>
+    </h2>
+  </div>
+</md-toolbar>
 <div>
   <div id="controllerMaps">
     <label class="btn btn-default" ng-model="radioModel" ng-click='removeMarker()'>Delete Marker</label>
@@ -123,6 +129,6 @@
     </md-list>
   </div>
 </div>
-<md-button class="md-raised" ui-sref="home"  ng-click="loadAll()" >Abgeben</md-button>
+<md-button class="md-raised" ng-click="loadAll()" >Abgeben</md-button>
 </div>
 

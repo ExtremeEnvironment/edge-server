@@ -5,12 +5,76 @@
   .module('edgeServerApp')
   .controller('OffersController', OffersController);
 
-  OffersController.$inject = ['$scope', '$state', '$timeout', '$q', '$log'];
+  OffersController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Offers'];
 
-  function OffersController ( $scope, $state, $timeout, $q, $log) {
+  function OffersController ( $scope, $state, $timeout, $q, $log, Offers) {
 
     $scope.filters = { };
-    loadAll();
+    var self = this;
+
+
+    /*-----------------------------------Search Bar Implementation------------------------------------------------------------------*/
+
+    self.simulateQuery = false;
+    self.isDisabled    = false;
+    self.Items      = loadAll();
+    self.querySearch   = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange   = searchTextChange;
+    self.newItem = newItem;
+
+
+    function newItem(Item) {
+      alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
+    };
+
+    function querySearch (query) {
+      var results = query ? self.Items.filter( createFilterFor(query) ) : self.Item,
+      deferred;
+      if (self.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function searchTextChange(text) {
+      if (text=='')
+      {
+        $scope.filters.location = '';
+      };
+    }
+
+    /*
+      Description:
+      Selected item is used to set a filter to the location of the action
+      */
+
+      function selectedItemChange(item) {
+       if (item!=null)
+       {
+         var value = item.display;
+         $scope.filters.location = value;
+       };
+
+     }
+
+     /*-----------------------------------------------------------------------------------------------------------*/
+
+     $scope.pushToArrays = function (item){  
+       var marker; 
+       selectedItems.forEach( function(entry) {
+         if (entry===item) {
+          marker = 1;
+        }})
+       if (marker===1) {
+        return
+      }
+      selectedItems.push(item);
+      $log.info(selectedItems);
+    };
 
     var selectedItem;
     $scope.selectedItem = selectedItem;
@@ -19,6 +83,22 @@
       $scope.selectedItem = item;
       selectedItem = $scope.selectedItem;
     };
+
+    $scope.offers = []
+
+    function loadAll() {
+      Offers.query(function(result) {
+        result.forEach(function (item){
+          if(item.actionType=='OFFER'){
+            $scope.offers.push(item);
+            console.log(item)}
+            else {
+              console.log(item)
+            }
+          })
+      });
+    }
+
 
     $scope.delFromArray = function (item){  
       listOffers.forEach( function(entry) {
@@ -31,47 +111,32 @@
     $scope.delFromObjects = function (item){  
       selectedItem.actionObjects.forEach( function(entry) {
         if (item===entry) {
-
           selectedItem.actionObjects.splice( selectedItem.actionObjects.indexOf(item), 1);
         }})
     };    
 
-/*    $scope.loadAll = function() {
-      Offers.query(function(result) {
-        console.log(result)
-      });
-    }*/
-
 
     $scope.writeDB = function (){
-//WRITE TO DATABASE
-}
 
+    }
 
-var listOffers = [
-{location: 'Berlin',   actionObjects:['Supplements','Wasser', 'Standardessen', 'Holz', 'Stein'],  date:'28.02.2018'},
-{location: 'Munchen',   actionObjects:['Supplements','Wasser', 'Standardessen', 'Holz', 'Stein'],  date:'20.02.2018'},
-{location: 'Koeln',   actionObjects:['Supplements','Wasser', 'Standardessen', 'Holz', 'Stein'],  date:'22.02.2019'},
-{location: 'Erfurt',   actionObjects:['Supplements','Wasser', 'Standardessen', 'Holz', 'Stein'],  date:'20.04.2218'},
-{location: 'Berlin',   actionObjects:['Supplements','Wasser', 'Standardessen', 'Holz', 'Stein'],  date:'20.02.2918'},
-];
+    $scope.propertyName = 'age';
+    $scope.reverse = true;
 
-$scope.propertyName = 'age';
-$scope.reverse = true;
-$scope.listOffers = listOffers;
+    $scope.sortBy = function(propertyName) {
+      $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+      $scope.propertyName = propertyName;
+    };
 
-$scope.sortBy = function(propertyName) {
-  $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-  $scope.propertyName = propertyName;
-};
+    $scope.saveToDB = function  () {
+     $uibModalInstance.close();
+     console.log('HALP')
+   }
 
-$scope.saveToDB = function  () {
-   $uibModalInstance.close();
-   console.log('HALP')
-}
-
-function loadAll() {
+   function loadAlls() {
     // get all data from DB
+    var stadte = 'Berlin, Munchen, Dortmund, Koeln, Hamburg, Nuernberg, Leipzig, Erfurt';
+
     var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
     $scope.categories = [
     "Medizin","Nahrung","Baumaterialien","Unterkunft","Kleidung"];
@@ -90,7 +155,7 @@ function loadAll() {
     {name:'Jacke' , category:'Kleidung'},
     {name:'Bett' , category:'Unterkunft'},
     {name:'Zelt' , category:'Unterkunft'}];
-    return allItems.split(/, +/g).map( function (item) {
+    return stadte.split(/, +/g).map( function (item) {
       return {
         value: item.toLowerCase(),
         display: item
