@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Search',  '$mdDialog', '$mdMedia'];
+  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Data',  '$mdDialog', '$mdMedia'];
 
-  function SearchController ( $scope, $state, $timeout, $q, $log, Search,  $mdDialog, $mdMedia) {
+  function SearchController ( $scope, $state, $timeout, $q, $log, Data,  $mdDialog, $mdMedia) {
 
     $scope.filters = { };
     $scope.itemToDB={
@@ -43,13 +43,13 @@
     self.newItem = newItem;
 
     function loadAlls () {
-      Search.disaster.query(function(result) {
+      Data.disaster.query(function(result) {
        result.forEach(function (item) {
          $scope.disasters.push(item)
          console.log(item)
        })
      })
-      Search.action.query(function(result) {
+      Data.action.query(function(result) {
        result.forEach(function (item) {
         $scope.actions.push(item)
         console.log(item)
@@ -109,7 +109,7 @@
  $scope.writeDB = function (){
   if($scope.selectedItem!=null){ 
     console.log("IS GUT")
-    /*    Search.action.save($scope.itemToDB);*/
+        Data.action.save($scope.itemToDB);
   }else {
     showAlert();
   }
@@ -117,13 +117,13 @@
 }
 
 function loadAllActions  (){
-  Search.allactions.query(function (argument) {
+  Data.allactions.query(function (argument) {
    argument.forEach(function (item) {
     $scope.allObjects.push(item)
     actionString = actionString +", "+ item.name;
   })
  })
-  Search.allcategories.query(function (argument) {
+  Data.allcategories.query(function (argument) {
    argument.forEach(function (item) {
     $scope.allCategories.push(item)
   })

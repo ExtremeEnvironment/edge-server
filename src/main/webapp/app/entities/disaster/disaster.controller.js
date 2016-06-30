@@ -1,70 +1,73 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-    .module('edgeServerApp')
-    .controller('DisasterController', DisasterController);
+  angular
+  .module('edgeServerApp')
+  .controller('DisasterController', DisasterController);
 
-    DisasterController.$inject = ['$scope', '$state', 'Disaster'];
+  DisasterController.$inject = ['$scope', '$state', 'Data', '$stateParams'];
 
-    function DisasterController ($scope, $state, Disaster) {
-        var vm = this;
+  function DisasterController ($scope, $state, Data,  $stateParams) {
+    var vm = this;
 
-        $scope.disaster = [
-        {
-            art: 'Erdbeben',
-            date: '12.08.2016',
-            title: "Überall Wasser!",
-            details :"Kinder sind bedroht"
-        }
-        ];
-        $scope.messages = [
-        {
-            text: 'Duo at aliquid mnesarchum, nec ne impetus hendrerit. Ius id aeterno debitis atomorum, et sed feugait voluptua, brute tibique no vix. Eos modo esse ex, ei omittam imperdiet pro. Vel assum albucius incorrupte no.',
-            user: 'Hans',
-        },
-        {
-            text: 'Feuer',
-            user: 'Olaf',
-        },
-        {
-            text: 'Erdbeben',
-            user: 'Hans',
-        },
-        {
-            text: 'Feuer',
-            user: 'Olaf',
-        },
-        {
-            text: 'Erdbeben',
-            user: 'Hans',
-        },
-        {
-            text: 'Feuer',
-            user: 'Olaf',
-        },
-        {
-            text: 'Feuer',
-            user: 'Olaf',
-        },
-        {
-            text: 'Feuer',
-            user: 'Olaf',
-        },
-        {
-            text: 'Feuer',
-            user: 'Olaf',
-        },
-        {
-            text: 'Feuer',
-            user: 'Olaf',
-        }
-        ];        
-        var citymap = {
-          chicago: {
-            center: {lat: 41.878, lng: -87.629},
-            population: 2714856
-        }
+    loadAlls();
+
+    $scope.topten;
+    $scope.disaster;
+
+    function loadAlls () {
+
+      $scope.disaster = Data.disaster.get({id : $stateParams.disasterID});
+      $scope.topten= Data.topten.query({id : $stateParams.disasterID})
+    }
+
+    $scope.messages = [
+    {
+      text: 'Duo at aliquid mnesarchum, nec ne impetus hendrerit. Ius id aeterno debitis atomorum, et sed feugait voluptua, brute tibique no vix. Eos modo esse ex, ei omittam imperdiet pro. Vel assum albucius incorrupte no.',
+      user: 'Hans',
+    },
+    {
+      text: 'Feuer',
+      user: 'Olaf',
+    },
+    {
+      text: 'Erdbeben',
+      user: 'Hans',
+    },
+    {
+      text: 'Feuer',
+      user: 'Olaf',
+    },
+    {
+      text: 'Erdbeben',
+      user: 'Hans',
+    },
+    {
+      text: 'Feuer',
+      user: 'Olaf',
+    },
+    {
+      text: 'Feuer',
+      user: 'Olaf',
+    },
+    {
+      text: 'Feuer',
+      user: 'Olaf',
+    },
+    {
+      text: 'Feuer',
+      user: 'Olaf',
+    },
+    {
+      text: 'Feuer',
+      user: 'Olaf',
+    }
+    ];        
+    var citymap = {
+      chicago: {
+        center: {lat: 41.878, lng: -87.629},
+        population: 2714856
+      }
     };
     initMap();
 
@@ -85,25 +88,25 @@
     {name:'Holz' , category:'Baumaterialien'},
     {name:'Stein' , category:'Baumaterialien'},
     {name:'Sand' , category:'Baumaterialien'}];
-}
-var map;
+  }
+  var map;
 
-navigator.geolocation.getCurrentPosition(function(position){ 
-  initialize(position.coords);
-}, function(){
-  var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
-  initialize(sanFrancisco) ;
-});
+  navigator.geolocation.getCurrentPosition(function(position){ 
+    initialize(position.coords);
+  }, function(){
+    var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+    initialize(sanFrancisco) ;
+  });
 
-function initialize(coords) {
- var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
- var myOptions = {
-  zoom: 8,
-  center: latlng,
-  layerId: '06673056454046135537-08896501997766553811'
-};
-map = new google.maps.Map(document.getElementById('map'), myOptions);
-map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+  function initialize(coords) {
+   var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+   var myOptions = {
+    zoom: 8,
+    center: latlng,
+    layerId: '06673056454046135537-08896501997766553811'
+  };
+  map = new google.maps.Map(document.getElementById('map'), myOptions);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
 
 
 
@@ -119,7 +122,7 @@ function addMarker(location) {
   var marker = new google.maps.Marker({  
     position: location,  
     map: map  
-});  
+  });  
   markers.push(marker);
 } 
 
@@ -133,7 +136,7 @@ function initMap() {
           zoom: 4,
           center: {lat: 37.090, lng: -95.712},
           mapTypeId: google.maps.MapTypeId.TERRAIN
-      });
+        });
 
         // Construct the circle for each value in citymap.
         // Note: We scale the area of the circle based on the population.
@@ -149,17 +152,17 @@ function initMap() {
             editable: true,
             center: citymap[city].center,
             radius: Math.sqrt(citymap[city].population) * 100
-        });
+          });
           google.maps.event.addListener(cityCircle, 'radius_changed', function() {
             console.log(cityCircle.getRadius());
-        });
+          });
           google.maps.event.addListener(cityCircle, 'center_changed', function() {
             console.log(cityCircle.getCenter());
             console.log('Bounds changed.');
-        });
-      }
+          });
+        }
 
-      function loadAll() {
+        function loadAll() {
     // get all data from DB
     var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
     $scope.categories = [
@@ -174,25 +177,25 @@ function initMap() {
     {name:'Holz' , category:'Baumaterialien'},
     {name:'Stein' , category:'Baumaterialien'},
     {name:'Sand' , category:'Baumaterialien'}];
-}
-var map;
+  }
+  var map;
 
-navigator.geolocation.getCurrentPosition(function(position){ 
-  initialize(position.coords);
-}, function(){
-  var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
-  initialize(sanFrancisco) ;
-});
+  navigator.geolocation.getCurrentPosition(function(position){ 
+    initialize(position.coords);
+  }, function(){
+    var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+    initialize(sanFrancisco) ;
+  });
 
-function initialize(coords) {
- var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
- var myOptions = {
-  zoom: 8,
-  center: latlng,
-  layerId: '06673056454046135537-08896501997766553811'
-};
-map = new google.maps.Map(document.getElementById('map'), myOptions);
-map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+  function initialize(coords) {
+   var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+   var myOptions = {
+    zoom: 8,
+    center: latlng,
+    layerId: '06673056454046135537-08896501997766553811'
+  };
+  map = new google.maps.Map(document.getElementById('map'), myOptions);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
 
 
 
@@ -208,7 +211,7 @@ function addMarker(location) {
   var marker = new google.maps.Marker({  
     position: location,  
     map: map  
-});  
+  });  
   markers.push(marker);
 } 
 
