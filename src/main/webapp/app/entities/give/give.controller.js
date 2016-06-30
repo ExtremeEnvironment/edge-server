@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('GiveController', GiveController);
 
-  GiveController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Search',  '$mdDialog', '$mdMedia'];
+  GiveController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Data',  '$mdDialog', '$mdMedia'];
 
-  function GiveController ( $scope, $state, $timeout, $q, $log, Search,  $mdDialog, $mdMedia) {
+  function GiveController ( $scope, $state, $timeout, $q, $log, Data,  $mdDialog, $mdMedia) {
 
     $scope.filters = { };
     $scope.itemToDB={
@@ -83,20 +83,20 @@
 
 
  $scope.writeDB = function (){
-    Search.action.save($scope.itemToDB);
+    Data.action.save($scope.itemToDB);
 }
 
 function loadAllItems (){
   var def = $q.defer();
 
-  Search.allactions.query(function (argument) {
+  Data.allactions.query(function (argument) {
    argument.forEach(function (item) {
     $scope.allObjects.push(item)
     actionString = actionString +", "+ item.name;
   })
    def.resolve(actionString);
  })
-  Search.allcategories.query(function (argument) {
+  Data.allcategories.query(function (argument) {
    argument.forEach(function (item) {
     $scope.allCategories.push(item)
   })
@@ -161,7 +161,7 @@ this.infiniteItems = {
           }
         };
 
-        /*--------------------------------------------------MAP-------------------------------------------------------------*/
+/*--------------------------------------------------MAP-------------------------------------------------------------*/
 
         var map;  
 

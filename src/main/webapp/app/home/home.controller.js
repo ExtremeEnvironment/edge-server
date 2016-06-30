@@ -5,11 +5,13 @@
   .module('edgeServerApp')
   .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+  HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Data'];
 
-  function HomeController ($scope, Principal, LoginService, $state ) {
+  function HomeController ($scope, Principal, LoginService, $state, Data ) {
     var vm = this;
-    
+
+    $scope.disasters=[];
+
     vm.account = null;
     vm.isAuthenticated = null;
     vm.login = LoginService.open;
@@ -19,6 +21,8 @@
     });
 
     getAccount();
+
+    loadAlls();
 
     function getAccount() {
       Principal.identity().then(function(account) {
@@ -32,28 +36,37 @@
     }
 
 
+    function loadAlls () {
+      Data.disaster.query(function(result) {
+       result.forEach(function (item) {
+         $scope.disasters.push(item)
+         console.log(item)
+       })
+     })}
 
-    var heatmap;
+/*-----------------------------------------MAP-------------------------------------------------------------------------------*/
 
-    var map;
+      var heatmap;
 
-    navigator.geolocation.getCurrentPosition(function(position){ 
-      initialize(position.coords);
-    }, function(){
-      var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
-      initialize(sanFrancisco) ;
-    });
+      var map;
 
-    function initialize(coords) {
-     var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-     var myOptions = {
-      zoom: 8,
-      center: latlng,
-      layerId: '06673056454046135537-08896501997766553811',
-      disableDefaultUI : false
-    };
-    map = new google.maps.Map(document.getElementById('map'), myOptions);
-    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+      navigator.geolocation.getCurrentPosition(function(position){ 
+        initialize(position.coords);
+      }, function(){
+        var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+        initialize(sanFrancisco) ;
+      });
+
+      function initialize(coords) {
+       var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+       var myOptions = {
+        zoom: 8,
+        center: latlng,
+        layerId: '06673056454046135537-08896501997766553811',
+        disableDefaultUI : false
+      };
+      map = new google.maps.Map(document.getElementById('map'), myOptions);
+      map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
 
            //create the heatmap
            heatmap = new google.maps.visualization.HeatmapLayer({
@@ -117,25 +130,7 @@ var heatMapOfferData = [
 {location: new google.maps.LatLng(70.520645, 15.409779), weight: 1}
 ];
 
-var imagePath = 'content/images/globe.png';
-$scope.todos = [
-{
-  katsymbol : imagePath,
-  what: 'Erdbeben',
-  where: 'Berlin, 10823',
-  when: '12.08.2016',
-  notes: "Überall Wasser!"
-},
-{
-  katsymbol : imagePath,
-  what: 'Brand',
-  where: 'Berlin, 12205',
-  when: '12.08.2017',
-  notes: "Feuer Überall!"
-},
-];
-
-
+$scope.imagePath = 'content/images/globe.png';
 
 }
 })();

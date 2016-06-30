@@ -2,19 +2,36 @@
     'use strict';
     angular
     .module('edgeServerApp')
-    .factory('Search', Search);
+    .factory('Data', Data);
 
-    Search.$inject = ['$resource'];
+    Data.$inject = ['$resource'];
 
-    function Search ($resource) {
+    function Data ($resource) {
 
         var resourceUrl =  'disasterservice/api/actions/:id';
         var resourceUrl2 =  'disasterservice/api/disasters/:id';
         var resourceUrl3 =  'disasterservice/api/action-objects/:id';
-        var resourceUrl14 =  'disasterservice/api/categories/:id';
+        var resourceUrl4 =  'disasterservice/api/categories/:id';
+        var resourceUrl5 =  'disasterservice/api/action-objects/topten/:id';
 
         return {
-            allcategories: $resource(resourceUrl14, {}, {
+            topten: $resource(resourceUrl5, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
+                    }
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
+            })
+            ,
+            allcategories: $resource(resourceUrl4, {}, {
                 'query': {cache: true, method: 'GET', isArray: true},
                 'get': {
                     method: 'GET',
