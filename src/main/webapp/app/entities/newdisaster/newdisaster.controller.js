@@ -56,77 +56,78 @@
             showAlert2();
           }
           else {
-            Data.disaster.save($scope.disasterDB);
-          }
+           $state.go("home");
+           Data.disaster.save($scope.disasterDB);
+         }
+       }
+       else {
+        if($scope.actionDB.disaster==null){
+          showAlert();
         }
         else {
-          if($scope.actionDB.disaster==null){
-            showAlert();
-          }
-          else {
-            console.log($scope.actionDB)
-            Data.action.save($scope.actionDB);
-          }
+          $state.go("home");
+          Data.action.save($scope.actionDB);
         }
-      };
+      }
+    };
 
-      /*-------------------------------------------Various Helper Functions-------------------------------------------------*/
-
-
-      function showAlert(){
-        $mdDialog.show(
-          $mdDialog.alert()
-          .parent(angular.element(document.querySelector('#popupContainer')))
-          .clickOutsideToClose(true)
-          .title('Sie müssen eine Katastrope wählen')
-          .ok('Ok')
-          .targetEvent()
-          );
-      };
-
-      function showAlert2(){
-        $mdDialog.show(
-          $mdDialog.alert()
-          .parent(angular.element(document.querySelector('#popupContainer')))
-          .clickOutsideToClose(true)
-          .title('Sie müssen einen Typ und einen Titel wählen')
-          .ok('Ok')
-          .targetEvent()
-          );
-      };
+    /*-------------------------------------------Various Helper Functions-------------------------------------------------*/
 
 
+    function showAlert(){
+      $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('Sie müssen eine Katastrope wählen')
+        .ok('Ok')
+        .targetEvent()
+        );
+    };
+
+    function showAlert2(){
+      $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('Sie müssen einen Typ und einen Titel wählen')
+        .ok('Ok')
+        .targetEvent()
+        );
+    };
 
 
-      /*--------------------------------------------------------------MAP---------------------------------------------------------*/
 
 
-      var map;
-      var citymap = {
-        chicago: {
-          center: {lat: 41.878, lng: -87.629},
-          population: 2714856
-        },
-      };
+    /*--------------------------------------------------------------MAP---------------------------------------------------------*/
 
 
-      navigator.geolocation.getCurrentPosition(function(position){
-        initialize(position.coords);
+    var map;
+    var citymap = {
+      chicago: {
+        center: {lat: 41.878, lng: -87.629},
+        population: 2714856
+      },
+    };
 
-      }, function(){
-        var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
-        initialize(sanFrancisco) ;
-      });
 
-      function initialize(coords) {
-       var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-       var myOptions = {
-        zoom: 8,
-        center: latlng,
-        layerId: '06673056454046135537-08896501997766553811'
-      };
-      map = new google.maps.Map(document.getElementById('map'), myOptions);
-      map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+    navigator.geolocation.getCurrentPosition(function(position){
+      initialize(position.coords);
+
+    }, function(){
+      var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+      initialize(sanFrancisco) ;
+    });
+
+    function initialize(coords) {
+     var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+     var myOptions = {
+      zoom: 8,
+      center: latlng,
+      layerId: '06673056454046135537-08896501997766553811'
+    };
+    map = new google.maps.Map(document.getElementById('map'), myOptions);
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
 
 
 
