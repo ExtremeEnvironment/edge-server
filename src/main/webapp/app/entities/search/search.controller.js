@@ -5,39 +5,33 @@
   .module('edgeServerApp')
   .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Search'];
+  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Search',  '$mdDialog', '$mdMedia'];
 
-  function SearchController ( $scope, $state, $timeout, $q, $log, Search) {
+  function SearchController ( $scope, $state, $timeout, $q, $log, Search,  $mdDialog, $mdMedia) {
 
     $scope.filters = { };
     $scope.itemToDB={
       actionObjects: [],
       actionType : "SEEK",
-      disaster : {
-        area : null, 
-        description : null ,
-        disasterType : {
-          id : 4,
-          name: "Stromausfall"
-        },
-        id :3,
-        isExpired: null,
-        lat :34,
-        lon: 34,
-        title: "London Brexit"
-      },
+      disaster : {},
       isExpired : null,
       lat :34.03,
       lon : 34.05,
       user: null
     };
 
+    $scope.allObjects=[];
+    $scope.allCategories=[];
     $scope.actions=[];
     $scope.disasters=[];
     var selectedItems=[];
-    $scope.selectedItems= selectedItems;
-    loadAll();
+    var actionString;
+    var imagePath = 'content/images/logo-jhipster.png';
 
+    $scope.selectedItem;
+    $scope.selectedItems= selectedItems;
+
+    loadAllActions();
 
     var self = this;
     self.simulateQuery = false;
@@ -85,6 +79,7 @@
 
     function selectedItemChange(item) {
       var value = item.display;
+      console.log(item)
       $scope.pushToArray(value);
     }
 
@@ -94,76 +89,91 @@
      $scope.itemToDB.actionObjects.forEach( function(entry) {
       console.log(item.name)
       if (entry.name===item.name) {
-
-        console.log('HEKPPPP')
         marker = 1;
       }})
      if (marker===1) {
       return
     }
-    var object = {id:3,name:item.name}
-    console.log(object)
-    $scope.itemToDB.actionObjects.push(object);
-/*    selectedItems.push(item);
-$log.info(selectedItems);*/
-console.log( $scope.itemToDB.actionObjects)
-};
+    $scope.itemToDB.actionObjects.push(item);
+    console.log( $scope.itemToDB.actionObjects)
+  };
 
-$scope.delFromArray = function (item){  
- var marker; 
- $scope.itemToDB.actionObjects.forEach( function(entry) {
-   if (entry===item) {
-     $scope.itemToDB.actionObjects.splice( $scope.itemToDB.actionObjects.indexOf(item), 1);
-   }})
-};
+  $scope.delFromArray = function (item){  
+   $scope.itemToDB.actionObjects.forEach( function(entry) {
+     if (entry===item) {
+       $scope.itemToDB.actionObjects.splice( $scope.itemToDB.actionObjects.indexOf(item), 1);
+     }})
+ };
 
 
-$scope.writeDB = function (){
-  Search.action.save($scope.itemToDB);
+ $scope.writeDB = function (){
+  if($scope.selectedItem!=null){ 
+    console.log("IS GUT")
+    /*    Search.action.save($scope.itemToDB);*/
+  }else {
+    showAlert();
+  }
+
 }
 
-$scope.selectedItem;
+function loadAllActions  (){
+  Search.allactions.query(function (argument) {
+   argument.forEach(function (item) {
+    $scope.allObjects.push(item)
+    actionString = actionString +", "+ item.name;
+  })
+ })
+  Search.allcategories.query(function (argument) {
+   argument.forEach(function (item) {
+    $scope.allCategories.push(item)
+  })
+ })
+}
+
 $scope.getSelectedText = function() {
   if ($scope.selectedItem !== undefined) {
+    $scope.itemToDB.disaster=$scope.selectedItem;
+    console.log($scope.itemToDB)
     return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
   } else {
     return "Wählen sie eine gemeldete Katastrophe:";
   }
 };
 
+function showAlert(){
+  $mdDialog.show(
+    $mdDialog.alert()
+    .parent(angular.element(document.querySelector('#popupContainer')))
+    .clickOutsideToClose(true)
+    .title('Sie müssen eine Katastrope wählen')
+    .ok('Ok')
+    .targetEvent()
+    );
+};
+
 
 function loadAll() {
-    // get all data from DB
-    var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
-    $scope.categories = [
-    "Medizin","Nahrung","Baumaterialien","Unterkunft","Kleidung"];
-    $scope.items=[
-    {name:'Generator' , category:'Kleidung'},
-    {name:'Supplemente' ,   category:'Nahrung'},
-    {name:'Rollstuhl' , category:'Nahrung'},
-    {name:'Schrottflinte' , category:'Medizin'},
-    {name:'Standardessen' , category:'Nahrung'},
-    {name:'Betten' , category:'Unterkunft'},
-    {name:'Zelt' , category:'Baumaterialien'}];
-    return allItems.split(/, +/g).map( function (item) {
-      return {
-        value: item.toLowerCase(),
-        display: item
-      };
-    });
-  }
 
-  var imagePath = 'content/images/logo-jhipster.png';
-
-  function createFilterFor(query) {
-    var lowercaseQuery = angular.lowercase(query);
-    return function filterFn(Item) {
-      return (Item.value.indexOf(lowercaseQuery) === 0);
+  var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
+  $scope.categories = ["Medizin","Nahrung","Baumaterialien","Unterkunft","Kleidung"];
+  return allItems.split(/, +/g).map( function (item) {
+    return {
+      value: item.toLowerCase(),
+      display: item
     };
-  }
-  this.infiniteItems = {
-    numLoaded_: 0,
-    toLoad_: 0,
+  });
+}
+
+
+function createFilterFor(query) {
+  var lowercaseQuery = angular.lowercase(query);
+  return function filterFn(Item) {
+    return (Item.value.indexOf(lowercaseQuery) === 0);
+  };
+}
+this.infiniteItems = {
+  numLoaded_: 0,
+  toLoad_: 0,
           // Required.
           getItemAtIndex: function(index) {
             if (index > this.numLoaded_) {
@@ -217,8 +227,8 @@ function loadAll() {
            
 
 //mouselistener for click event
-map.addListener('click', function(event) {    
-  addMarker(event.latLng);    
+map.addListener('click', function(event) {  
+  addMarker(event.latLng); 
 });       
 
 
