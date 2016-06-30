@@ -18,10 +18,10 @@
           <md-option ng-value="disaster" ng-repeat="disaster in disasters"> 
             <div class="md-ripple-container" layout="row">
               <div flex>
-                <h5>{{ disaster.disasterType.name }}</h5>
+                <h5>{{ disaster.title }}</h5>
               </div>
               <div flex>
-                <h5>{{ disaster.title }}</h5>
+                <h5>{{ disaster.disasterType.name }}</h5>
               </div>
               <div flex>
                 <h6>{{ disaster.area }}</h6>

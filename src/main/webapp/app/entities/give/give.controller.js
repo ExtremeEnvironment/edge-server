@@ -9,7 +9,14 @@
 
   function GiveController ( $scope, $state, $timeout, $q, $log, Data,  $mdDialog, $mdMedia) {
 
+    var self = this;
+    var actionString = null;
+
     $scope.filters = { };
+    $scope.allObjects=[];
+    $scope.allCategories=[];
+
+
     $scope.itemToDB={
       actionObjects: [],
       actionType : "OFFER",
@@ -19,12 +26,9 @@
       user: null
     };
 
-    $scope.allObjects=[];
-    $scope.allCategories=[];
+    /*------------------------------------Query Search looks for items in itemlist-------------------------------------------*/
 
-    var actionString = null;
 
-    var self = this;
     self.simulateQuery = false;
     self.isDisabled    = false;
     self.Items      = loadAllItems();
@@ -62,6 +66,8 @@
     }
 
 
+    /*---------------------------------Methods to manipulate the action and to save and delete them from the system------------------*/
+
     $scope.pushToArray = function (item){  
      var marker; 
      $scope.itemToDB.actionObjects.forEach( function(entry) {
@@ -83,8 +89,21 @@
 
 
  $scope.writeDB = function (){
-    Data.action.save($scope.itemToDB);
+  Data.action.save($scope.itemToDB);
 }
+
+
+$scope.getSelectedText = function() {
+  if ($scope.selectedItem !== undefined) {
+    $scope.itemToDB.disaster=$scope.selectedItem;
+    console.log($scope.itemToDB)
+    return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
+  } else {
+    return "Wählen sie eine gemeldete Katastrophe:";
+  }
+};
+
+/*-------------------------------------load all items asynchronously----------------------------*/
 
 function loadAllItems (){
   var def = $q.defer();
@@ -104,16 +123,6 @@ function loadAllItems (){
   return def.promise;
 }
 
-$scope.getSelectedText = function() {
-  if ($scope.selectedItem !== undefined) {
-    $scope.itemToDB.disaster=$scope.selectedItem;
-    console.log($scope.itemToDB)
-    return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
-  } else {
-    return "Wählen sie eine gemeldete Katastrophe:";
-  }
-};
-
 function loadAll() {
  return actionString.split(/, +/g).map( function (item) {
   return {
@@ -122,6 +131,7 @@ function loadAll() {
   };
 });
 }
+
 
 /*---------------------------------------------------Filter items after categories----------------------------------------------------*/
 
@@ -161,7 +171,7 @@ this.infiniteItems = {
           }
         };
 
-/*--------------------------------------------------MAP-------------------------------------------------------------*/
+        /*--------------------------------------------------------------MAP-------------------------------------------------------------*/
 
         var map;  
 
