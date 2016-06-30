@@ -67,17 +67,20 @@
 <div class="md-whiteframe-z1" flex>
   <div flex layout="row">
 
-    <md-list class="md-dense">
-      <md-subheader class="md-no-sticky" ng-click="filters.category.name = ''">Kategorien(Alle)</md-subheader>
-      <md-divider></md-divider>
-      <md-list-item class="md-2-line" ng-repeat="category in allCategories" ng-click="filters.category.name = category.name">
+    <md-list class="md-dense" flex='33'>
+     <md-subheader class="md-no-sticky" ng-click="filters.category.name = ''">Kategorien(Alle)</md-subheader>
+     <md-divider></md-divider>
+     <md-virtual-repeat-container style="height:400px">
+       <md-list-item class="md-2-line" ng-repeat="category in allCategories" ng-click="filters.category.name = category.name">
         <div class="md-list-item-text">
           <h3> {{category.name}} </h3>
         </div>
         <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
         <md-divider flex></md-divider>
       </md-list-item>
-    </md-list>
+    </md-virtual-repeat-container>
+  </md-list>
+
 
     <md-divider></md-divider>
 
