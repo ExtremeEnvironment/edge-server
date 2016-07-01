@@ -9,12 +9,6 @@
 
   function NewdisasterController ($scope, Principal, LoginService, $state , $window ) {
     var vm = this;
-    var citymap = {
-      chicago: {
-        center: {lat: 41.878, lng: -87.629},
-        population: 2714856
-      },
-    };
 
     function greeting() {
     //createAction(lat,lon,actionType(Knowledge),user,actionObjets,disasterType(ID))
@@ -23,7 +17,7 @@
   $scope.greeting = greeting;
 
 
-  var map;
+  var map, marker;
 
   navigator.geolocation.getCurrentPosition(function(position){
           initialize(position.coords);
@@ -46,27 +40,63 @@
 
 
 
-           //create the heatmap
-           
-
-//mouselistener for click event
-map.addListener('click', function(event) {    
-  addMarker(event.latLng);    
-});       
-
-
-
-//sets the point of the user
+      //mouselistener for click event
+      google.maps.event.addListener(map, 'click', function(event) {
+           placeMarker(event.latLng);
+        }); 
+      
 
 };
 
+//place the marker
+function placeMarker(location) {
+  if ( marker ) {
+    marker.setMap(map);
+    circle.setMap(map);
+    marker.setPosition(location);
+    console.log(marker.getPosition());
+    
+      } else {
+    marker = new google.maps.Marker({
+      position: location,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
 
-function addMarker(location) {  
-  var marker = new google.maps.Marker({  
-    position: location,  
-    map: map  
-  });  
-} 
+    });
+
+
+    marker.addListener('dragend',function(event) {
+        console.log(event.latLng.lat());
+        console.log(event.latLng.lng());
+    });
+
+    circle = new google.maps.Circle({
+        map: map,
+        radius: 1609,    // 1 miles in metres
+        fillColor: '#FF0000',
+        fillOpacity: 0.2,
+       strokeColor: '#FF0000',
+        strokeOpacity: 0.1
+
+});
+    circle.bindTo('center', marker, 'position');
+    circle.addListener('radius_changed', function(event){
+      console.log(this.radius);
+        
+
+    })
+    marker.setMap(map);
+  }
+}
+
+
+
+
+$scope.removeMarker = function(){
+ marker.setMap(null);
+ circle.setMap(null);
+}
+
 
 
 $scope.arten = [

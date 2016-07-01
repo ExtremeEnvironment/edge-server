@@ -206,7 +206,9 @@
           }
         };
 
-        var map;
+
+//init map
+        var map, marker, circle;
 
         navigator.geolocation.getCurrentPosition(function(position){ 
           initialize(position.coords);
@@ -226,26 +228,57 @@
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
 
 
+  
 
-//mouselistener for click event
-map.addListener('click', function(event) {    
-  addMarker(event.latLng);    
-});       
+      //mouselistener for click event
+      google.maps.event.addListener(map, 'click', function(event) {
+           placeMarker(event.latLng);
+        }); 
+      
 
 };
 
+//place the marker
+function placeMarker(location) {
+  if ( marker ) {
+    marker.setMap(map);
+    circle.setMap(map);
+    marker.setPosition(location);
+      } else {
+    marker = new google.maps.Marker({
+      position: location,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
 
-function addMarker(location) {  
-  var marker = new google.maps.Marker({  
-    position: location,  
-    map: map  
-  });  
-  markers.push(marker);
-} 
+    });
 
-$scope.removeMarker = function(){
-  markers = [];
+
+    marker.addListener('dragend',function(event) {
+        console.log(event.latLng.lat());
+        console.log(event.latLng.lng());
+    });
+
+    circle = new google.maps.Circle({
+        map: map,
+        radius: 1609,    // 1 miles in metres
+        fillColor: '#FF0000',
+        fillOpacity: 0.2,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.1
+
+});
+    circle.bindTo('center', marker, 'position');
+    marker.setMap(map);
+  }
 }
+
+
+//remove marker
+$scope.removeMarker = function(){
+ marker.setMap(null);
+ circle.setMap(null);
+}
+
 
 }
 })();
