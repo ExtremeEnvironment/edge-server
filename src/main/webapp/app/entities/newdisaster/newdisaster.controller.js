@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('NewdisasterController', NewdisasterController);
 
-  NewdisasterController.$inject = ['$scope', 'Principal', 'LoginService', '$state','$window','Data' ,'$mdDialog', '$mdMedia'];
+  NewdisasterController.$inject = ['$scope', 'Principal', 'LoginService', '$state','$window','Data' ,'$mdDialog', '$mdMedia','$stateParams'];
 
-  function NewdisasterController ($scope, Principal, LoginService, $state , $window, Data, $mdDialog, $mdMedia ) {
+  function NewdisasterController ($scope, Principal, LoginService, $state , $window, Data, $mdDialog, $mdMedia, $stateParams ) {
     var vm = this;
 
     loadAlls();
@@ -29,13 +29,13 @@
       $scope.actionDB={
         actionObjects: [],
         actionType : "KNOWLEDGE",
-        description:null,
+        description : null,
         disaster : null,
         isExpired : null,
-        lat : 34.03,
+        lat :34.03,
         lon : 34.05,
-        title: null,
-        user: null
+        title : null,
+        user: null /*$stateParams.userID*/
       };
 
 
@@ -61,7 +61,7 @@
           else {
             console.log($scope.disasterDB)
             Data.disaster.save($scope.disasterDB);
-           $state.go("home");
+           //$state.go("home");
          }
        }
        else {
@@ -117,7 +117,7 @@
     var latitude;
     var longitude;
 
-    navigator.geolocation.getCurrentPosition(function(position){  
+    navigator.geolocation.getCurrentPosition(function(position){
       latitude = position.coords.latitude;
       longitude= position.coords.longitude;
       initialize(position.coords);
