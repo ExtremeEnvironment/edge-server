@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <!-- endbuild -->
         <!-- build:css content/css/main.css -->
-        <link rel="stylesheet" href="content/css/main.css"> 
+        <link rel="stylesheet" href="content/css/main.css">
         <!-- endbuild -->
     </head>
     <body ng-app="edgeServerApp" ng-strict-di>
@@ -44,13 +44,12 @@
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
         ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
-    
 
-</head>
-<body>
+
+
 
     <!-- Angular Material Dependencies -->
-    
+
 
     <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSgofziSyw-9VBAcaU_94dxYUrCK2gzjQ&libraries=visualization&sensor=true"></script>
@@ -78,6 +77,7 @@
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
     <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
@@ -131,6 +131,12 @@
     <script src="app/entities/offers/offers.state.js"></script>
     <script src="app/entities/offers/offers.service.js"></script>
     <script src="app/entities/offers/offers.controller.js"></script>
+    <script src="app/entities/ngo/ngo-dialog.controller.js"></script>
+    <script src="app/entities/ngo/ngo-detail.controller.js"></script>
+    <script src="app/entities/ngo/ngo-delete-dialog.controller.js"></script>
+    <script src="app/entities/ngo/ngo.state.js"></script>
+    <script src="app/entities/ngo/ngo.service.js"></script>
+    <script src="app/entities/ngo/ngo.controller.js"></script>
     <script src="app/entities/newdisaster/newdisaster-dialog.controller.js"></script>
     <script src="app/entities/newdisaster/newdisaster-detail.controller.js"></script>
     <script src="app/entities/newdisaster/newdisaster-delete-dialog.controller.js"></script>
@@ -150,12 +156,42 @@
     <script src="app/entities/give/give.state.js"></script>
     <script src="app/entities/give/give.service.js"></script>
     <script src="app/entities/give/give.controller.js"></script>
+    <script src="app/entities/disaster-type/disaster-type-dialog.controller.js"></script>
+    <script src="app/entities/disaster-type/disaster-type-detail.controller.js"></script>
+    <script src="app/entities/disaster-type/disaster-type-delete-dialog.controller.js"></script>
+    <script src="app/entities/disaster-type/disaster-type.state.js"></script>
+    <script src="app/entities/disaster-type/disaster-type.service.js"></script>
+    <script src="app/entities/disaster-type/disaster-type.controller.js"></script>
     <script src="app/entities/disaster/disaster-dialog.controller.js"></script>
     <script src="app/entities/disaster/disaster-detail.controller.js"></script>
     <script src="app/entities/disaster/disaster-delete-dialog.controller.js"></script>
     <script src="app/entities/disaster/disaster.state.js"></script>
     <script src="app/entities/disaster/disaster.service.js"></script>
     <script src="app/entities/disaster/disaster.controller.js"></script>
+    <script src="app/entities/category/category-dialog.controller.js"></script>
+    <script src="app/entities/category/category-detail.controller.js"></script>
+    <script src="app/entities/category/category-delete-dialog.controller.js"></script>
+    <script src="app/entities/category/category.state.js"></script>
+    <script src="app/entities/category/category.service.js"></script>
+    <script src="app/entities/category/category.controller.js"></script>
+    <script src="app/entities/area/area-dialog.controller.js"></script>
+    <script src="app/entities/area/area-detail.controller.js"></script>
+    <script src="app/entities/area/area-delete-dialog.controller.js"></script>
+    <script src="app/entities/area/area.state.js"></script>
+    <script src="app/entities/area/area.service.js"></script>
+    <script src="app/entities/area/area.controller.js"></script>
+    <script src="app/entities/action-object/action-object-dialog.controller.js"></script>
+    <script src="app/entities/action-object/action-object-detail.controller.js"></script>
+    <script src="app/entities/action-object/action-object-delete-dialog.controller.js"></script>
+    <script src="app/entities/action-object/action-object.state.js"></script>
+    <script src="app/entities/action-object/action-object.service.js"></script>
+    <script src="app/entities/action-object/action-object.controller.js"></script>
+    <script src="app/entities/action/action-dialog.controller.js"></script>
+    <script src="app/entities/action/action-detail.controller.js"></script>
+    <script src="app/entities/action/action-delete-dialog.controller.js"></script>
+    <script src="app/entities/action/action.state.js"></script>
+    <script src="app/entities/action/action.service.js"></script>
+    <script src="app/entities/action/action.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>
