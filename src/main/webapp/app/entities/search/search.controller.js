@@ -108,29 +108,29 @@
 
   function searchTextChange(text) {
    /* $log.info('Text changed to ' + text);*/
-  }
+ }
 
-  function selectedItemChange(item) {
-    var value = item.display;
-    console.log(item)
-    $scope.pushToArray(value);
-  }
+ function selectedItemChange(item) {
+  var value = item.display;
+  console.log(item)
+  $scope.pushToArray(value);
+}
 
-  /*---------------------------------Methods to manipulate the action and to save and delete them from the system------------------*/
+/*---------------------------------Methods to manipulate the action and to save and delete them from the system------------------*/
 
 
-  $scope.pushToArray = function (item){  
-   var marker; 
-   $scope.itemToDB.actionObjects.forEach( function(entry) {
-    console.log(item.name)
-    if (entry.name===item.name) {
-      marker = 1;
-    }})
-   if (marker===1) {
-    return
-  }
-  $scope.itemToDB.actionObjects.push(item);
-  console.log( $scope.itemToDB.actionObjects)
+$scope.pushToArray = function (item){  
+ var marker; 
+ $scope.itemToDB.actionObjects.forEach( function(entry) {
+  console.log(item.name)
+  if (entry.name===item.name) {
+    marker = 1;
+  }})
+ if (marker===1) {
+  return
+}
+$scope.itemToDB.actionObjects.push(item);
+console.log( $scope.itemToDB.actionObjects)
 };
 
 $scope.delFromArray = function (item){  
@@ -144,6 +144,7 @@ $scope.delFromArray = function (item){
 $scope.writeDB = function (){
   if($scope.selectedItem!=null){ 
     Data.action.save($scope.itemToDB);
+    $state.go("home");
   }else {
     showAlert();
   }

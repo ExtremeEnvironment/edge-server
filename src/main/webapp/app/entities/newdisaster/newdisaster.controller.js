@@ -18,20 +18,23 @@
 
     $scope.disasterDB={
       area:null,
+      date:null,
       description:null,
       disasterType:null,
       isExpired:null,
-      lat:34,
-      lon:34,
+      lat:36,
+      lon:36,
       title:null};
 
       $scope.actionDB={
         actionObjects: [],
         actionType : "KNOWLEDGE",
+        description:null,
         disaster : null,
         isExpired : null,
-        lat :34.03,
+        lat : 34.03,
         lon : 34.05,
+        title: null,
         user: null
       };
 
@@ -56,8 +59,9 @@
             showAlert2();
           }
           else {
+            console.log($scope.disasterDB)
+            Data.disaster.save($scope.disasterDB);
            $state.go("home");
-           Data.disaster.save($scope.disasterDB);
          }
        }
        else {
@@ -65,8 +69,8 @@
           showAlert();
         }
         else {
-          $state.go("home");
           Data.action.save($scope.actionDB);
+          $state.go("home");
         }
       }
     };
@@ -110,8 +114,12 @@
       },
     };
 
+    var latitude;
+    var longitude;
 
-    navigator.geolocation.getCurrentPosition(function(position){
+    navigator.geolocation.getCurrentPosition(function(position){  
+      latitude = position.coords.latitude;
+      longitude= position.coords.longitude;
       initialize(position.coords);
 
     }, function(){
@@ -129,30 +137,34 @@
     map = new google.maps.Map(document.getElementById('map'), myOptions);
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
 
+    var marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      position: {lat: latitude, lng: longitude}
+    });
 
 
+    google.maps.event.addListener(marker, 'dragend', function(evt){
+      $scope.disasterDB.lat = marker.position.lat();
+      $scope.disasterDB.lon = marker.position.lng();
+      $scope.actionDB.lat = marker.position.lat();
+      $scope.actionDB.lon = marker.position.lng();
 
-           //create the heatmap
-           
-
-//mouselistener for click event
-map.addListener('click', function(event) {    
-  addMarker(event.latLng);    
-});       
-
-
-
-//sets the point of the user
-
-};
+      console.log(marker.position.lat())
+      console.log(marker.position.lng())
+    });
 
 
-function addMarker(location) {  
+  };
+
+
+/*function addMarker(location) {  
   var marker = new google.maps.Marker({  
+    draggable: true,
     position: location,  
-    map: map  
+    map: map,
   });  
-} 
+} */
 
 
 
