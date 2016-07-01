@@ -5,11 +5,18 @@
   .module('edgeServerApp')
   .controller('GiveController', GiveController);
 
-  GiveController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Search',  '$mdDialog', '$mdMedia'];
+  GiveController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Data',  '$mdDialog', '$mdMedia'];
 
-  function GiveController ( $scope, $state, $timeout, $q, $log, Search,  $mdDialog, $mdMedia) {
+  function GiveController ( $scope, $state, $timeout, $q, $log, Data,  $mdDialog, $mdMedia) {
+
+    var self = this;
+    var actionString = null;
 
     $scope.filters = { };
+    $scope.allObjects=[];
+    $scope.allCategories=[];
+
+
     $scope.itemToDB={
       actionObjects: [],
       actionType : "OFFER",
@@ -19,12 +26,9 @@
       user: null
     };
 
-    $scope.allObjects=[];
-    $scope.allCategories=[];
+    /*------------------------------------Query Search looks for items in itemlist-------------------------------------------*/
 
-    var actionString = null;
 
-    var self = this;
     self.simulateQuery = false;
     self.isDisabled    = false;
     self.Items      = loadAllItems();
@@ -62,6 +66,8 @@
     }
 
 
+    /*---------------------------------Methods to manipulate the action and to save and delete them from the system------------------*/
+
     $scope.pushToArray = function (item){  
      var marker; 
      $scope.itemToDB.actionObjects.forEach( function(entry) {
@@ -83,26 +89,9 @@
 
 
  $scope.writeDB = function (){
-    Search.action.save($scope.itemToDB);
+  Data.action.save($scope.itemToDB);
 }
 
-function loadAllItems (){
-  var def = $q.defer();
-
-  Search.allactions.query(function (argument) {
-   argument.forEach(function (item) {
-    $scope.allObjects.push(item)
-    actionString = actionString +", "+ item.name;
-  })
-   def.resolve(actionString);
- })
-  Search.allcategories.query(function (argument) {
-   argument.forEach(function (item) {
-    $scope.allCategories.push(item)
-  })
- })
-  return def.promise;
-}
 
 $scope.getSelectedText = function() {
   if ($scope.selectedItem !== undefined) {
@@ -114,6 +103,26 @@ $scope.getSelectedText = function() {
   }
 };
 
+/*-------------------------------------load all items asynchronously----------------------------*/
+
+function loadAllItems (){
+  var def = $q.defer();
+
+  Data.allactions.query(function (argument) {
+   argument.forEach(function (item) {
+    $scope.allObjects.push(item)
+    actionString = actionString +", "+ item.name;
+  })
+   def.resolve(actionString);
+ })
+  Data.allcategories.query(function (argument) {
+   argument.forEach(function (item) {
+    $scope.allCategories.push(item)
+  })
+ })
+  return def.promise;
+}
+
 function loadAll() {
  return actionString.split(/, +/g).map( function (item) {
   return {
@@ -122,6 +131,7 @@ function loadAll() {
   };
 });
 }
+
 
 /*---------------------------------------------------Filter items after categories----------------------------------------------------*/
 
@@ -161,7 +171,7 @@ this.infiniteItems = {
           }
         };
 
-        /*--------------------------------------------------MAP-------------------------------------------------------------*/
+        /*--------------------------------------------------------------MAP-------------------------------------------------------------*/
 
         var map;  
 

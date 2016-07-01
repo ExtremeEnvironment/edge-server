@@ -5,9 +5,20 @@
   .module('edgeServerApp')
   .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Search',  '$mdDialog', '$mdMedia'];
+  SearchController.$inject = ['$scope', '$state', '$timeout', '$q', '$log' ,'Data',  '$mdDialog', '$mdMedia'];
 
-  function SearchController ( $scope, $state, $timeout, $q, $log, Search,  $mdDialog, $mdMedia) {
+  function SearchController ( $scope, $state, $timeout, $q, $log, Data,  $mdDialog, $mdMedia) {
+
+    var self = this;
+    var actionString;
+    var imagePath = 'content/images/logo-jhipster.png';
+
+    $scope.selectedItem;
+
+    $scope.allObjects=[];
+    $scope.allCategories=[];
+    $scope.actions=[];
+    $scope.disasters=[];
 
     $scope.filters = { };
     $scope.itemToDB={
@@ -20,36 +31,27 @@
       user: null
     };
 
-    $scope.allObjects=[];
-    $scope.allCategories=[];
-    $scope.actions=[];
-    $scope.disasters=[];
-    var selectedItems=[];
-    var actionString;
-    var imagePath = 'content/images/logo-jhipster.png';
 
-    $scope.selectedItem;
-    $scope.selectedItems= selectedItems;
-
-    loadAllActions();
-
-    var self = this;
     self.simulateQuery = false;
     self.isDisabled    = false;
-    self.Items      = loadAlls();
+    self.Items      = loadAllItems();
     self.querySearch   = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange   = searchTextChange;
     self.newItem = newItem;
 
-    function loadAlls () {
-      Search.disaster.query(function(result) {
+    loadActionsAndDisaster();
+
+    /*-------------------------------------load all items asynchronously----------------------------*/
+
+    function loadActionsAndDisaster () {
+      Data.disaster.query(function(result) {
        result.forEach(function (item) {
          $scope.disasters.push(item)
          console.log(item)
        })
      })
-      Search.action.query(function(result) {
+      Data.action.query(function(result) {
        result.forEach(function (item) {
         $scope.actions.push(item)
         console.log(item)
@@ -57,77 +59,95 @@
      })
     }
 
-    function newItem(Item) {
-      alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
-    };
+    function loadAllItems (){
+      var def = $q.defer();
 
-    function querySearch (query) {
-      var results = query ? self.Items.filter( createFilterFor(query) ) : self.Item,
-      deferred;
-      if (self.simulateQuery) {
-        deferred = $q.defer();
-        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-        return deferred.promise;
-      } else {
-        return results;
-      }
+      Data.allactions.query(function (argument) {
+       argument.forEach(function (item) {
+        $scope.allObjects.push(item)
+        actionString = actionString +", "+ item.name;
+      })
+       def.resolve(actionString);
+     })
+      Data.allcategories.query(function (argument) {
+       argument.forEach(function (item) {
+        $scope.allCategories.push(item)
+      })
+     })
+      return def.promise;
     }
 
-    function searchTextChange(text) {
-      $log.info('Text changed to ' + text);
-    }
+    function loadAll() {
+     return actionString.split(/, +/g).map( function (item) {
+      return {
+        value: item.toLowerCase(),
+        display: item
+      };
+    });
+   }
 
-    function selectedItemChange(item) {
-      var value = item.display;
-      console.log(item)
-      $scope.pushToArray(value);
-    }
+
+   /*------------------------------------Query Search looks for items in itemlist-------------------------------------------*/
 
 
-    $scope.pushToArray = function (item){  
-     var marker; 
-     $scope.itemToDB.actionObjects.forEach( function(entry) {
-      console.log(item.name)
-      if (entry.name===item.name) {
-        marker = 1;
-      }})
-     if (marker===1) {
-      return
-    }
-    $scope.itemToDB.actionObjects.push(item);
-    console.log( $scope.itemToDB.actionObjects)
+   function newItem(Item) {
+    alert("Sorry! You'll need to create a Constituion for " + Item + " first!");
   };
 
-  $scope.delFromArray = function (item){  
+  function querySearch (query) {
+    var results = query ? loadAll().filter( createFilterFor(query) ) : self.Item,
+    deferred;
+    if (self.simulateQuery) {
+      deferred = $q.defer();
+      $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+      return deferred.promise;
+    } else {
+      return results;
+    }
+  }
+
+  function searchTextChange(text) {
+   /* $log.info('Text changed to ' + text);*/
+  }
+
+  function selectedItemChange(item) {
+    var value = item.display;
+    console.log(item)
+    $scope.pushToArray(value);
+  }
+
+  /*---------------------------------Methods to manipulate the action and to save and delete them from the system------------------*/
+
+
+  $scope.pushToArray = function (item){  
+   var marker; 
    $scope.itemToDB.actionObjects.forEach( function(entry) {
-     if (entry===item) {
-       $scope.itemToDB.actionObjects.splice( $scope.itemToDB.actionObjects.indexOf(item), 1);
-     }})
- };
+    console.log(item.name)
+    if (entry.name===item.name) {
+      marker = 1;
+    }})
+   if (marker===1) {
+    return
+  }
+  $scope.itemToDB.actionObjects.push(item);
+  console.log( $scope.itemToDB.actionObjects)
+};
+
+$scope.delFromArray = function (item){  
+ $scope.itemToDB.actionObjects.forEach( function(entry) {
+   if (entry===item) {
+     $scope.itemToDB.actionObjects.splice( $scope.itemToDB.actionObjects.indexOf(item), 1);
+   }})
+};
 
 
- $scope.writeDB = function (){
+$scope.writeDB = function (){
   if($scope.selectedItem!=null){ 
-    console.log("IS GUT")
-    /*    Search.action.save($scope.itemToDB);*/
+    Data.action.save($scope.itemToDB);
   }else {
     showAlert();
   }
 
-}
-
-function loadAllActions  (){
-  Search.allactions.query(function (argument) {
-   argument.forEach(function (item) {
-    $scope.allObjects.push(item)
-    actionString = actionString +", "+ item.name;
-  })
- })
-  Search.allcategories.query(function (argument) {
-   argument.forEach(function (item) {
-    $scope.allCategories.push(item)
-  })
- })
 }
 
 $scope.getSelectedText = function() {
@@ -140,29 +160,9 @@ $scope.getSelectedText = function() {
   }
 };
 
-function showAlert(){
-  $mdDialog.show(
-    $mdDialog.alert()
-    .parent(angular.element(document.querySelector('#popupContainer')))
-    .clickOutsideToClose(true)
-    .title('Sie müssen eine Katastrope wählen')
-    .ok('Ok')
-    .targetEvent()
-    );
-};
 
+/*---------------------------------------------------Filter items after categories----------------------------------------------------*/
 
-function loadAll() {
-
-  var allItems= 'Schmerzmittel, Antibiotika, Verbände, Baby-Nahrung, Supplements, Wasser, Standardessen, Holz, Stein, Sand, Zelt, Betten, Jacken, Hosen, Schuhe';
-  $scope.categories = ["Medizin","Nahrung","Baumaterialien","Unterkunft","Kleidung"];
-  return allItems.split(/, +/g).map( function (item) {
-    return {
-      value: item.toLowerCase(),
-      display: item
-    };
-  });
-}
 
 
 function createFilterFor(query) {
@@ -200,6 +200,22 @@ this.infiniteItems = {
             }
           }
         };
+
+        /*-------------------------------------------Various Helper Functions-------------------------------------------------*/
+
+        function showAlert(){
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Sie müssen eine Katastrope wählen')
+            .ok('Ok')
+            .targetEvent()
+            );
+        };
+
+        /*-------------------------------------------------------MAP-----------------------------------------------------------*/
+
         var map;  
 
 

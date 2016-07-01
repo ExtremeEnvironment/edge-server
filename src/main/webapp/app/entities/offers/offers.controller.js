@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('OffersController', OffersController);
 
-  OffersController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Offers'];
+  OffersController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data'];
 
-  function OffersController ( $scope, $state, $timeout, $q, $log, Offers) {
+  function OffersController ( $scope, $state, $timeout, $q, $log, Data) {
 
     $scope.filters = { };
     var self = this;
@@ -87,15 +87,12 @@
     $scope.offers = []
 
     function loadAll() {
-      Offers.query(function(result) {
+      Data.action.query(function(result) {
         result.forEach(function (item){
           if(item.actionType=='OFFER'){
             $scope.offers.push(item);
-            console.log(item)}
-            else {
-              console.log(item)
-            }
-          })
+          }
+        })
       });
     }
 
