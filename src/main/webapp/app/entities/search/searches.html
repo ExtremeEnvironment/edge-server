@@ -15,16 +15,16 @@
     <md-input-container class="md-select-menu">
       <md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
         <md-optgroup label="Katastrophen">
-          <md-option ng-value="item" ng-repeat="item in todos"> 
+          <md-option ng-value="disaster" ng-repeat="disaster in disasters"> 
             <div class="md-ripple-container" layout="row">
               <div flex>
-                <h5>{{ item.what }}</h5>
+                <h5>{{ disaster.title }}</h5>
               </div>
               <div flex>
-                <h5>{{ item.where }}</h5>
+                <h5>{{ disaster.disasterType.name }}</h5>
               </div>
               <div flex>
-                <h6>{{ item.notes }}</h6>
+                <h6>{{ disaster.area }}</h6>
               </div>
             </div>
             <md-divider></md-divider>
@@ -67,17 +67,20 @@
 <div class="md-whiteframe-z1" flex>
   <div flex layout="row">
 
-    <md-list class="md-dense">
-      <md-subheader class="md-no-sticky" ng-click="filters.category = ''">Kategorien(Alle)</md-subheader>
-      <md-divider></md-divider>
-      <md-list-item class="md-2-line" ng-repeat="category in categories" ng-click="filters.category = category">
+    <md-list class="md-dense" flex='33'>
+     <md-subheader class="md-no-sticky" ng-click="filters.category.name = ''">Kategorien(Alle)</md-subheader>
+     <md-divider></md-divider>
+     <md-virtual-repeat-container style="height:400px">
+       <md-list-item class="md-2-line" ng-repeat="category in allCategories" ng-click="filters.category.name = category.name">
         <div class="md-list-item-text">
-          <h3> {{category}} </h3>
+          <h3> {{category.name}} </h3>
         </div>
         <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
         <md-divider flex></md-divider>
       </md-list-item>
-    </md-list>
+    </md-virtual-repeat-container>
+  </md-list>
+
 
     <md-divider></md-divider>
 
@@ -85,10 +88,10 @@
       <md-subheader class="md-no-sticky">Resourcen</md-subheader>
       <md-divider></md-divider>
       <md-virtual-repeat-container style="height:400px">
-        <md-list-item md-virtual-repeat="item in items | filter:filters" ng-click="pushToArray(item.name)" class="repeated-item md-2-line" flex="">
+        <md-list-item md-virtual-repeat="item in allObjects | filter:filters" ng-click="pushToArray(item)" class="repeated-item md-2-line" flex="">
           <div class="md-list-item-text">
             <h3> {{ item.name }} </h3>
-            <h4>  {{ item.category }} </h4>
+            <h4>  {{ item.category.name }} </h4>
           </div>
           <md-divider flex></md-divider>
         </md-list-item>
@@ -101,9 +104,9 @@
   <div layout="row">
     <md-list flex>
       <md-subheader class="md-no-sticky">Gewählte Items: </md-subheader>
-      <md-list-item class="md-1-line" ng-repeat="item in selectedItems">
+      <md-list-item class="md-1-line" ng-repeat="item in itemToDB.actionObjects">
         <div class="md-list-item-text">
-          <h4> {{item}} </h4>
+          <h4> {{item.name}} </h4>
         </div>
         <md-button class="md-secondary md-icon-button" ng-click="delFromArray(item)"  aria-label="call">
           <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
@@ -112,5 +115,5 @@
     </md-list>
   </div>
 </div>
-<md-button class="md-raised" ui-sref="home" ng-click="createAction()" >Abgeben</md-button>
+<md-button class="md-raised" ng-click="writeDB()" >Abgeben</md-button>
 </div>
