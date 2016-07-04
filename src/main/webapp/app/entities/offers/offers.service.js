@@ -4,27 +4,33 @@
     .module('edgeServerApp')
     .factory('Offers', Offers);
 
-    Offers.$inject = ['$resource'];
+    function Offers () {
 
-    function Offers ($resource) {
-        var resourceUrl =  'disasterservice/api/actions/:id';
+      var Item={
+          actionObjects: [],
+          actionType : "OFFER",
+          disaster : {},
+          isExpired : null,
+          lat : null,
+          lon : null,
+          user: null
+      };
 
-        return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
-            'get': {
-                method: 'GET',
-                transformResponse: function (data) {
-                    if (data) {
-                        data = angular.fromJson(data);
-                    }
-                    return data;
-                }
-            },
 
-            'update': { method:'PUT' },
-            'save': { method:'POST' },
-            'delete':{ method:'DELETE'}
+      var setAction = function(action) {
+          Item = action;
+      };
 
-        });
-    }
+      var getAction = function(action) {
+          return Item;
+      };
+
+
+      return {
+        setAction : setAction,
+        getAction : getAction
+    };
+
+};
+
 })();

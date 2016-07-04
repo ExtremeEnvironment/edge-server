@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('edgeServerApp')
-        .config(stateConfig);
+    .module('edgeServerApp')
+    .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
 
@@ -31,34 +31,9 @@
                 }]
             }
         })
-        .state('offers-detail', {
-            parent: 'entity',
-            url: '/offers/{id}',
-            data: {
-                authorities: ['ROLE_USER'],
-                pageTitle: 'edgeServerApp.offers.detail.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/entities/offers/offers-detail.html',
-                    controller: 'OffersDetailController',
-                    controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('offers');
-                    return $translate.refresh();
-                }],
-                entity: ['$stateParams', 'Offers', function($stateParams, Offers) {
-                    return Offers.get({id : $stateParams.id}).$promise;
-                }]
-            }
-        })
-        
         .state('offers.new', {
             parent: 'offers',
-            url: '/new',
+            url: '/new?offerID',
             data: {
                 authorities: ['ROLE_USER']
             },
@@ -84,10 +59,30 @@
             }]
         })
 
-
-
-
-
+        .state('offers-detail', {
+            parent: 'entity',
+            url: '/offers/{id}',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'edgeServerApp.offers.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/offers/offers-detail.html',
+                    controller: 'OffersDetailController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('offers');
+                    return $translate.refresh();
+                }],
+                entity: ['$stateParams', 'Offers', function($stateParams, Offers) {
+                    return Offers.get({id : $stateParams.id}).$promise;
+                }]
+            }
+        })
         .state('offers.edit', {
             parent: 'offers',
             url: '/{id}/edit',
