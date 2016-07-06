@@ -1,0 +1,21 @@
+{
+    "edgeServerApp": {
+        "ngo" : {
+            "home": {
+                "title": "Ngos",
+                "createLabel": "Create a new Ngo",
+                "createOrEditLabel": "Create or edit a Ngo",
+                "search": "Search for Ngo"
+            },
+            "created": "A new Ngo is created with identifier {{ param }}",
+            "updated": "A Ngo is updated with identifier {{ param }}",
+            "deleted": "A Ngo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Ngo {{ id }}?"
+            },
+            "detail": {
+                "title": "Ngo"
+            }
+        }
+    }
+}

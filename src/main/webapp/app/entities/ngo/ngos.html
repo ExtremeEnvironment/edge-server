@@ -1,0 +1,125 @@
+  <div layout="column">
+  <h1 align="center">{{NGO.title}} NGO XXZU</h1>
+  </div>
+
+  <div class="md-whiteframe-z1" flex>
+    <div layout="column">
+      <md-input-container class="md-select-menu">
+        <md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
+          <md-optgroup label="Katastrophen">
+            <md-option ng-value="disaster" ng-repeat="disaster in disasters"> 
+              <div class="md-ripple-container" layout="row">
+                <div flex>
+                  <h5>{{ disaster.title }}</h5>
+                </div>
+                <div flex>
+                  <h5>{{ disaster.disasterType.name }}</h5>
+                </div>
+                <div flex>
+                  <h6>{{ disaster.area }}</h6>
+                </div>
+              </div>
+              <md-divider></md-divider>
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+    </div>
+
+    <md-subheader class="md-no-sticky" >Ihr geclaimtes Gebiet:</md-subheader>
+    <div id="controllerMaps">
+      <label class="btn btn-default" ng-model="radioModel" ng-click='removeMarker()'>Delete Marker</label>
+    </div>
+    <div id=map></div>
+  </div>
+
+  <div layout="column">
+    <div class="md-whiteframe-z1" layout="row">
+     <md-subheader class="md-no-sticky" flex>Informationen</md-subheader>
+     <md-subheader class="md-no-sticky" flex>Pinnwand</md-subheader>
+   </div>
+ </div>
+
+ <div layout="row">
+  <div flex>
+    <div class="md-whiteframe-z1">
+      <md-list>
+        <md-list-item class="md-1-line">
+          <div class="md-list-item-text">
+            <h5>Anschrift: {{ngo.date}}</h5>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-1-line">
+          <div class="md-list-item-text">
+           <h5>Kontakt: {{ngo.disasterType.name}}</h5>
+         </div>
+       </md-list-item>
+       <md-list-item class="md-1-line">
+        <div class="md-list-item-text">
+          Details: {{ngo.description}}
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
+
+  <div class="md-whiteframe-z1"> 
+    <md-list>
+      <md-subheader class="md-sticky">Mitglieder</md-subheader>
+      <md-list-item class="md-2-line" ng-repeat="item in topten">
+        <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+        <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
+        ng-if="phone.options.face"/>
+        <div class="md-list-item-text">
+          <h3> {{ item.name }} </h3>
+          <p> {{ item.category.name }} </p>
+        </div>
+        <md-button class="md-secondary md-raised md-primary">Bieten</md-button>
+      </md-list-item>
+    </md-list> 
+  </div>
+</div>
+
+<div flex layout="column" style="margin:15px">
+
+  <div class="enterDiv" layout="row">
+    <md-input-container class="md-block" flex>
+      <label>Neuer Eintrag</label>
+      <textarea ng-model="message.details" rows="5" md-select-on-focus></textarea>
+    </md-input-container>
+    <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
+      <md-icon md-svg-icon="content/images/plane.svg"></md-icon>
+    </md-button>
+  </div>
+
+
+  <div class="md-whiteframe-z1 messageDiv" ng-repeat="message in messages">
+
+    <p>
+      <u>{{ message.user }}</u> - {{ message.text }} -<a ng-click="changeAnswer($index)"> Answer</a> - <a ng-click="showAnswers($index)">Messages</a>
+    </p> 
+
+    <div class="answer" ng-show="this[$index]"  layout="row">
+      <md-input-container class="md-block" flex>
+        <label>Antworten</label>
+        <textarea ng-model="message.details" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+      <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
+        <md-icon md-svg-icon="content/images/plane.svg"></md-icon>
+      </md-button>
+    </div>
+
+
+    <div class="md-whiteframe-z1" ng-show="this['answer_' + $index]">
+      <md-virtual-repeat-container style="height:200px; max-height:200px">
+        <div ng-repeat="answer in messages">
+
+          <div>
+            <p><u>{{ answer.user }}</u> - {{ answer.text }}</p>
+          </div>
+        </div>
+      </md-virtual-repeat-container>
+    </div>
+  </div>
+</div>
+</div>
+

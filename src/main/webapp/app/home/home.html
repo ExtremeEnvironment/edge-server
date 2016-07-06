@@ -10,21 +10,19 @@
           You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
         </div>
 
-        <div ng-switch-when="true" flex md-scroll-y>
-          <section layout="row" style="height:250px;">
-            <a class="md-whiteframe-15dp dashboard-link" ui-sref="give({userID: vm.account.login})" flex="33" >
-              <i class="material-icons dashboard-icons">card_giftcard</i>
-              <span class="dashboard-text">Anbieten</span>
-            </a>
-            <a class="md-whiteframe-15dp dashboard-linke" ui-sref="search({userID: vm.account.login})" flex="33">
-              <i class="material-icons dashboard-icons">search</i>
-              <span class="dashboard-text">Suchen</span>
-            </a>
-            <a class="md-whiteframe-15dp dashboard-link" ui-sref="newdisaster({userID: vm.account.login})" flex="33">
-              <i class="material-icons dashboard-icons">warning</i>
-              <span class="dashboard-text">Katastrophe melden</span>
-            </a>
-          </section>
+        <div ng-switch-when="true" flex layout="row"  layout-xs="column" style="min-height:250px;">
+          <a class="md-whiteframe-15dp dashboard-link" ui-sref="give({userID: vm.account.login})"  >
+            <i class="material-icons dashboard-icons">card_giftcard</i>
+            <span class="dashboard-text">Anbieten</span>
+          </a>
+          <a class="md-whiteframe-15dp dashboard-link" ui-sref="search({userID: vm.account.login})" >
+            <i class="material-icons dashboard-icons">search</i>
+            <span class="dashboard-text">Suchen</span>
+          </a>
+          <a class="md-whiteframe-15dp dashboard-link" ui-sref="newdisaster({userID: vm.account.login})" >
+            <i class="material-icons dashboard-icons">warning</i>
+            <span class="dashboard-text">Katastrophe melden</span>
+          </a>
         </div>
 
         <md-toolbar>
