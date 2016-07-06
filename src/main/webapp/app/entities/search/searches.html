@@ -68,7 +68,7 @@
   <div flex layout="row">
 
     <md-list class="md-dense" flex='33'>
-     <md-subheader class="md-no-sticky" ng-click="filters.category.name = ''">Kategorien(Alle)</md-subheader>
+     <md-subheader class="md-no-sticky" ng-click="filters.category.name = ''" ><p style="font-size: 50px" >Kategorien(Alle)</p></md-subheader>
      <md-divider></md-divider>
      <md-virtual-repeat-container style="height:400px">
        <md-list-item class="md-2-line" ng-repeat="category in allCategories" ng-click="filters.category.name = category.name">
