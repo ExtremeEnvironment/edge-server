@@ -1,6 +1,6 @@
 <md-toolbar>
   <div class="md-toolbar-tools">
-  <h2><span>Your Matches</span></h2>
+    <h2><span>Your Matches</span></h2>
     <span flex></span>
     <md-button ng-disabled="true" class="md-icon-button" style="background-color: rgba(15, 15, 15, 0.4); border-radius: 50%; color: white;">
       <span>{{ conversation.length }}</span>
@@ -16,6 +16,9 @@
       <!--   <img ng-src={{conversation.other.avatar}} class="md-avatar" alt="{{conversation.other.username}}" /> -->
       <div class="md-list-item-text">
         <h3 style="margin:50px;padding:10px">Match mit {{conversation.id}}</h3>
+        <md-button class="md-secondary md-icon-button"  ng-show="!this['selectedItem_' + $index]" ng-click="delFromArray(item)"  aria-label="call">
+          <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
+        </md-button>
 
         <div ng-show="this['selectedItem_' + $index]" >
           <md-virtual-repeat-container style="min-height:500px; max-height:500px;margin:20px;padding:10px">
