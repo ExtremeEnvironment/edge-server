@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('DisasterController', DisasterController);
 
-  DisasterController.$inject = ['$scope', '$state', 'Data', '$stateParams'];
+  DisasterController.$inject = ['$scope', '$state', 'Data', '$stateParams','Principal'];
 
-  function DisasterController ($scope, $state, Data,  $stateParams) {
+  function DisasterController ($scope, $state, Data,  $stateParams, Principal) {
     var vm = this;
 
     loadAlls();
