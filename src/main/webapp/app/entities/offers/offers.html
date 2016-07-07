@@ -14,13 +14,13 @@
     <table class="friends">
       <tr>
         <th>
-          <md-subheader class="md-no-sticky" ng-click="sortBy('location')" flex>Ort</md-subheader>
+          <md-subheader class="md-no-sticky tabellen" ng-click="sortBy('location')" flex>Ort</md-subheader>
         </th>
         <th>
           <md-subheader class="md-no-sticky" flex>Items</md-subheader>
         </th>
         <th>
-          <md-subheader class="md-no-sticky" ng-click="sortBy('date')" flex>Datum</md-subheader>
+          <md-subheader class="md-no-sticky tabellen" ng-click="sortBy('date')" flex>Datum</md-subheader>
         </th>
         <th></th>
       </tr>
@@ -29,7 +29,7 @@
         <td>
           <div ng-repeat="offery in offer.actionObjects">{{offery.name}}</div>
         </td>
-        <td>{{offer.date}}</td>
+        <td class="tabellen">{{offer.date}}</td>
         <td>
           <md-button class="md-icon-button" ng-click="delFromArray(offer)" aria-label="call">
             <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
