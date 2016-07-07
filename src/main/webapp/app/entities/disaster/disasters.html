@@ -1,5 +1,5 @@
   <div layout="column">
-    <h2 align="center">{{disaster.title}}</h2>
+    <h2 style="font-size:5vw" align="center">{{disaster.title}}</h2>
     <md-button class="md-raised md-primary" ui-sref="search">Suchen</md-button>
     <div style="margin-bottom: 5px;"></div>
     <md-button class="md-raised md-primary" ui-sref="give">Bieten</md-button>
@@ -14,22 +14,22 @@
       <md-list>
         <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-            <h5>Datum: {{disaster.date}}</h5>
+          <h5 class="texte">Datum: {{disaster.date}}</h5>
           </div>
         </md-list-item>
         <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-           <h5>Art: {{disaster.disasterType.name}}</h5>
+           <h5 class="texte">Art: {{disaster.disasterType.name}}</h5>
          </div>
        </md-list-item>
        <md-list-item class="md-1-line">
         <div class="md-list-item-text">
-          Details: {{disaster.description}}
+          <p class="texte">Details: {{disaster.description}}</p>
         </div>
       </md-list-item>
       <md-list-item class="md-1-line">
         <div class="md-list-item-text">
-          NGOS: {{disaster.description}}
+          <p class="texte">NGOS: {{disaster.description}}</p>
         </div>
       </md-list-item>
     </md-list>
@@ -43,7 +43,7 @@
     <md-virtual-repeat-container style="min-height:200px; max-height:200px;margin:20px;padding:10px">
 
       <md-list>
-      <md-subheader class="md-sticky">Event-Katastrophe(n)</md-subheader>
+        <md-subheader class="md-sticky">Event-Katastrophe(n)</md-subheader>
         <md-list-item class="md-2-line" ng-repeat="item in knowledgeItem">
           <div class="md-list-item-text">
             <h3> {{ item.name }} </h3>
@@ -62,16 +62,11 @@
 
   <div class="md-whiteframe-z1"> 
     <md-list>
-      <md-subheader class="md-sticky">TopTen Gesuche</md-subheader>
-      <md-list-item class="md-2-line" ng-repeat="item in topten">
-        <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
-        <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
-        ng-if="phone.options.face"/>
+      <md-subheader class="md-sticky">TopTen-Gesuche</md-subheader>
+      <md-list-item class="md-2-line" ng-repeat="item in topten" ui-sref="give">
         <div class="md-list-item-text">
-          <h3> {{ item.name }} </h3>
-          <p> {{ item.category.name }} </p>
+          <h3 class="texte"> {{ item.name }} </h3>
         </div>
-        <md-button class="md-secondary md-raised md-primary">Bieten</md-button>
       </md-list-item>
     </md-list> 
   </div>

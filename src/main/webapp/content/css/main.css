@@ -459,9 +459,18 @@ ui bootstrap tweaks
     padding-top: 15px; 
   }
 
-  @media all and (max-width: 300px) {
+  @media all and (max-width: 360px) {
     .dashboard-icons { 
       display: none; 
+    }
+    .tabellen{
+      display: none; 
+    }
+    .texte{
+      font-size: 3.4vw !important;
+    }
+    .items{
+      font-size: 5.5vw !important;
     }
     .md-toolbar-tools{
       font-size: 5.5vw;
