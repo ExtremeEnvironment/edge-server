@@ -1,0 +1,30 @@
+
+<div>
+    <h2><span translate="edgeServerApp.ngoAdmin.detail.title">Ngo Admin</span> {{vm.ngoAdmin.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="edgeServerApp.ngoAdmin.name">Name</span></dt>
+        <dd>
+            <span>{{vm.ngoAdmin.name}}</span>
+        </dd>
+        <dt><span translate="edgeServerApp.ngoAdmin.user">User</span></dt>
+        <dd>
+            <span ng-repeat="user in vm.ngoAdmin.users">
+                {{user.id}}{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span translate="edgeServerApp.ngoAdmin.admins">Admins</span></dt>
+        <dd>
+            <span ng-repeat="admins in vm.ngoAdmin.admins">
+                {{admins.id}}{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

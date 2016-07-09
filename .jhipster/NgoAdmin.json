@@ -1,0 +1,36 @@
+{
+    "relationships": [
+        {
+
+
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "admins",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+
+    ],
+
+    "changelogDate": "20160625072347",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "ngo",
+    "pagination": "no",
+    "microserviceName": "UserService",
+    "searchEngine": "no"
+}
+

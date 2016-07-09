@@ -14,12 +14,12 @@
                 "disaster": "Disaster",
                 "newdisaster": "Newdisaster",
                 "offers": "Offers",
-                "actionObject": "Action Object",
-                "category": "Category",
-                "ngo": "Ngo",
-                "disasterType": "Disaster Type",
                 "action": "Action",
                 "area": "Area",
+                "ngoAdmin": "Ngo Admin",
+                "disasterTypeAdmin": "Disaster Type Admin",
+                "categoryAdmin": "Category Admin",
+                "actionObjectAdmin": "Action Object Admin",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
