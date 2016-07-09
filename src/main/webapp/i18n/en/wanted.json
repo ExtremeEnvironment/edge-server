@@ -1,0 +1,21 @@
+{
+    "edgeServerApp": {
+        "wanted" : {
+            "home": {
+                "title": "Wanteds",
+                "createLabel": "Create a new Wanted",
+                "createOrEditLabel": "Create or edit a Wanted",
+                "search": "Search for Wanted"
+            },
+            "created": "A new Wanted is created with identifier {{ param }}",
+            "updated": "A Wanted is updated with identifier {{ param }}",
+            "deleted": "A Wanted is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Wanted {{ id }}?"
+            },
+            "detail": {
+                "title": "Wanted"
+            }
+        }
+    }
+}

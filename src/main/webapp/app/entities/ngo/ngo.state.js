@@ -2,45 +2,69 @@
     'use strict';
 
     angular
-    .module('edgeServerApp')
-    .config(stateConfig);
+        .module('edgeServerApp')
+        .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('offers', {
+        .state('ngo', {
             parent: 'app',
-            url: '/offers',
+            url: '/ngo',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'edgeServerApp.offers.home.title'
+                pageTitle: 'edgeServerApp.ngo.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/offers/offers.html',
-                    controller: 'OffersController',
+                    templateUrl: 'app/entities/ngo/ngos.html',
+                    controller: 'NgoController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('offers');
+                    $translatePartialLoader.addPart('ngo');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('offers.new', {
-            parent: 'offers',
-            url: '/new?offerID',
+        .state('ngo-detail', {
+            parent: 'entity',
+            url: '/ngo/{id}',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'edgeServerApp.ngo.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/ngo/ngo-detail.html',
+                    controller: 'NgoDetailController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('ngo');
+                    return $translate.refresh();
+                }],
+                entity: ['$stateParams', 'Ngo', function($stateParams, Ngo) {
+                    return Ngo.get({id : $stateParams.id}).$promise;
+                }]
+            }
+        })
+        .state('ngo.new', {
+            parent: 'ngo',
+            url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/offers/offers-dialog.html',
-                    controller: 'OffersDialogController',
+                    templateUrl: 'app/entities/ngo/ngo-dialog.html',
+                    controller: 'NgoDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -52,81 +76,56 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('offers', null, { reload: true });
+                    $state.go('ngo', null, { reload: true });
                 }, function() {
-                    $state.go('offers');
+                    $state.go('ngo');
                 });
             }]
         })
-
-        .state('offers-detail', {
-            parent: 'entity',
-            url: '/offers/{id}',
-            data: {
-                authorities: ['ROLE_USER'],
-                pageTitle: 'edgeServerApp.offers.detail.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/entities/offers/offers-detail.html',
-                    controller: 'OffersDetailController',
-                    controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('offers');
-                    return $translate.refresh();
-                }],
-                entity: ['$stateParams', 'Offers', function($stateParams, Offers) {
-                    return Offers.get({id : $stateParams.id}).$promise;
-                }]
-            }
-        })
-        .state('offers.edit', {
-            parent: 'offers',
+        .state('ngo.edit', {
+            parent: 'ngo',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/offers/offers-dialog.html',
-                    controller: 'OffersDialogController',
+                    templateUrl: 'app/entities/ngo/ngo-dialog.html',
+                    controller: 'NgoDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Offers', function(Offers) {
-                            return Offers.get({id : $stateParams.id}).$promise;
+                        entity: ['Ngo', function(Ngo) {
+                            return Ngo.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('offers', null, { reload: true });
+                    $state.go('ngo', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('offers.delete', {
-            parent: 'offers',
+        .state('ngo.delete', {
+            parent: 'ngo',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/offers/offers-delete-dialog.html',
-                    controller: 'OffersDeleteController',
+                    templateUrl: 'app/entities/ngo/ngo-delete-dialog.html',
+                    controller: 'NgoDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Offers', function(Offers) {
-                            return Offers.get({id : $stateParams.id}).$promise;
+                        entity: ['Ngo', function(Ngo) {
+                            return Ngo.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('offers', null, { reload: true });
+                    $state.go('ngo', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });

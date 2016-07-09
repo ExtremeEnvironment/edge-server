@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('edgeServerApp')
-        .factory('Message', Message);
+        .factory('Wanted', Wanted);
 
-    Message.$inject = ['$resource'];
+    Wanted.$inject = ['$resource'];
 
-    function Message ($resource) {
-        var resourceUrl =  'messageservice/api/conversations/:id';
+    function Wanted ($resource) {
+        var resourceUrl =  'api/wanteds/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -20,9 +20,7 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' },
-            'save': { method:'POST' },
-            'delete':{ method:'DELETE'}
+            'update': { method:'PUT' }
         });
     }
 })();

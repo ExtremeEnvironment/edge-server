@@ -1,72 +1,79 @@
   <div layout="column">
-    <h2 style="font-size:5vw" align="center">{{disaster.title}}</h2>
-    <md-button class="md-raised md-primary" ui-sref="search">Suchen</md-button>
-    <div style="margin-bottom: 5px;"></div>
-    <md-button class="md-raised md-primary" ui-sref="give">Bieten</md-button>
+  <h1 style="font-size:5vw" align="center">{{NGO.title}} NGO XXZU</h1>
+  </div>
+
+  <div class="md-whiteframe-z1" flex>
+    <div layout="column">
+      <md-input-container class="md-select-menu">
+        <md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
+          <md-optgroup label="Katastrophen">
+            <md-option ng-value="disaster" ng-repeat="disaster in disasters"> 
+              <div class="md-ripple-container" layout="row">
+                <div flex>
+                  <h5>{{ disaster.title }}</h5>
+                </div>
+                <div flex>
+                  <h5>{{ disaster.disasterType.name }}</h5>
+                </div>
+                <div flex>
+                  <h6>{{ disaster.area }}</h6>
+                </div>
+              </div>
+              <md-divider></md-divider>
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+    </div>
+
+    <md-subheader class="md-no-sticky" >Ihr geclaimtes Gebiet:</md-subheader>
+    <div id="controllerMaps">
+      <label class="btn btn-default" ng-model="radioModel" ng-click='removeMarker()'>Delete Marker</label>
+    </div>
+    <div id=map></div>
+  </div>
+
+  <div layout="column">
     <div class="md-whiteframe-z1" layout="row">
      <md-subheader class="md-no-sticky" flex>Informationen</md-subheader>
      <md-subheader class="md-no-sticky" flex>Pinnwand</md-subheader>
    </div>
  </div>
+
  <div layout="row">
   <div flex>
     <div class="md-whiteframe-z1">
       <md-list>
         <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-          <h5 class="texte">Datum: {{disaster.date}}</h5>
+            <h5>Anschrift: {{ngo.date}}</h5>
           </div>
         </md-list-item>
         <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-           <h5 class="texte">Art: {{disaster.disasterType.name}}</h5>
+           <h5>Kontakt: {{ngo.disasterType.name}}</h5>
          </div>
        </md-list-item>
        <md-list-item class="md-1-line">
         <div class="md-list-item-text">
-          <p class="texte">Details: {{disaster.description}}</p>
-        </div>
-      </md-list-item>
-      <md-list-item class="md-1-line">
-        <div class="md-list-item-text">
-          <p class="texte">NGOS: {{disaster.description}}</p>
+          Details: {{ngo.description}}
         </div>
       </md-list-item>
     </md-list>
   </div>
 
-
-  <div id="map"></div>  
-
-
-  <div class="md-whiteframe-z1"  ng-show="!knowledge" >
-    <md-virtual-repeat-container style="min-height:200px; max-height:200px;margin:20px;padding:10px">
-
-      <md-list>
-        <md-subheader class="md-sticky">Event-Katastrophe(n)</md-subheader>
-        <md-list-item class="md-2-line" ng-repeat="item in knowledgeItem">
-          <div class="md-list-item-text">
-            <h3> {{ item.name }} </h3>
-            <p> {{ item.category.name }} </p>
-          </div>
-
-        </md-list-item>
-        <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
-          <md-icon md-svg-icon="content/images/like.svg"></md-icon>
-        </md-button>
-      </md-list> 
-
-    </md-virtual-repeat-container>
-  </div>
-
-
   <div class="md-whiteframe-z1"> 
     <md-list>
-      <md-subheader class="md-sticky">TopTen-Gesuche</md-subheader>
-      <md-list-item class="md-2-line" ng-repeat="item in topten" ui-sref="give">
+      <md-subheader class="md-sticky">Mitglieder</md-subheader>
+      <md-list-item class="md-2-line" ng-repeat="item in topten">
+        <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+        <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
+        ng-if="phone.options.face"/>
         <div class="md-list-item-text">
-          <h3 class="texte"> {{ item.name }} </h3>
+          <h3> {{ item.name }} </h3>
+          <p> {{ item.category.name }} </p>
         </div>
+        <md-button class="md-secondary md-raised md-primary">Bieten</md-button>
       </md-list-item>
     </md-list> 
   </div>
@@ -85,9 +92,7 @@
   </div>
 
 
-  <!--   <md-virtual-repeat-container style="height:600px ; max-height:600px"> -->
   <div class="md-whiteframe-z1 messageDiv" ng-repeat="message in messages">
-
 
     <p>
       <u>{{ message.user }}</u> - {{ message.text }} -<a ng-click="changeAnswer($index)"> Answer</a> - <a ng-click="showAnswers($index)">Messages</a>
@@ -114,14 +119,7 @@
         </div>
       </md-virtual-repeat-container>
     </div>
-
-
-
-
   </div>
-  <!--   </md-virtual-repeat-container> -->
-
 </div>
-
 </div>
 

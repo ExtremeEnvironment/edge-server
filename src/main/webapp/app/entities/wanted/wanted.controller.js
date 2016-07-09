@@ -3,11 +3,11 @@
 
   angular
   .module('edgeServerApp')
-  .controller('OffersController', OffersController);
+  .controller('WantedController', WantedController);
 
-  OffersController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers'];
+  WantedController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers'];
 
-  function OffersController ( $scope, $state, $timeout, $q, $log, Data , Offers) {
+  function WantedController ( $scope, $state, $timeout, $q, $log, Data , Offers) {
 
     $scope.filters = { };
 
@@ -25,7 +25,7 @@
     function loadAll() {
       Data.action.query(function(result) {
         result.forEach(function (item){
-          if(item.actionType=='OFFER'){
+          if(item.actionType=='SEEK'){
             console.log(item)
             $scope.offers.push(item);
           }

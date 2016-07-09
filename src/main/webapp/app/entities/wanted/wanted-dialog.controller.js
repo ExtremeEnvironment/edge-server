@@ -3,11 +3,11 @@
 
   angular
   .module('edgeServerApp')
-  .controller('OffersDialogController', OffersDialogController);
+  .controller('WantedDialogController', WantedDialogController);
 
-  OffersDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance' ,'Data', 'Offers','$state'];
+  WantedDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance' ,'Data', 'Offers','$state'];
 
-  function OffersDialogController ($timeout, $scope, $stateParams, $uibModalInstance, Data, Offers, $state) {
+  function WantedDialogController ($timeout, $scope, $stateParams, $uibModalInstance, Data, Offers, $state) {
     var vm = this;
     
     vm.clear = clear;
@@ -61,7 +61,7 @@
     }
 
     function onSaveSuccess (result) {
-      $scope.$emit('edgeServerApp:offersUpdate', result);
+      $scope.$emit('edgeServerApp:wantedUpdate', result);
       $uibModalInstance.close(result);
       vm.isSaving = false;
     }

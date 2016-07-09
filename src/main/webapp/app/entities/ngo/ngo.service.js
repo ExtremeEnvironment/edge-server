@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('edgeServerApp')
-        .factory('Message', Message);
+        .factory('Ngo', Ngo);
 
-    Message.$inject = ['$resource'];
+    Ngo.$inject = ['$resource'];
 
-    function Message ($resource) {
-        var resourceUrl =  'messageservice/api/conversations/:id';
+    function Ngo ($resource) {
+        var resourceUrl =  'api/ngos/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -20,9 +20,7 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' },
-            'save': { method:'POST' },
-            'delete':{ method:'DELETE'}
+            'update': { method:'PUT' }
         });
     }
 })();

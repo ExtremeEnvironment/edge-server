@@ -19,6 +19,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active" ng-switch-when="true">
+                    <a ui-sref="wanted" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-search"></span>
+                        <span class="hidden-sm" translate="global.menu.entities.wanted">Needs</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active" ng-switch-when="true">
                     <a ui-sref="offers" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-gift"></span>
                         <span class="hidden-sm" translate="global.menu.entities.offer">Offers</span>
@@ -27,7 +33,13 @@
                 <li ui-sref-active="active" ng-switch-when="true">
                     <a ui-sref="message" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-envelope"></span>
-                        <span class="hidden-sm" translate="global.menu.entities.message">Messages</span>
+                        <span class="hidden-sm" translate="global.menu.entities.message">Matches</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active" ng-switch-when="true">
+                    <a ui-sref="ngo" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-tent"></span>
+                        <span class="hidden-sm" translate="global.menu.entities.ngo">NGO</span>
                     </a>
                 </li>
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
