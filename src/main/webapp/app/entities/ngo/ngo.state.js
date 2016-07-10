@@ -57,7 +57,7 @@
         })
         .state('ngo.new', {
             parent: 'ngo',
-            url: '/new',
+            url: '/new?ngoID',
             data: {
                 authorities: ['ROLE_USER']
             },

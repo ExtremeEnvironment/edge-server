@@ -15,7 +15,7 @@
     $scope.filters = { };
     $scope.allObjects=[];
     $scope.allCategories=[];
-
+    $scope.SingleItem=null;
 
     $scope.itemToDB={
       actionObjects: [],
@@ -69,73 +69,63 @@
     /*---------------------------------Methods to manipulate the action and to save and delete them from the system------------------*/
 
     $scope.pushToArray = function (item){  
-     var marker; 
-     $scope.itemToDB.actionObjects.forEach( function(entry) {
-      if (entry.name===item.name) {
-        marker = 1;
-      }})
-     if (marker===1) {
-      return
-    }
-    $scope.itemToDB.actionObjects.push(item);
-  };
+      $scope.SingleItem = item;
+    };
 
-  $scope.delFromArray = function (item){  
-   $scope.itemToDB.actionObjects.forEach( function(entry) {
-     if (entry===item) {
-       $scope.itemToDB.actionObjects.splice( $scope.itemToDB.actionObjects.indexOf(item), 1);
-     }})
- };
+    $scope.delFromArray = function (item){  
+     $scope.SingleItem = null;
+   };
 
 
- $scope.writeDB = function (){
-  Data.action.save($scope.itemToDB);
-}
-
-
-$scope.getSelectedText = function() {
-  if ($scope.selectedItem !== undefined) {
-    $scope.itemToDB.disaster=$scope.selectedItem;
-    console.log($scope.itemToDB)
-    return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
-  } else {
-    return "Wählen sie eine gemeldete Katastrophe:";
+   $scope.writeDB = function (){
+    $scope.itemToDB.actionObjects.push($scope.SingleItem),
+    Data.action.save($scope.itemToDB);
   }
-};
 
-/*-------------------------------------load all items asynchronously----------------------------*/
 
-function loadAllItems (){
-  var def = $q.defer();
-
-  Data.allactions.query(function (argument) {
-   argument.forEach(function (item) {
-    $scope.allObjects.push(item)
-    actionString = actionString +", "+ item.name;
-  })
-   def.resolve(actionString);
- })
-  Data.allcategories.query(function (argument) {
-   argument.forEach(function (item) {
-    $scope.allCategories.push(item)
-  })
- })
-  return def.promise;
-}
-
-function loadAll() {
- return actionString.split(/, +/g).map( function (item) {
-  return {
-    value: item.toLowerCase(),
-    display: item
+  $scope.getSelectedText = function() {
+    if ($scope.selectedItem !== undefined) {
+      $scope.itemToDB.disaster=$scope.selectedItem;
+      console.log($scope.itemToDB)
+      return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
+    } else {
+      return "Wählen sie eine gemeldete Katastrophe:";
+    }
   };
-});
-}
+
+  /*-------------------------------------load all items asynchronously----------------------------*/
+
+  function loadAllItems (){
+    var def = $q.defer();
+
+    Data.allactions.query(function (argument) {
+     argument.forEach(function (item) {
+      $scope.allObjects.push(item)
+      actionString = actionString +", "+ item.name;
+    })
+     def.resolve(actionString);
+   })
+    Data.allcategories.query(function (argument) {
+     argument.forEach(function (item) {
+      $scope.allCategories.push(item)
+    })
+   })
+    return def.promise;
+  }
+
+  function loadAll() {
+   return actionString.split(/, +/g).map( function (item) {
+    return {
+      value: item.toLowerCase(),
+      display: item
+    };
+  });
+ }
 
 
-/*---------------------------------------------------Filter items after categories----------------------------------------------------*/
+ /*---------------------------------------------------Filter items after categories----------------------------------------------------*/
 
-function createFilterFor(query) {
+ function createFilterFor(query) {
   var lowercaseQuery = angular.lowercase(query);
   return function filterFn(Item) {
     return (Item.value.indexOf(lowercaseQuery) === 0);

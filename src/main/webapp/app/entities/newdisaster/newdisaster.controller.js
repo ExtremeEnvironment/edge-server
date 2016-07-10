@@ -61,7 +61,7 @@
           else {
             console.log($scope.disasterDB)
             Data.disaster.save($scope.disasterDB);
-           //$state.go("home");
+           $state.go("home");
          }
        }
        else {

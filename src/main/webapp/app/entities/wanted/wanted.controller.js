@@ -37,43 +37,19 @@
 
 
 
-    $scope.pushToArray = function (item){  
-      $scope.selectedItem = item;
-        $scope.selected = false;
-      Offers.setAction(item);
-    };
-
-
     $scope.delFromArray = function (item){ 
-    console.log(item.id) 
+      console.log(item.id) 
+      $scope.offers.forEach( function(entry) {
+        if (item===entry) {
+          $scope.offers.splice( $scope.offers.indexOf(item), 1);
+        }})
       Data.action.delete({id :item.id});
     };
-
-    $scope.delFromObjects = function (item){  
-      $scope.selectedItem.actionObjects.forEach( function(entry) {
-        if (item===entry) {
-          $scope.selectedItem.actionObjects.splice( $scope.selectedItem.actionObjects.indexOf(item), 1);
-        }})
-    };    
 
 
     $scope.writeDB = function (){
       Data.action.update($scope.selectedItem);
     }
-
-
-    /*-----------------------------------------------Sorting---------------------------------------------------*/
-
-    $scope.propertyName = 'age';
-    $scope.reverse = true;
-
-    $scope.sortBy = function(propertyName) {
-      $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-      $scope.propertyName = propertyName;
-    };
-
-
-
 
 
     /*-----------------------------------------------------MAP-----------------------------------------------*/

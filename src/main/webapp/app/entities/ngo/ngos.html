@@ -1,5 +1,34 @@
+
+
+<div class="md-whiteframe-z1" flex>
   <div layout="column">
-  <h1 style="font-size:5vw" align="center">{{NGO.title}} NGO XXZU</h1>
+    <md-input-container class="md-select-menu">
+      <md-select ng-model="selectedNGO" md-selected-text="getSelectedText2()">
+      <md-optgroup label="Ihre NGO's">
+          <md-option ng-value="ngo" ng-repeat="ngo in userNGOS"> 
+            <div class="md-ripple-container" layout="row">
+              <div flex>
+                <h5>{{ ngo.name }}</h5>
+              </div>
+              <div flex>
+                <h5>{{ ngo.email}}</h5>
+              </div>
+            </div>
+            <md-divider></md-divider>
+          </md-option>
+        </md-optgroup>
+      </md-select>
+    </md-input-container>
+  </div>
+</div>
+
+
+
+
+<div ng-show="selectedNGO!=null">
+
+  <div layout="column">
+    <h1 style="font-size:5vw" align="center">{{selectedNGO.name}}</h1>
   </div>
 
   <div class="md-whiteframe-z1" flex>
@@ -46,17 +75,17 @@
       <md-list>
         <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-            <h5>Anschrift: {{ngo.date}}</h5>
+            <h5>Website: {{selectedNGO.website}}</h5>
           </div>
         </md-list-item>
         <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-           <h5>Kontakt: {{ngo.disasterType.name}}</h5>
+           <h5>Telefon: {{selectedNGO.telephone}}</h5>
          </div>
        </md-list-item>
        <md-list-item class="md-1-line">
         <div class="md-list-item-text">
-          Details: {{ngo.description}}
+          Details: {{selectedNGO.email}}
         </div>
       </md-list-item>
     </md-list>
@@ -64,7 +93,9 @@
 
   <div class="md-whiteframe-z1"> 
     <md-list>
-      <md-subheader class="md-sticky">Mitglieder</md-subheader>
+      <md-subheader class="md-sticky">Mitglieder
+        <md-icon class="pull-right" ui-sref="ngo.new" md-svg-icon="content/images/add.svg"></md-icon>
+      </md-subheader>
       <md-list-item class="md-2-line" ng-repeat="item in topten">
         <md-icon md-svg-icon="{{phone.options.icon}}"  ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
         <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
@@ -122,4 +153,4 @@
   </div>
 </div>
 </div>
-
+</div>

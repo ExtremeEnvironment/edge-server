@@ -40,7 +40,7 @@
       Data.disaster.query(function(result) {
        result.forEach(function (item) {
          $scope.disasters.push(item)
-         console.log(item)
+         //console.log(item)
        })
      })}
 
@@ -48,6 +48,7 @@
 
       var heatmap;
       var map;
+      var markers = [];
 
       navigator.geolocation.getCurrentPosition(function(position){ 
         initialize(position.coords);

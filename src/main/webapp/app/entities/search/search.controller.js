@@ -14,6 +14,8 @@
     var imagePath = 'content/images/logo-jhipster.png';
 
     $scope.selectedItem;
+    $scope.SingleItem=null;
+
 
     $scope.allObjects=[];
     $scope.allCategories=[];
@@ -120,29 +122,16 @@
 
 
 $scope.pushToArray = function (item){  
- var marker; 
- $scope.itemToDB.actionObjects.forEach( function(entry) {
-  console.log(item.name)
-  if (entry.name===item.name) {
-    marker = 1;
-  }})
- if (marker===1) {
-  return
-}
-$scope.itemToDB.actionObjects.push(item);
-console.log( $scope.itemToDB.actionObjects)
+  $scope.SingleItem = item;
 };
 
 $scope.delFromArray = function (item){  
- $scope.itemToDB.actionObjects.forEach( function(entry) {
-   if (entry===item) {
-     $scope.itemToDB.actionObjects.splice( $scope.itemToDB.actionObjects.indexOf(item), 1);
-   }})
+ $scope.SingleItem = null;
 };
-
 
 $scope.writeDB = function (){
   if($scope.selectedItem!=null){ 
+    $scope.itemToDB.actionObjects.push($scope.SingleItem),
     Data.action.save($scope.itemToDB);
     $state.go("home");
   }else {

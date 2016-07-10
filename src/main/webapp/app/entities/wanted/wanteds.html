@@ -1,81 +1,52 @@
-<md-toolbar>
-  <div class="md-toolbar-tools">
-    <h2>
-      <span>Ihre Gesuche:</span>
-    </h2>
-    <span flex></span>
-  </div>
-</md-toolbar>
+<div layout="column" ng-show="offers.length==0">
+<h1 class="texte">Sie haben keine Gesuche</h1>
+</div>
 
+<div layout="column" ng-show="offers.length!=0">
 
-<div layout="column">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        <span>Ihre Angebote:</span>
+      </h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+
 
   <div class="md-whiteframe-z1">
     <table class="friends">
       <tr>
-        <th>
-          <md-subheader class="md-no-sticky tabellen" ng-click="sortBy('location')" flex>Ort</md-subheader>
-        </th>
-        <th>
-          <md-subheader class="md-no-sticky" flex>Items</md-subheader>
-        </th>
-        <th>
-          <md-subheader class="md-no-sticky tabellen" ng-click="sortBy('date')" flex>Datum</md-subheader>
-        </th>
-        <th>
-        </th>
-      </tr>
-      <tr ng-repeat="offer in offers | orderBy:propertyName:reverse | filter:filters" ng-click="pushToArray(offer)">
-        <td >{{offer.location}}</td>
-        <td>
-          <div ng-repeat="offery in offer.actionObjects">{{offery.name}}</div>
-        </td>
-        <td class="tabellen">{{offer.date}}</td>
-        <td>
-          <md-button class="md-icon-button" ng-click="delFromArray(offer)" aria-label="call">
-            <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
-          </md-button>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="md-whiteframe-z1">
-    <md-subheader class="md-no-sticky" >Hier suchen sie an:</md-subheader>
-    <div id=map></div>
-  </div>
-
-  <div class="md-whiteframe-z1">
-    <div layout="column">
-      <md-list flex>
-        <md-subheader class="md-no-sticky">Angebot: </md-subheader>
-        <md-list-item class="md-4-line">
-          <div class="md-list-item-text" flex>
-            <h5>Ort: {{selectedItem.location}} </h5>
-          </div>
-          <h5 class="md-secondary">Erstellt am:{{selectedItem.date}}</h5>
-        </md-list-item>
-      </md-list>
-      <md-list flex>
-        <md-subheader class="md-no-sticky">Ressourcen: </md-subheader>
-        <md-list-item class="md-1-line" ng-repeat="object in selectedItem.actionObjects">
-          <h5>{{object.name}}</h5>
-<!--         <div class="md-secondary">
-  <md-datepicker ng-model="disaster.date" md-placeholder="{{selectedItem.date}}"></md-datepicker>
-</div> -->
-<md-button class="md-secondary md-icon-button" ng-click="delFromObjects(object)" aria-label="call">
-  <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
-</md-button>
-</md-list-item>
-</md-list>
-
-<md-button class="md-secondary md-icon-button ng-hide" ng-hide="selected" ui-sref="wanted.new"  aria-label="call">
-  <md-icon md-svg-icon="content/images/add.svg"></md-icon>
-</md-button>
-
+       <th>
+        <div class="md-no-sticky tabellen" flex>Ort</div>
+      </th>
+      <th>
+        <div class="md-no-sticky" flex>Items</div>
+      </th>
+      <th>
+        <div class="md-no-sticky tabellen" flex>Datum</div>
+      </th>
+      <th></th>
+    </tr>
+    <tr ng-repeat="offer in offers | orderBy:propertyName:reverse | filter:filters" ng-click="pushToArray(offer)">
+      <td >{{offer.location}}</td>
+      <td>
+        <div ng-repeat="offery in offer.actionObjects">{{offery.name}}</div>
+      </td>
+      <td class="tabellen">{{offer.date}}</td>
+      <td>
+        <md-button class="md-icon-button" ng-click="delFromArray(offer)" aria-label="call">
+          <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
+        </md-button>
+      </td>
+    </tr>
+  </table>
 </div>
+
+<div class="md-whiteframe-z1">
+  <md-subheader class="md-no-sticky" >Hier suchen sie an:</md-subheader>
+  <div id=map></div>
 </div>
-<md-button class="md-raised" ng-click="writeDB()" >Speichern</md-button>
 </div>
 
 

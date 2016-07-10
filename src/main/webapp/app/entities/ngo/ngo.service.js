@@ -1,26 +1,63 @@
 (function() {
     'use strict';
     angular
-        .module('edgeServerApp')
-        .factory('Ngo', Ngo);
+    .module('edgeServerApp')
+    .factory('USer', USer);
 
-    Ngo.$inject = ['$resource'];
+    USer.$inject = ['$resource'];
 
-    function Ngo ($resource) {
-        var resourceUrl =  'api/ngos/:id';
+    function USer ($resource) {
+        var resourceUrl =  'userservice/api/users';
+        var resourceUr2 = 'userservice/api/ngos/:ngoId/:userId';
+        var resourceUr3 = 'userservice/api/ngos';
+        return {
 
-        return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
-            'get': {
-                method: 'GET',
-                transformResponse: function (data) {
-                    if (data) {
-                        data = angular.fromJson(data);
+            user: $resource(resourceUrl, {}, {
+                'query': { method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
                     }
-                    return data;
-                }
-            },
-            'update': { method:'PUT' }
-        });
+                },
+                'update': { method:'PUT' }
+            }),
+            ngouser: $resource(resourceUr2, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
+                    }
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
+            }),
+            ngo: $resource(resourceUr3, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
+                    }
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
+            })
+
+
+        }
     }
+
 })();

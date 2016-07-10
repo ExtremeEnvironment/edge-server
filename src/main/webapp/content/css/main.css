@@ -446,8 +446,8 @@ ui bootstrap tweaks
 
   .messageDiv {
     padding:10px;
-    display: block;
-    position: relative;
+/*     display: block;
+position: relative; */
   }
 
   .md-inline-form{
@@ -464,6 +464,7 @@ ui bootstrap tweaks
       display: none; 
     }
     .tabellen{
+      background-color: white !important;
       display: none; 
     }
     .texte{
