@@ -7,9 +7,11 @@
     Message.$inject = ['$resource'];
 
     function Message ($resource) {
-     var resourceUrl =  'messageservice/api/conversations/';
-     var resourceUr2 =  'messageservice/api/conversations/:id/messages';
-     var resourceUr3 =  'messageservice/api/conversations/:conversationId/messages';
+       var resourceUrl =  'messageservice/api/conversations/';
+       var resourceUr2 =  'messageservice/api/conversations/:id/messages';
+       var resourceUr3 =  'messageservice/api/conversations/:conversationId/messages';
+       var resourceUr4 =  'userservice/api/account';
+       var resourceUr5 =  'messageservice/api/conversations/:id';
 /*       var resourceUrl2 =  'disasterservice/api/disasters/:id';
        var resourceUrl3 =  'disasterservice/api/action-objects/:id';
        var resourceUrl4 =  'disasterservice/api/categories/:id';
@@ -48,6 +50,36 @@
             'delete':{ method:'DELETE'}
         }),
         newmessage: $resource(resourceUr3, {}, {
+            'query': {cache: true, method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'update': { method:'PUT' },
+            'save': { method:'POST' },
+            'delete':{ method:'DELETE'}
+        }),
+        user: $resource(resourceUr4, {}, {
+            'query': {cache: true, method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'update': { method:'PUT' },
+            'save': { method:'POST' },
+            'delete':{ method:'DELETE'}
+        }),
+        delete: $resource(resourceUr5, {}, {
             'query': {cache: true, method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

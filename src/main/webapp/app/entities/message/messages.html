@@ -3,7 +3,7 @@
     <h2><span>Your Matches</span></h2>
     <span flex></span>
     <md-button ng-disabled="true" class="md-icon-button" style="background-color: rgba(15, 15, 15, 0.4); border-radius: 50%; color: white;">
-      <span>{{ conversation.length }}</span>
+      <span>{{ conversations.length }}</span>
     </md-button>
   </div>
 </md-toolbar>
@@ -13,27 +13,23 @@
 <div class="md-whiteframe-3dp">
   <md-list flex style="padding:0px">
     <md-list-item class="md-2-line" ng-repeat="conversation in conversations" layout="row" ng-click="showCon($index,conversation.id)">
-      <!--   <img ng-src={{conversation.other.avatar}} class="md-avatar" alt="{{conversation.other.username}}" /> -->
       <div class="md-list-item-text">
         <h3 style="margin:50px;padding:10px">Match mit {{conversation.id}}</h3>
-        <md-button class="md-secondary md-icon-button"  ng-show="!this['selectedItem_' + $index]" ng-click="delFromArray(item)"  aria-label="call">
+        <md-button class="md-secondary md-icon-button"  ng-show="!this['selectedItem_' + $index]" ng-click="delFromArray(conversation.id)"  aria-label="call">
           <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
         </md-button>
 
         <div ng-show="this['selectedItem_' + $index]" >
-          <md-virtual-repeat-container style="min-height:500px; max-height:500px;margin:20px;padding:10px">
+          <md-virtual-repeat-container style="min-height:500px; max-height:500px;margin:20px;padding:10px" md-top-index="$index" >
 
 
-            <md-grid-list ng-repeat="message in messages" md-cols-xs="1" md-cols-sm="1" md-cols-md="8" md-cols-gt-md="8" md-row-height-gt-md="fit" md-row-height="fit" md-gutter="50px" md-gutter-gt-sm="100px" style="height:100px;">
+            <md-grid-list ng-repeat="message in this['messages'+ $index]" md-cols-xs="1" md-cols-sm="1" md-cols-md="8" md-cols-gt-md="8" md-row-height-gt-md="fit" md-row-height="fit" md-gutter="50px" md-gutter-gt-sm="100px" style="height:100px;">
 
-             <md-grid-tile md-rowspan="0" md-colspan="4" md-colspan-sm="0" md-colspan-xs="0" ng-if="message.user==1">
-             </md-grid-tile>
-
-             <md-grid-tile style="background-color:lightblue;text-align:right;" class="gray" md-rowspan="2" md-colspan="4"  md-rowspan-sm="100%" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%" ng-if="message.user==1" layout="row">
+             <md-grid-tile style="background-color:lightblue;text-align:right;" class="gray" md-rowspan="2" md-colspan="4"  md-rowspan-sm="100%" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%" ng-if="message.messageUser==User.login" layout="row">
 
               <div layout="column" style="margin:15px" flex>
                 <div> 
-                  <h7><p >{{  message.user }} - {{  message.date }}</p></h7>
+                  <h7><p >{{  message.messageUser }} - {{  message.messageDate | limitTo:numLimit }}</p></h7>
                 </div>
                 <div> 
                   <h7><p>{{  message.messageText}}</p></h7>
@@ -42,12 +38,19 @@
 
             </md-grid-tile>
 
+            <md-grid-tile md-rowspan="0" md-colspan="4" md-colspan-sm="0" md-colspan-xs="0" ng-if="message.messageUser==User.login">
+            </md-grid-tile>
 
-            <md-grid-tile style="background-color:lightgreen" class="gray" md-rowspan="2" md-colspan="4" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%"  md-rowspan-sm="100%" ng-if="message.user==2">
+
+            <md-grid-tile md-rowspan="0" md-colspan="4" md-colspan-sm="0" md-colspan-xs="0" ng-if="message.messageUser!=User.login" >
+            </md-grid-tile>
+
+
+            <md-grid-tile style="background-color:lightgreen" class="gray" md-rowspan="2" md-colspan="4" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%"  md-rowspan-sm="100%" ng-if="message.messageUser!=User.login">
 
               <div layout="column" style="margin:15px" flex>
                 <div> 
-                  <h7 style="font-size:1.5vw"><p>{{  message.user }} - {{  message.date }}</p></h7>
+                  <h7 style="font-size:1.5vw"><p>{{  message.messageUser }} - {{  message.messageDate  | limitTo:numLimit}}</p></h7>
                 </div>
                 <div> 
                   <h7 style="font-size:1.5vw"><p>{{  message.messageText}}</p></h7>
@@ -55,8 +58,7 @@
               </div>  
 
             </md-grid-tile>
-            <md-grid-tile md-rowspan="0" md-colspan="4" md-colspan-sm="0" md-colspan-xs="0" ng-if="message.user==2" >
-            </md-grid-tile>
+
             <div style="margin-bottom: 5px;"></div>
           </md-grid-list>
 
@@ -66,9 +68,9 @@
         <div layout="row" style="padding-top:50px">
           <md-input-container class="md-block" flex>
             <label>Antworten</label>
-            <textarea ng-model="messageText.text"  md-maxlength="65" rows="5" md-select-on-focus></textarea>
+            <textarea ng-model="message.messageText"  md-maxlength="65" rows="5" md-select-on-focus></textarea>
           </md-input-container>
-          <md-button class="md-icon-button" ng-click="send(conversation.id)"  aria-label="Send">
+          <md-button class="md-icon-button" ng-click="send(conversation.id,$index)"  aria-label="Send">
             <md-icon md-svg-icon="content/images/plane.svg"></md-icon>
           </md-button>
         </div>

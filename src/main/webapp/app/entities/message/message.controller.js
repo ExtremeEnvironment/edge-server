@@ -5,9 +5,9 @@
     .module('edgeServerApp')
     .controller('MessageController', MessageController);
 
-    MessageController.$inject = ['$scope', '$state', 'Message'];
+    MessageController.$inject = ['$scope', '$state', 'Message','$mdDialog', '$mdMedia',];
 
-    function MessageController ($scope, $state, Message) {
+    function MessageController ($scope, $state, Message, $mdDialog, $mdMedia) {
       var vm = this;
 
 
@@ -16,188 +16,86 @@
 
       $scope.conversations=[];
       $scope.messages=[];
+      $scope.User;
+      $scope.numLimit = 10;
 
-      $scope.message={
-        id : 3,
-        messageText : "",
-        user:{
-        id:2,
-        userId:4,
-        username:"user"
-        },
-        conversation:{
-        id:33,
-        active:true,
-        title: "Testkonversation"
-        }};
+      $scope.message={messageText : null};
 
-       /* $scope.messageText="Hallo";*/
+      function loadAll() {
+        Message.conversations.query(function(result) {
+          result.forEach(function (argument) {
+            $scope.conversations.push(argument);
+            console.log(argument)
+          })
+        });
+        Message.user.get(function(result) {
+          $scope.User = result;
+          console.log(result)
+        });
+      }
 
-        function loadAll() {
-          Message.conversations.query(function(result) {
-            result.forEach(function (argument) {
-              $scope.conversations.push(argument);
-              console.log(argument)
-            })
-          });
-        }
+      function loadMessages (argument,index) {
+        Message.messages.query({id:argument},function(result) {
+          result.forEach(function (argument) {
+            $scope['messages'+ index].push(argument);
+            console.log(argument)
+          })
+        });
+      }
 
-        function loadMessages (argument) {
-          Message.messages.query({id:argument},function(result) {
-            //console.log(result)
-            result.forEach(function (argument) {
-              $scope.messages.push(argument);
-              console.log(argument)
-            })
-          });
-        }
-
-        $scope.showCon = function (index,id) {
-          console.log(id)
-          loadMessages(id);
-          $scope['selectedItem_'+ index];
-          if($scope['selectedItem_'+ index] == true)
-          {
-           $scope['selectedItem_'+ index] = false;
-         }else {
+      $scope.showCon = function (index,id) {
+        $scope['selectedItem_'+ index];
+        $scope['messages'+ index]=[];
+        if($scope['selectedItem_'+ index] == true)
+        {
+          $scope['messages'+ index]=[];
+          $scope['selectedItem_'+ index] = false;
+        }else {
+          loadMessages(id,index);
           $scope['selectedItem_'+ index] = true;
         }
       }
-
-      $scope.send =  function (argument) {
-        console.log($scope.messageText)
-        console.log(argument)
-        Message.newmessage.save({conversationId:argument},$scope.message);
+      $scope.delFromArray = function (argument) {
+        showAlert("Sicher das sie das Match löschen wollen?","Auch ihr Match wird gelöscht!")
       }
 
-      /*--------------------------------------------------------------STUFF---------------------------------------------------*/
+      $scope.send =  function (argument,index) {
+        if ($scope.message.messageText==null) {
+          showAlert2("Bitte eine Nachricht eingeben")
+        } else {
+         $scope['messages'+ index].push({messageText: $scope.message.messageText, messageUser:  $scope.User.login , messageDate: new Date()});
+         Message.newmessage.save({conversationId:argument},$scope.message);         
+       }
 
-      $scope.conversation =  [
-      {
-        id: 1,
-        active: true,
-        title : "",
-        createdAt : "20-03-2016",
-        members : [
-        {
-         id : 1,
-         userName : "admin", //der admin use
-         resource : "http://user-service/api/users/1"
-       },
-       {
-         id : 2,
-         userName : "user", //der admin use
-         resource : "http://user-service/api/users/2"
-       }
-       ],
-       messages : [
-       {
-         messageText: "moin moin",
-         user: 1,
-       },
-       {
-        messageText: "ich admin, du nix was los? nix und bei dir? was los? nix und halloa",
-        user: 1,
-      },
-      {
-        messageText: "was los? nix und bei dir?",
-        user: 2,
-      },
-      {
-       messageText: "ich admin, du nix",
-       user: 1,
      }
-     ]
-   },
-   {
-    id: 2,
-    active: true,
-    title : "",
-    createdAt : "20-03-2016",
-    members : [
-    {
-     id : 1,
-         userName : "admin", //der admin use
-         resource : "http://user-service/api/users/1"
-       },
-       {
-         id : 2,
-         userName : "user", //der admin use
-         resource : "http://user-service/api/users/2"
-       }
-       ],
-       messages : [
-       {
-         messageText: "moin moin",
-         user: 1,
-       },
-       {
-         messageText: "was los?",
-         user: 2,
-       },
-       {
-         messageText: "ich admin, du nix",
-         user: 1,
-       },
-       {
-         messageText: "moin moin",
-         user: 1,
-       },
-       {
-         messageText: "was los?",
-         user: 2,
-       },
-       {
-         messageText: "ich admin, du nix",
-         user: 1,
-       },
-       {
-         messageText: "moin moin",
-         user: 1,
-       },
-       {
-         messageText: "was los?",
-         user: 2,
-       },
-       {
-         messageText: "ich admin, du nix",
-         user: 1,
-       }    
-       ]
-     },
-     {
-      id: 3,
-      active: true,
-      title : "",
-      createdAt : "20-03-2016",
-      members : [
-      {
-       id : 1,
-         userName : "admin", //der admin use
-         resource : "http://user-service/api/users/1"
-       },
-       {
-         id : 2,
-         userName : "user", //der admin use
-         resource : "http://user-service/api/users/2"
-       }
-       ],
-       messages : [
-       {
-         messageText: "moin moin",
-         user: 1,
-       },
-       {
-         messageText: "was los?",
-         user: 2,
-       },
-       {
-         messageText: "ich admin, du nix",
-         user: 1,
-       }
-       ]
-     }
-     ]
 
-   }
- })();
+     /*--------------------------------------------------------------STUFF---------------------------------------------------*/
+
+     function showAlert(erste,zweite) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+    .title(erste)
+    .textContent(zweite)
+    .targetEvent()
+    .ok('Nein')
+    .cancel('Ja');
+    $mdDialog.show(confirm).then(function() {
+      console.log('NEIN')
+    }, function() {
+     Message.delete.delete({id:argument});
+   });
+  };
+
+  function showAlert2(text){
+    $mdDialog.show(
+      $mdDialog.alert()
+      .parent(angular.element(document.querySelector('#popupContainer')))
+      .clickOutsideToClose(true)
+      .title(text)
+      .ok('Ok')
+      .targetEvent()
+      );
+  };
+  
+}
+})();
