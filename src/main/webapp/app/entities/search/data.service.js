@@ -15,6 +15,7 @@
         var resourceUrl5 =  'disasterservice/api/action-objects/topten/:id';
         var resourceUrl6 = 'disasterservice/api/disaster-types/';
         var resourceUr2 = 'userservice/api/ngos/:ngoId/:userId';
+        var resourceUr4 =  'userservice/api/account';
 
         return {
             disastertype: $resource(resourceUrl6, {}, {
@@ -122,6 +123,22 @@
                         return data;
                     }
                 }
+            })
+            ,
+            user: $resource(resourceUr4, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
+                    }
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
             })
         };
     }

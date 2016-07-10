@@ -15,11 +15,12 @@
 
     $scope.selectedItem;
     $scope.selected = true;
+    $scope.User
 
     loadAll();
 
 
-    /*-----------------------------------Load Data------------------------------------------------------------------*/
+    /*-----------------------------------Load Data----------------------------------&& $scope.User.login==item.user--------------------------------*/
 
 
     function loadAll() {
@@ -30,6 +31,10 @@
             $scope.offers.push(item);
           }
         })
+      });
+      Data.user.get(function(result) {
+        $scope.User = result;
+        console.log(result)
       });
     }
 

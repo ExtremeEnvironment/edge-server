@@ -16,6 +16,7 @@
     $scope.allObjects=[];
     $scope.allCategories=[];
     $scope.SingleItem=null;
+    $scope.User;
 
     $scope.itemToDB={
       actionObjects: [],
@@ -23,7 +24,7 @@
       isExpired : null,
       lat :34.03,
       lon : 34.05,
-      user: null
+      user:  $scope.User
     };
 
     /*------------------------------------Query Search looks for items in itemlist-------------------------------------------*/
@@ -70,6 +71,8 @@
 
     $scope.pushToArray = function (item){  
       $scope.SingleItem = item;
+      console.log($scope.User)
+      //$scope.itemToDB.user = $scope.User;
     };
 
     $scope.delFromArray = function (item){  
@@ -78,6 +81,7 @@
 
 
    $scope.writeDB = function (){
+    console.log($scope.itemToDB)
     $scope.itemToDB.actionObjects.push($scope.SingleItem),
     Data.action.save($scope.itemToDB);
   }
@@ -110,6 +114,10 @@
       $scope.allCategories.push(item)
     })
    })
+    Data.user.get(function(result) {
+      $scope.User = result;
+      console.log(result)
+    })
     return def.promise;
   }
 
