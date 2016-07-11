@@ -40,15 +40,6 @@
 
     /*---------------------------------------------Modify items in the system-------------------------------------------*/
 
-    $scope.delFromArray = function (item){ 
-      console.log(item.id) 
-      $scope.offers.forEach( function(entry) {
-        if (item===entry) {
-          $scope.offers.splice( $scope.offers.indexOf(item), 1);
-        }})
-      Data.action.delete({id :item.id});
-    };
-
     $scope.delFromArray = function (argument) {
       showAlert("Sicher das sie das Angebot löschen wollen?",argument)
     }
