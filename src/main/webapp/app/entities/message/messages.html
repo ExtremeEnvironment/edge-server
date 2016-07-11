@@ -20,16 +20,15 @@
         </md-button>
 
         <div ng-show="this['selectedItem_' + $index]" >
-          <md-virtual-repeat-container style="min-height:500px; max-height:500px;margin:20px;padding:10px" md-top-index="5" >
+          <md-virtual-repeat-container style="min-height:500px; max-height:500px;margin:20px;padding:10px"  md-top-index="top" >
 
+            <md-grid-list md-virtual-repeat="message in this['messages'+ $index]" md-cols-xs="1" md-cols-sm="1" md-cols-md="8" md-cols-gt-md="8" md-row-height-gt-md="fit" md-row-height="fit" md-gutter="50px" md-gutter-gt-sm="100px" style="height:100px;">
 
-            <md-grid-list ng-repeat="message in this['messages'+ $index]" md-cols-xs="1" md-cols-sm="1" md-cols-md="8" md-cols-gt-md="8" md-row-height-gt-md="fit" md-row-height="fit" md-gutter="50px" md-gutter-gt-sm="100px" style="height:100px;">
-
-             <md-grid-tile style="background-color:lightblue;text-align:right;" class="gray" md-rowspan="2" md-colspan="4"  md-rowspan-sm="100%" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%" ng-if="message.messageUser==User.login" layout="row">
+             <md-grid-tile style="background-color:lightblue;text-align:right;" class="gray" md-rowspan="2" md-colspan="4"  md-rowspan-sm="100%" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%" ng-if="message.messageUser==User.login" layout="row" >
 
               <div layout="column" style="margin:15px" flex>
                 <div> 
-                  <h7><p >{{  message.messageUser }} - {{  message.messageDate | limitTo:numLimit }}</p></h7>
+                  <h7><p >{{  message.messageUser }} - {{  message.messageDate | limitTo:numLimit }} </p></h7>
                 </div>
                 <div> 
                   <h7><p>{{  message.messageText}}</p></h7>
@@ -38,7 +37,7 @@
 
             </md-grid-tile>
 
-            <md-grid-tile md-rowspan="0" md-colspan="4" md-colspan-sm="0" md-colspan-xs="0" ng-if="message.messageUser==User.login">
+            <md-grid-tile md-rowspan="0" md-colspan="4" md-colspan-sm="0" md-colspan-xs="0"" ng-if="message.messageUser==User.login">
             </md-grid-tile>
 
 
@@ -50,7 +49,7 @@
 
               <div layout="column" style="margin:15px" flex>
                 <div> 
-                  <h7 style="font-size:1.5vw"><p>{{  message.messageUser }} - {{  message.messageDate  | limitTo:numLimit}}</p></h7>
+                  <h7 style="font-size:1.5vw"><p>{{  message.messageUser }} - {{  message.messageDate  | limitTo:numLimit}} </p></h7>
                 </div>
                 <div> 
                   <h7 style="font-size:1.5vw"><p>{{  message.messageText}}</p></h7>
