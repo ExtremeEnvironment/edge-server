@@ -14,6 +14,8 @@
         var resourceUrl4 =  'disasterservice/api/categories/:id';
         var resourceUrl5 =  'disasterservice/api/action-objects/topten/:id';
         var resourceUrl6 = 'disasterservice/api/disaster-types/';
+        var resourceUrlHeat =  'disasterservice/api//disasters/:id/heatmap';
+
 
         return {
             disastertype: $resource(resourceUrl6, {}, {
@@ -106,7 +108,24 @@
                         return data;
                     }
                 }
+            }),
+            actionHeatMap: $resource(resourceUrlHeat, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
+                    }
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
             })
-        };
+
+        }
+
     }
 })();
