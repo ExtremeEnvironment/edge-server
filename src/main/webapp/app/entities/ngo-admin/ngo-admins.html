@@ -1,0 +1,68 @@
+<div>
+    <h2 translate="edgeServerApp.ngoAdmin.home.title">Ngo Admins</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="ngo-admin.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  translate="edgeServerApp.ngoAdmin.home.createLabel">
+                        Create new Ngo Admin
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="edgeServerApp.ngoAdmin.name">Name</span></th>
+                    <th><span translate="edgeServerApp.ngoAdmin.user">User</span></th>
+                    <th><span translate="edgeServerApp.ngoAdmin.admins">Admins</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ngoAdmin in vm.ngoAdmins track by ngoAdmin.id">
+                    <td><a ui-sref="ngo-admin-detail({id:ngoAdmin.id})">{{ngoAdmin.id}}</a></td>
+                    <td>{{ngoAdmin.name}}</td>
+                    <td>
+                        <span ng-repeat="user in ngoAdmin.users">
+                            {{user.firstName}}{{$last ? '' : ', '}}
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-repeat="admins in ngoAdmin.admins">
+                            {{admins.firstName}}{{$last ? '' : ', '}}
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="ngo-admin-detail({id:ngoAdmin.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="ngo-admin.edit({id:ngoAdmin.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="ngo-admin.delete({id:ngoAdmin.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

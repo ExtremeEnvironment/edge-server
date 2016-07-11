@@ -1,0 +1,24 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "disaster",
+            "otherEntityName": "disaster",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "disasterType"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160603162818",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "disaster_type",
+    "pagination": "no",
+    "microserviceName": "DisasterService",
+    "searchEngine": "no"
+}

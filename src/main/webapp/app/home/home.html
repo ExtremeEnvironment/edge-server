@@ -1,4 +1,4 @@
-<div ng-cloak>
+<div ng-cloak  data-ng-init="disasterHeatMapData()">
   <div class="row">
     <div class="col-md-12">
       <h1 style="font-size:5vw" align="center" translate="home.title" >Welcome!!!</h1>
@@ -17,11 +17,14 @@
           <md-grid-tile class="gray" md-rowspan="2" md-colspan="1"  md-rowspan-sm="100%" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%">
 
             <div layout="column" style="margin:15px" flex>
+
               <a class="dashboard-link" ui-sref="give"  >      
+
+            
                 <i class="material-icons dashboard-icons  ">card_giftcard</i>
                 <span class="dashboard-text">Anbieten</span>
               </a>
-            </div> 
+            </div>
 
           </md-grid-tile>
 
@@ -32,7 +35,7 @@
                 <i class="material-icons dashboard-icons">search</i>
                 <span class="dashboard-text">Suchen</span>
               </a>
-            </div> 
+            </div>
 
           </md-grid-tile>
 
@@ -44,7 +47,7 @@
                 <i class="material-icons dashboard-icons">warning</i>
                 <span class="dashboard-text">Katastrophe melden</span>
               </a>
-            </div>  
+            </div>
 
             <div style="margin-bottom: 5px;"></div>
           </md-grid-list>
@@ -75,15 +78,15 @@
             </md-list>
           </md-content>
 
-          <div>  
+          <div>
             <div id="controllerMaps" class="btn-group">
               <label class="btn btn-default" ng-model="radioModel" ng-click='allHeatMapData()'>All</label>
               <label class="btn btn-default" ng-model="radioModel" ng-click='disasterHeatMapData()'>Disaster</label>
               <label class="btn btn-default" ng-model="radioModel" ng-click='offerHeatMapData()'>Offer</label>
             </div>
-            <div id="map"></div>  
+            <div id="map"></div>
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </div>

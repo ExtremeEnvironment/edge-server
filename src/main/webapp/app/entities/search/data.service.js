@@ -17,6 +17,7 @@
         var resourceUr2 = 'userservice/api/ngos/:ngoId/:userId';
         var resourceUr4 =  'userservice/api/account';
 
+        var resourceUrlHeat =  'disasterservice/api//disasters/:id/heatmap';
         return {
             disastertype: $resource(resourceUrl6, {}, {
                 'query': {cache: true, method: 'GET', isArray: true},
@@ -123,7 +124,23 @@
                         return data;
                     }
                 }
+            }),
+            actionHeatMap: $resource(resourceUrlHeat, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
+                    }
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
             })
+
             ,
             user: $resource(resourceUr4, {}, {
                 'query': {cache: true, method: 'GET', isArray: true},
@@ -141,5 +158,6 @@
                 'delete':{ method:'DELETE'}
             })
         };
+
     }
 })();

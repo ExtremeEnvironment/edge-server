@@ -1,0 +1,23 @@
+{
+    "edgeServerApp": {
+        "disasterTypeAdmin" : {
+            "home": {
+                "title": "Disaster Type Admins",
+                "createLabel": "Create a new Disaster Type Admin",
+                "createOrEditLabel": "Create or edit a Disaster Type Admin",
+                "search": "Search for Disaster Type Admin"
+            },
+            "created": "A new Disaster Type Admin is created with identifier {{ param }}",
+            "updated": "A Disaster Type Admin is updated with identifier {{ param }}",
+            "deleted": "A Disaster Type Admin is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Disaster Type Admin {{ id }}?"
+            },
+            "detail": {
+                "title": "Disaster Type Admin"
+            },
+            "name": "Name",
+            "disaster": "Disaster"
+        }
+    }
+}

@@ -24,26 +24,21 @@ module.exports = function (config) {
         files: [
             // bower:js
             'src/main/webapp/bower_components/jquery/dist/jquery.js',
-            'src/main/webapp/bower_components/lodash/lodash.js',
-            'src/main/webapp/bower_components/markerclustererplus/src/markerclusterer.js',
-            'src/main/webapp/bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js',
-            'src/main/webapp/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js',
-            'src/main/webapp/bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js',
-            'src/main/webapp/bower_components/js-rich-marker/src/richmarker.js',
             'src/main/webapp/bower_components/messageformat/messageformat.js',
             'src/main/webapp/bower_components/bootstrap/dist/js/bootstrap.js',
             'src/main/webapp/bower_components/json3/lib/json3.js',
+            'src/main/webapp/bower_components/lodash/lodash.js',
             'src/main/webapp/bower_components/angular/angular.js',
             'src/main/webapp/bower_components/angular-aria/angular-aria.js',
             'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/main/webapp/bower_components/angular-cache-buster/angular-cache-buster.js',
             'src/main/webapp/bower_components/angular-cookies/angular-cookies.js',
             'src/main/webapp/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
-            'src/main/webapp/bower_components/angular-simple-logger/dist/angular-simple-logger.js',
             'src/main/webapp/bower_components/ngstorage/ngStorage.js',
             'src/main/webapp/bower_components/angular-loading-bar/build/loading-bar.js',
             'src/main/webapp/bower_components/angular-resource/angular-resource.js',
             'src/main/webapp/bower_components/angular-sanitize/angular-sanitize.js',
+            'src/main/webapp/bower_components/angular-simple-logger/dist/angular-simple-logger.js',
             'src/main/webapp/bower_components/angular-translate/angular-translate.js',
             'src/main/webapp/bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
             'src/main/webapp/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
@@ -53,7 +48,6 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/ng-file-upload/ng-file-upload.js',
             'src/main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
             'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
-            'src/main/webapp/bower_components/angular-google-maps/dist/angular-google-maps.js',
             // endbower
             'src/main/webapp/app/app.module.js',
             'src/main/webapp/app/app.state.js',
@@ -75,12 +69,12 @@ module.exports = function (config) {
         reporters: ['dots', 'jenkins', 'coverage', 'progress'],
 
         jenkinsReporter: {
-            
+
             outputFile: 'build/test-results/karma/TESTS-results.xml'
         },
 
         coverageReporter: {
-            
+
             dir: 'build/test-results/coverage',
             reporters: [
                 {type: 'lcov', subdir: 'report-lcov'}

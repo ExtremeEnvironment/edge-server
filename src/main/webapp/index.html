@@ -1,26 +1,28 @@
-<!doctype html>
-<html class="no-js">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>EdgeServer</title>
-    <meta name="description" content="">
-    <meta name="google" value="notranslate">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css content/css/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
-    <!-- endinject -->
-    <link rel="stylesheet" href="content/css/vendor.css">
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- endbuild -->
-    <!-- build:css content/css/main.css -->
-    <link rel="stylesheet" href="content/css/main.css"> 
-    <!-- endbuild -->
-</head>
-<body ng-app="edgeServerApp" ng-strict-di>
+
+    <!doctype html>
+    <html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EdgeServer</title>
+        <meta name="description" content="">
+        <meta name="google" value="notranslate">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css content/css/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+        <!-- endinject -->
+        <link rel="stylesheet" href="content/css/vendor.css">
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <!-- endbuild -->
+        <!-- build:css content/css/main.css -->
+        <link rel="stylesheet" href="content/css/main.css">
+        <!-- endbuild -->
+    </head>
+    <body ng-app="edgeServerApp" ng-strict-di>
+
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -44,13 +46,12 @@
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
         ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
-    
 
-</head>
-<body>
+
+
 
     <!-- Angular Material Dependencies -->
-    
+
 
     <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSgofziSyw-9VBAcaU_94dxYUrCK2gzjQ&libraries=visualization&sensor=true"></script>
@@ -58,12 +59,6 @@
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/markerclustererplus/src/markerclusterer.js"></script>
-    <script src="bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js"></script>
-    <script src="bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js"></script>
-    <script src="bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js"></script>
-    <script src="bower_components/js-rich-marker/src/richmarker.js"></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
@@ -78,6 +73,7 @@
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
     <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
@@ -86,7 +82,6 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
-    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
@@ -137,6 +132,13 @@
     <script src="app/entities/offers/offers.state.js"></script>
     <script src="app/entities/offers/offers.service.js"></script>
     <script src="app/entities/offers/offers.controller.js"></script>
+
+    <script src="app/entities/ngo-admin/ngo-admin-dialog.controller.js"></script>
+    <script src="app/entities/ngo-admin/ngo-admin-detail.controller.js"></script>
+    <script src="app/entities/ngo-admin/ngo-admin-delete-dialog.controller.js"></script>
+    <script src="app/entities/ngo-admin/ngo-admin.state.js"></script>
+    <script src="app/entities/ngo-admin/ngo-admin.service.js"></script>
+    <script src="app/entities/ngo-admin/ngo-admin.controller.js"></script>
     <script src="app/entities/ngo/ngo-dialog.controller.js"></script>
     <script src="app/entities/ngo/ngo-detail.controller.js"></script>
     <script src="app/entities/ngo/ngo-delete-dialog.controller.js"></script>
@@ -161,12 +163,48 @@
     <script src="app/entities/give/give.state.js"></script>
     <script src="app/entities/give/give.service.js"></script>
     <script src="app/entities/give/give.controller.js"></script>
+    <script src="app/entities/disaster-type-admin/disaster-type-admin-dialog.controller.js"></script>
+    <script src="app/entities/disaster-type-admin/disaster-type-admin-detail.controller.js"></script>
+    <script src="app/entities/disaster-type-admin/disaster-type-admin-delete-dialog.controller.js"></script>
+    <script src="app/entities/disaster-type-admin/disaster-type-admin.state.js"></script>
+    <script src="app/entities/disaster-type-admin/disaster-type-admin.service.js"></script>
+    <script src="app/entities/disaster-type-admin/disaster-type-admin.controller.js"></script>
     <script src="app/entities/disaster/disaster-dialog.controller.js"></script>
     <script src="app/entities/disaster/disaster-detail.controller.js"></script>
     <script src="app/entities/disaster/disaster-delete-dialog.controller.js"></script>
     <script src="app/entities/disaster/disaster.state.js"></script>
     <script src="app/entities/disaster/disaster.service.js"></script>
     <script src="app/entities/disaster/disaster.controller.js"></script>
+    <script src="app/entities/category-admin/category-admin-dialog.controller.js"></script>
+    <script src="app/entities/category-admin/category-admin-detail.controller.js"></script>
+    <script src="app/entities/category-admin/category-admin-delete-dialog.controller.js"></script>
+    <script src="app/entities/category-admin/category-admin.state.js"></script>
+    <script src="app/entities/category-admin/category-admin.service.js"></script>
+    <script src="app/entities/category-admin/category-admin.controller.js"></script>
+    <script src="app/entities/category/category-dialog.controller.js"></script>
+    <script src="app/entities/category/category-detail.controller.js"></script>
+    <script src="app/entities/category/category-delete-dialog.controller.js"></script>
+    <script src="app/entities/category/category.state.js"></script>
+    <script src="app/entities/category/category.service.js"></script>
+    <script src="app/entities/category/category.controller.js"></script>
+    <script src="app/entities/area/area-dialog.controller.js"></script>
+    <script src="app/entities/area/area-detail.controller.js"></script>
+    <script src="app/entities/area/area-delete-dialog.controller.js"></script>
+    <script src="app/entities/area/area.state.js"></script>
+    <script src="app/entities/area/area.service.js"></script>
+    <script src="app/entities/area/area.controller.js"></script>
+    <script src="app/entities/action-object-admin/action-object-admin-dialog.controller.js"></script>
+    <script src="app/entities/action-object-admin/action-object-admin-detail.controller.js"></script>
+    <script src="app/entities/action-object-admin/action-object-admin-delete-dialog.controller.js"></script>
+    <script src="app/entities/action-object-admin/action-object-admin.state.js"></script>
+    <script src="app/entities/action-object-admin/action-object-admin.service.js"></script>
+    <script src="app/entities/action-object-admin/action-object-admin.controller.js"></script>
+    <script src="app/entities/action/action-dialog.controller.js"></script>
+    <script src="app/entities/action/action-detail.controller.js"></script>
+    <script src="app/entities/action/action-delete-dialog.controller.js"></script>
+    <script src="app/entities/action/action.state.js"></script>
+    <script src="app/entities/action/action.service.js"></script>
+    <script src="app/entities/action/action.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>

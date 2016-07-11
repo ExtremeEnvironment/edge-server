@@ -14,6 +14,12 @@
                 "disaster": "Disaster",
                 "newdisaster": "Newdisaster",
                 "offers": "Offers",
+                "action": "Action",
+                "area": "Area",
+                "ngoAdmin": "Ngo Admin",
+                "disasterTypeAdmin": "Disaster Type Admin",
+                "categoryAdmin": "Category Admin",
+                "actionObjectAdmin": "Action Object Admin",
                 "wanted": "Wanted",
                 "ngo": "Ngo",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"

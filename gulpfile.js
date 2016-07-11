@@ -39,7 +39,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('copy', function () {
-    return es.merge( 
+    return es.merge(
         gulp.src(config.app + 'i18n/**')
         .pipe(plumber({errorHandler: handleErrors}))
         .pipe(changed(config.dist + 'i18n/'))
@@ -61,6 +61,8 @@ gulp.task('copy', function () {
         .pipe(gulp.dest(config.dist))
     );
 });
+
+
 
 gulp.task('images', function () {
     return gulp.src(config.app + 'content/images/**')
