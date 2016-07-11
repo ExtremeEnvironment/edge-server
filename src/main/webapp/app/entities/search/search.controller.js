@@ -16,6 +16,8 @@
     $scope.selectedItem;
     $scope.SingleItem=null;
 
+    var dates = new Date();
+
 
     $scope.allObjects=[];
     $scope.allCategories=[];
@@ -27,7 +29,8 @@
     $scope.itemToDB={
       actionObjects: [],
       actionType : "SEEK",
-      disaster : {},
+      disaster : {
+      },
       isExpired : null,
       lat : latitude,
       lon : longitude
@@ -123,19 +126,20 @@
 
 $scope.pushToArray = function (item){  
   $scope.SingleItem = item;
-  $scope.itemToDB.actionObjects.push(item);
 };
 
 $scope.delFromArray = function (item){  
  $scope.SingleItem = null;
 };
 
+
 $scope.writeDB = function (){
   if($scope.selectedItem==null){ 
     showAlert('Sie müssen eine Katastrope wählen');
-  }else if($scope.itemToDB.actionObjects.length==0) {
+  }else if($scope.SingleItem == null) {
     showAlert('Sie müssen ein Item wählen');
   }else{
+    $scope.itemToDB.actionObjects.push($scope.SingleItem),
     Data.action.save($scope.itemToDB);
     $state.go("home");
   }
@@ -143,10 +147,22 @@ $scope.writeDB = function (){
 }
 
 $scope.getSelectedText = function() {
-  if ($scope.selectedItem !== undefined) {
+  if ($scope.selectedItem != undefined) {
     $scope.itemToDB.disaster=$scope.selectedItem;
+    circle2.setOptions({
+      center :  {lat:$scope.selectedItem.lat,lng:$scope.selectedItem.lon}
+    });
+    map.setOptions({
+      center : {lat:$scope.selectedItem.lat,lng:$scope.selectedItem.lon},
+      zoom : 8
+    });
+    circle.setOptions({
+      center :  {lat:$scope.selectedItem.lat,lng:$scope.selectedItem.lon}
+    });
+
+
     console.log($scope.itemToDB)
-    return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
+    return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.date);
   } else {
     return "Wählen sie eine gemeldete Katastrophe:";
   }
@@ -214,6 +230,8 @@ this.infiniteItems = {
 
         var latitude;
         var longitude;
+        var circle;
+        var circle2;
 
         navigator.geolocation.getCurrentPosition(function(position){
           latitude = position.coords.latitude;
@@ -258,12 +276,20 @@ this.infiniteItems = {
 
         });
 
-        var circle = new google.maps.Circle({
+        circle = new google.maps.Circle({
           map: map,
           radius: 50000,  
           fillColor: '#AA0000',
           strokeOpacity: 0.1
         });
+
+        circle2 = new google.maps.Circle({
+          map: map,
+          radius: 100000,  
+          fillColor: '#AA00FF',
+          strokeOpacity: 0
+      //position : {lat:offer.disaster.lat,lng:offer.disaster.lon}
+    });
         circle.bindTo('center', marker, 'position');
 
       };

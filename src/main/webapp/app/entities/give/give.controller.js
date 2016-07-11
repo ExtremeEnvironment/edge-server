@@ -84,11 +84,9 @@
 
       $scope.pushToArray = function (item){  
         $scope.SingleItem = item;
-        console.log($scope.User)
-       //$scope.itemToDB.user = $scope.User;
-     };
+      };
 
-     $scope.delFromArray = function (item){  
+      $scope.delFromArray = function (item){  
        $scope.SingleItem = null;
      };
 

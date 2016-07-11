@@ -8,9 +8,6 @@
     MessageController.$inject = ['$scope', '$state', 'Message','$mdDialog', '$mdMedia','$q', '$timeout'];
 
     function MessageController ($scope, $state, Message, $mdDialog, $mdMedia,$q, $timeout) {
-      var vm = this;
-
-
 
       loadAll();
 

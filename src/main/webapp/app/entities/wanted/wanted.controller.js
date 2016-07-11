@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('WantedController', WantedController);
 
-  WantedController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers'];
+  WantedController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers','$mdDialog', '$mdMedia'];
 
-  function WantedController ( $scope, $state, $timeout, $q, $log, Data , Offers) {
+  function WantedController ( $scope, $state, $timeout, $q, $log, Data , Offers, $mdDialog, $mdMedia) {
 
     $scope.filters = { };
 
@@ -37,14 +37,9 @@
 
 
 
-    $scope.delFromArray = function (item){ 
-      console.log(item.id) 
-      $scope.offers.forEach( function(entry) {
-        if (item===entry) {
-          $scope.offers.splice( $scope.offers.indexOf(item), 1);
-        }})
-      Data.action.delete({id :item.id});
-    };
+    $scope.delFromArray = function (argument) {
+      showAlert("Sicher das sie das Angebot löschen wollen?",argument)
+    }
 
 
     $scope.writeDB = function (){
@@ -54,8 +49,17 @@
 
     $scope.pushToArray = function (offer) {
       $scope.selectedItem = offer;
-      console.log(offer.lat)
-      console.log(offer.lon)
+      console.log(offer.disaster.lat)
+      console.log(offer.disaster.lon)
+      
+
+      circle2.setOptions({
+        radius: 100000,  
+        fillColor: '#AA00FF',
+        strokeOpacity: 0,
+        position : {lat:offer.disaster.lat,lng:offer.disaster.lon}
+      });
+
       marker.setOptions({
         position : {lat:offer.lat,lng:offer.lon}
       });
@@ -64,6 +68,25 @@
         zoom : 8
       })
     }
+    /*-----------------------------------------------------STUFF-----------------------------------------------*/
+
+    function showAlert(erste,argument) {
+
+      var confirm = $mdDialog.confirm()
+      .title(erste)
+      .targetEvent()
+      .ok('Nein')
+      .cancel('Ja');
+      $mdDialog.show(confirm).then(function() {
+        console.log('NEIN')
+      }, function() {
+        $scope.offers.forEach( function(entry) {
+          if (argument===entry) {
+            $scope.offers.splice( $scope.offers.indexOf(argument), 1);
+          }})
+        Data.action.delete({id:argument.id});
+      });
+    };
 
     /*-----------------------------------------------------MAP-----------------------------------------------*/
 
@@ -74,8 +97,9 @@
 
     var latitude;
     var longitude;
-    var circle;
     var marker;
+    var circle;
+    var circle2;
 
     navigator.geolocation.getCurrentPosition(function(position){
       latitude = position.coords.latitude;
@@ -104,6 +128,8 @@ initialize(position.coords);
 
 
     google.maps.event.addListener(marker, 'dragend', function(evt){
+      console.log(evt.latLng.lat())
+      console.log(evt.latLng.lng())
       $scope.selectedItem.lat = marker.position.lat();
       $scope.selectedItem.lon = marker.position.lng();
 
@@ -118,13 +144,23 @@ initialize(position.coords);
 
     circle = new google.maps.Circle({
       map: map,
-      radius: 50000,  
-      fillColor: '#66ff66',
-      strokeOpacity: 0.1
+      radius: 25000,  
+      fillColor: '#AA0000',
+      strokeOpacity: 0
 
     });
 
+    circle2 = new google.maps.Circle({
+      map: map,
+      radius: 100000,  
+      fillColor: '#AA00FF',
+      strokeOpacity: 0,
+      center :  {lat:55,lng:55}
+    });
+
+
     circle.bindTo('center', marker, 'position');
+    
 
   };
 }

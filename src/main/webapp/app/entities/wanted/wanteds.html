@@ -1,5 +1,5 @@
 <div layout="column" ng-show="offers.length==0">
-<h1 class="texte">Sie haben keine Gesuche</h1>
+  <h1 class="texte">Sie haben keine Gesuche</h1>
 </div>
 
 <div layout="column" ng-show="offers.length!=0">
@@ -18,9 +18,9 @@
     <table class="friends">
       <tr>
        <th>
-        <div class="md-no-sticky tabellen" flex>Ort</div>
-      </th>
-      <th>
+         <div class="md-no-sticky tabellen" flex>Disaster</div>
+       </th>
+       <th>
         <div class="md-no-sticky" flex>Items</div>
       </th>
       <th>
@@ -29,11 +29,11 @@
       <th></th>
     </tr>
     <tr ng-repeat="offer in offers | orderBy:propertyName:reverse | filter:filters" ng-click="pushToArray(offer)">
-      <td >{{offer.location}}</td>
+      <td >{{offer.disaster.title}}</td>
       <td>
         <div ng-repeat="offery in offer.actionObjects">{{offery.name}}</div>
       </td>
-      <td class="tabellen">{{offer.date}}</td>
+      <td class="tabellen">{{offer.disaster.date}}</td>
       <td>
         <md-button class="md-icon-button" ng-click="delFromArray(offer)" aria-label="call">
           <md-icon md-svg-icon="content/images/clear.svg"></md-icon>

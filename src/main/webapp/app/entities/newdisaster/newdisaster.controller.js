@@ -98,6 +98,7 @@
           });
 
           map.setOptions({
+            center : {lat:latitude,lng:longitude},
             zoom: 12
           });
 
@@ -110,6 +111,7 @@
           });
 
           map.setOptions({
+            center : {lat:latitude,lng:longitude},
             zoom: 8
           });
 
@@ -138,7 +140,7 @@
       function initialize(coords) {
        var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
        var myOptions = {
-        zoom: 8,
+        zoom: 12,
         center: latlng,
         layerId: '06673056454046135537-08896501997766553811'
       };
