@@ -11,6 +11,7 @@
     var vm = this;
 
     $scope.disasters=[];
+    $scope.heatMapPoints=[];
 
     vm.account = null;
     vm.isAuthenticated = null;
@@ -19,6 +20,8 @@
     $scope.$on('authenticationSuccess', function() {
       getAccount();
     });
+
+
 
     getAccount();
 
@@ -51,7 +54,7 @@
       var map;
       var markers = [];
 
-      navigator.geolocation.getCurrentPosition(function(position){ 
+      navigator.geolocation.getCurrentPosition(function(position){
         initialize(position.coords);
       }, function(){
         var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
@@ -71,16 +74,16 @@
 
            //create the heatmap
            heatmap = new google.maps.visualization.HeatmapLayer({
-            data: getHeatMapPoints(),
+            data: $scope.heatMapPoints,
             map: map,
             radius: 65,
           });
-
+          $scope.heatMapPoints = [];
 
      //listener for zoom
      google.maps.event.addListener(map, 'zoom_changed', function(event) {
        changeZoom(map.getZoom());
-     });     
+     });
 
    };
 
@@ -171,13 +174,15 @@ function removeMarker(){
 }
 
 
+
+
 //sets the points
-$scope.allHeatMapData = function(){
-  heatmap.setData(getHeatMapPoints());
-}
+
 
 $scope.disasterHeatMapData = function(){
-  heatmap.setData(heatMapDisasterData);
+
+    $scope.loadHeatMap();
+    console.log($scope.heatMapPoints);
 }
 
 $scope.offerHeatMapData = function(){
@@ -227,18 +232,37 @@ function writeAddressName(latLng) {
 
 
 //load special disaster
-$scope.loadDisaster = function(id){
-  var disaster;
-  var coords ;
+$scope.loadDisaster= function(id){
+  var coords;
   $scope.disasters.forEach(function (argument) {
-    if(argument.id==id){
-      console.log(argument.lat,argument.lon)
-      coords = [{location: new google.maps.LatLng(argument.lat, argument.lon), weight: 5}]
-    }
-  })
-  heatmap.setData(coords);
-  map.panTo(coords[0].location);
-}
+      if (argument.id == id) {
+          coords = ({location: new google.maps.LatLng(argument.lat, argument.lon), weight: 5});
+          console.log(argument.lat, argument.lon);
+
+      }
+  });
+    heatmap.setData(coords);
+    map.panTo(coords[0].location);
+};
+
+$scope.loadDisasterHeatMap= function(id){
+
+    Data.actionHeatMap.query({id : id},function(result){
+        result.forEach(function (action){
+            console.log(action.lat,action.lon);
+        $scope.heatMapPoints.push({location: new google.maps.LatLng(action.lat, action.lon), weight : 1});
+            })});
+
+      };
+
+$scope.loadHeatMap = function(){
+
+    Data.disaster.query(function(result){
+        result.forEach(function(disaster){
+       $scope.heatMapPoints.push({location: new google.maps.LatLng(disaster.lat, disaster.lon), weight : 6});
+       $scope.loadDisasterHeatMap(disaster.id);
+    })});
+};
 
 // set of data for heatmap
 var heatMapDisasterData = [

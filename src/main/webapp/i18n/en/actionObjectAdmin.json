@@ -1,0 +1,24 @@
+{
+    "edgeServerApp": {
+        "actionObjectAdmin" : {
+            "home": {
+                "title": "Action Object Admins",
+                "createLabel": "Create a new Action Object Admin",
+                "createOrEditLabel": "Create or edit a Action Object Admin",
+                "search": "Search for Action Object Admin"
+            },
+            "created": "A new Action Object Admin is created with identifier {{ param }}",
+            "updated": "A Action Object Admin is updated with identifier {{ param }}",
+            "deleted": "A Action Object Admin is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Action Object Admin {{ id }}?"
+            },
+            "detail": {
+                "title": "Action Object Admin"
+            },
+            "name": "Name",
+            "action": "Action",
+            "category": "Category"
+        }
+    }
+}

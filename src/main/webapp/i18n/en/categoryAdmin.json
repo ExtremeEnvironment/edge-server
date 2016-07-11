@@ -1,0 +1,23 @@
+{
+    "edgeServerApp": {
+        "categoryAdmin" : {
+            "home": {
+                "title": "Category Admins",
+                "createLabel": "Create a new Category Admin",
+                "createOrEditLabel": "Create or edit a Category Admin",
+                "search": "Search for Category Admin"
+            },
+            "created": "A new Category Admin is created with identifier {{ param }}",
+            "updated": "A Category Admin is updated with identifier {{ param }}",
+            "deleted": "A Category Admin is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Category Admin {{ id }}?"
+            },
+            "detail": {
+                "title": "Category Admin"
+            },
+            "name": "Name",
+            "actionObject": "Action Object"
+        }
+    }
+}
