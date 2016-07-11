@@ -60,7 +60,7 @@
     }
   }
   $scope.delFromArray = function (argument) {
-    showAlert("Sicher das sie das Match löschen wollen?","Auch ihr Match wird gelöscht!")
+    showAlert("Sicher das sie das Match löschen wollen?","Auch ihr Match wird gelöscht!",argument)
   }
 
   $scope.send =  function (argument,index) {
@@ -92,31 +92,35 @@
 
 /*--------------------------------------------------------------STUFF---------------------------------------------------*/
 
-function showAlert(erste,zweite) {
-    // Appending dialog to document.body to cover sidenav in docs app
-    var confirm = $mdDialog.confirm()
-    .title(erste)
-    .textContent(zweite)
-    .targetEvent()
-    .ok('Nein')
-    .cancel('Ja');
-    $mdDialog.show(confirm).then(function() {
-      console.log('NEIN')
-    }, function() {
-     Message.delete.delete({id:argument});
-   });
-  };
+function showAlert(erste,zweite,argument) {
 
-  function showAlert2(text){
-    $mdDialog.show(
-      $mdDialog.alert()
-      .parent(angular.element(document.querySelector('#popupContainer')))
-      .clickOutsideToClose(true)
-      .title(text)
-      .ok('Ok')
-      .targetEvent()
-      );
-  };
-  
+  var confirm = $mdDialog.confirm()
+  .title(erste)
+  .textContent(zweite)
+  .targetEvent()
+  .ok('Nein')
+  .cancel('Ja');
+  $mdDialog.show(confirm).then(function() {
+    console.log('NEIN')
+  }, function() {
+    $scope.conversations.forEach( function(entry) {
+      if (argument===entry) {
+        $scope.conversations.splice( $scope.conversations.indexOf(argument), 1);
+      }})
+    Message.delete.delete({id:argument.id});
+  });
+};
+
+function showAlert2(text){
+  $mdDialog.show(
+    $mdDialog.alert()
+    .parent(angular.element(document.querySelector('#popupContainer')))
+    .clickOutsideToClose(true)
+    .title(text)
+    .ok('Ok')
+    .targetEvent()
+    );
+};
+
 }
 })();

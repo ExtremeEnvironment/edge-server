@@ -1,5 +1,5 @@
 <div layout="column" ng-show="offers.length==0">
-<h1 class="texte">Sie haben keine Angebote</h1>
+  <h1 class="texte">Sie haben keine Angebote</h1>
 </div>
 
 <div layout="column" ng-show="offers.length!=0">
@@ -12,9 +12,6 @@
       <span flex></span>
     </div>
   </md-toolbar>
-
-
-
 
   <div class="md-whiteframe-z1">
     <table class="friends">
@@ -33,7 +30,7 @@
       <tr ng-repeat="offer in offers" ng-click="pushToArray(offer)">
         <td>{{offer.location}}</td>
         <td>
-          <div ng-repeat="offery in offer.actionObjects">{{offery.name}}</div>
+          <div ng-repeat="offer in offer.actionObjects">{{offer.name}}</div>
         </td>
         <td class="tabellen">{{offer.date}}</td>
         <td>

@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('edgeServerApp')
-        .config(stateConfig);
+    .module('edgeServerApp')
+    .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
 
@@ -11,7 +11,7 @@
         $stateProvider
         .state('search', {
             parent: 'app',
-            url: '/search?userID',
+            url: '/search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'edgeServerApp.search.home.title'

@@ -57,7 +57,7 @@
               <md-input-container class="md-block" flex-gt-xs>
                 <label>Art</label>
                 <md-select ng-model="disasterDB.disasterType">
-                <md-option ng-repeat="art in arten" ng-value="{{art}}">{{art.name}}</md-option>
+                  <md-option ng-repeat="art in arten" ng-value="{{art}}">{{art.name}}</md-option>
                 </md-select>
               </md-input-container> 
               <span flex></span>
@@ -73,9 +73,6 @@
       </md-tabs>
     </div>
 
-    <div id="controllerMaps">
-      <label class="btn btn-default" ng-model="radioModel" ng-click='removeMarker()'>Delete Marker</label>
-    </div>
     <div id=map></div>
 
   </div>

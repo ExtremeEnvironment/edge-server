@@ -23,14 +23,14 @@
     $scope.disasters=[];
 
     $scope.filters = { };
+
     $scope.itemToDB={
       actionObjects: [],
       actionType : "SEEK",
       disaster : {},
       isExpired : null,
-      lat :34.03,
-      lon : 34.05,
-      user: null
+      lat : latitude,
+      lon : longitude
     };
 
 
@@ -123,6 +123,7 @@
 
 $scope.pushToArray = function (item){  
   $scope.SingleItem = item;
+  $scope.itemToDB.actionObjects.push(item);
 };
 
 $scope.delFromArray = function (item){  
@@ -130,12 +131,13 @@ $scope.delFromArray = function (item){
 };
 
 $scope.writeDB = function (){
-  if($scope.selectedItem!=null){ 
-    $scope.itemToDB.actionObjects.push($scope.SingleItem),
+  if($scope.selectedItem==null){ 
+    showAlert('Sie müssen eine Katastrope wählen');
+  }else if($scope.itemToDB.actionObjects.length==0) {
+    showAlert('Sie müssen ein Item wählen');
+  }else{
     Data.action.save($scope.itemToDB);
     $state.go("home");
-  }else {
-    showAlert();
   }
 
 }
@@ -193,12 +195,12 @@ this.infiniteItems = {
 
         /*-------------------------------------------Various Helper Functions-------------------------------------------------*/
 
-        function showAlert(){
+        function showAlert(text){
           $mdDialog.show(
             $mdDialog.alert()
             .parent(angular.element(document.querySelector('#popupContainer')))
             .clickOutsideToClose(true)
-            .title('Sie müssen eine Katastrope wählen')
+            .title(text)
             .ok('Ok')
             .targetEvent()
             );
@@ -206,51 +208,66 @@ this.infiniteItems = {
 
         /*-------------------------------------------------------MAP-----------------------------------------------------------*/
 
-        var map;  
+        /*--------------------------------------------------------------MAP-------------------------------------------------------------*/
 
+        var map;
 
-        navigator.geolocation.getCurrentPosition(function(position){ 
+        var latitude;
+        var longitude;
+
+        navigator.geolocation.getCurrentPosition(function(position){
+          latitude = position.coords.latitude;
+          longitude= position.coords.longitude;
+          $scope.itemToDB.lat = position.coords.latitude
+          $scope.itemToDB.lon = position.coords.longitude;
           initialize(position.coords);
-        }, function(){
-          var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
-          initialize(sanFrancisco) ;
+
         });
 
         function initialize(coords) {
-         var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+         var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
          var myOptions = {
           zoom: 8,
           center: latlng,
           layerId: '06673056454046135537-08896501997766553811'
         };
-        map = new google.maps.Map(document.getElementById('map'), myOptions);
-        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+        map = new google.maps.Map(document.getElementById("map"), myOptions);
 
-        
-
-
-           //create the heatmap
-           
-
-//mouselistener for click event
-map.addListener('click', function(event) {  
-  addMarker(event.latLng); 
-});       
+        var marker = new google.maps.Marker({
+          map: map,
+          draggable: true,
+          position: {lat: latitude, lng: longitude}
+        });
 
 
 
-//sets the point of the user
+        google.maps.event.addListener(marker, 'dragend', function(evt){
+          console.log(  $scope.itemToDB.lat)
+          console.log(  $scope.itemToDB.lon)
+          $scope.itemToDB.lat = marker.position.lat();
+          $scope.itemToDB.lon = marker.position.lng();
 
-};
+        });
+
+        map.addListener('click', function(evt) {
+          console.log(  $scope.itemToDB.lat)
+          console.log(  $scope.itemToDB.lon)  
+          marker.setPosition({lat: evt.latLng.lat(), lng: evt.latLng.lng()});
+          $scope.itemToDB.lat = evt.latLng.lat();
+          $scope.itemToDB.lon = evt.latLng.lng();
+
+        });
+
+        var circle = new google.maps.Circle({
+          map: map,
+          radius: 50000,  
+          fillColor: '#AA0000',
+          strokeOpacity: 0.1
+        });
+        circle.bindTo('center', marker, 'position');
+
+      };
 
 
-function addMarker(location) {  
-  var marker = new google.maps.Marker({  
-    position: location,  
-    map: map  
-  });  
-} 
-
-
-}
-})();
+    }
+  })();

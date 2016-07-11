@@ -11,7 +11,7 @@
         $stateProvider
         .state('newdisaster', {
             parent: 'app',
-            url: '/newdisaster?userID',
+            url: '/newdisaster',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'edgeServerApp.newdisaster.home.title'
