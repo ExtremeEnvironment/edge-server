@@ -158,6 +158,6 @@
                 'delete':{ method:'DELETE'}
             })
         };
-        
+
     }
 })();
