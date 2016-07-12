@@ -44,7 +44,6 @@
       Data.disaster.query(function(result) {
        result.forEach(function (item) {
          $scope.disasters.push(item)
-         console.log("ha")
        })
      })}
 

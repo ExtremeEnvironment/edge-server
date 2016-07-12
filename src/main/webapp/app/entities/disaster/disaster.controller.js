@@ -10,13 +10,14 @@
   function DisasterController ($scope, $state, Data,  $stateParams, Principal) {
     var vm = this;
 
+
     loadAlls();
 
     $scope.topten;
     $scope.disaster;
     $scope.answer=false;
+    $scope.markers =[];
 
-    $scope.knowledge;
 
 
     $scope.changeAnswer = function (item) {
@@ -46,7 +47,9 @@
   function loadAlls () {
 
     $scope.disaster = Data.disaster.get({id : $stateParams.disasterID});
-    $scope.topten= Data.topten.query({id : $stateParams.disasterID})
+    $scope.topten= Data.topten.query({id : $stateParams.disasterID});
+    $scope.topTenKnow = Data.knowTopTen.query({id : $stateParams.disasterID});
+   $scope.disasterAction = Data.actionHeatMap.query({id : $stateParams.disasterID});
 
   }
 
@@ -120,14 +123,9 @@
   map = new google.maps.Map(document.getElementById('map'), myOptions);
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
 
-           //create the heatmap
-           heatmap = new google.maps.visualization.HeatmapLayer({
-            data: getHeatMapPoints(),
-            map: map,
-            radius: 60
-          });
-  Data.actionHeatMap.query({id : $stateParams.disasterID},function(result){
-          result.forEach(function (action){
+
+
+$scope.disasterAction.forEach(function (action){
               if(action.actionType == "SEEK"){
                  var circle = new google.maps.Circle({
                       map: map,
@@ -139,19 +137,18 @@
                   })
               }
               if(action.actionType == "KNOWLEDGE"){
-                 var markers = new google.maps.Marker({
+                 var marker = new google.maps.Marker({
                       position: (new google.maps.LatLng(action.lat, action.lon)),
                       map: map,
                       title: action.title,
-                      id : action.id,
-                  })
-                  markers.addListener('click', function() {
-                      $scope.knowledge = Data.action.get({id:action.id});
-
                   });
-
+                  marker.addListener('click', function() {
+                      $scope.knowledge = Data.action.get({id:action.id});
+                  });
+                  $scope.markers.push(marker);
               }
-          })})
+          });
+
       Data.action.query(function(result){
           result.forEach(function (action) {
               if (action.actionType == "OFFER") {
@@ -164,56 +161,53 @@
                   })
               }
           })});
-  ;
-
-
-//mouselistener for click event
-
-
-
-
-
-//sets the point of the user
-
 
 };
 
 
-function addMarker(location) {
-  var marker = new google.maps.Marker({
-    position: location,
-    map: map
-  });
-
+function removeMarker(){
+         $scope.markers.forEach(function(marker){
+             marker.setMap(null);
+         })
+    $scope.markers = [];
 }
 
-//sets the points
-$scope.allHeatMapData = function(){
-  heatmap.setData(getHeatMapPoints());
-}
+$scope.topTenMarker = function(){
+    removeMarker();
+    $scope.topTenKnow.forEach(function (action){
+              var marker = new google.maps.Marker({
+                  position: (new google.maps.LatLng(action.lat, action.lon)),
+                  map: map,
+                  title: action.title,
+              });
+              marker.addListener('click', function() {
+                  $scope.knowledge = Data.action.get({id:action.id});
+              });
+             $scope.markers.push(marker);
+          });
+    console.log("Top-Ten Marker;")
+      };
 
-$scope.disasterHeatMapData = function(){
-  heatmap.setData(heatMapDisasterData);
-}
+$scope.allMarker = function(){
+    removeMarker();
+    $scope.disasterAction.forEach(function (action){
+        if(action.actionType == "KNOWLEDGE"){
+            var marker = new google.maps.Marker({
+                position: (new google.maps.LatLng(action.lat, action.lon)),
+                map: map,
+                title: action.title,
+            });
+            marker.addListener('click', function() {
+                $scope.knowledge = Data.action.get({id:action.id});
+            });
+            $scope.markers.push(marker);
+        }
+    })
+    console.log("all Marker;")
+};
 
-$scope.offerHeatMapData = function(){
-  heatmap.setData(heatMapOfferData);
-}
 
-function getHeatMapPoints() {
-  var points = heatMapOfferData.concat(heatMapDisasterData);
-  return points;
 
-}
-
-// set of data for heatmap
-var heatMapDisasterData = [
-{location: new google.maps.LatLng(37.782, -122.447), weight: 0.2}
-];
-
-var heatMapOfferData = [
-{location: new google.maps.LatLng(38.782, -124.447), weight: 0.2}
-];
 
 
   }})();

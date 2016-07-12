@@ -16,6 +16,7 @@
         var resourceUrl6 = 'disasterservice/api/disaster-types/';
         var resourceUr2 = 'userservice/api/ngos/:ngoId/:userId';
         var resourceUr4 =  'userservice/api/account';
+        var resourceTopten = 'disasterservice/api/actions/:id/topTenKnowledge';
 
 
         var resourceUrlHeat =  'disasterservice/api//disasters/:id/heatmap';
@@ -157,8 +158,23 @@
                 'update': { method:'PUT' },
                 'save': { method:'POST' },
                 'delete':{ method:'DELETE'}
-            })
-        };
+            }),
+        knowTopTen: $resource(resourceTopten, {}, {
+            'query': {cache: true, method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'update': { method:'PUT' },
+            'save': { method:'POST' },
+            'delete':{ method:'DELETE'}
+        })
+    };
 
     }
 })();
