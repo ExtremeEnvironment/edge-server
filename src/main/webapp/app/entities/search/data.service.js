@@ -17,6 +17,7 @@
         var resourceUr2 = 'userservice/api/ngos/:ngoId/:userId';
         var resourceUr4 =  'userservice/api/account';
 
+
         var resourceUrlHeat =  'disasterservice/api//disasters/:id/heatmap';
         return {
             disastertype: $resource(resourceUrl6, {}, {

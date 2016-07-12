@@ -16,6 +16,8 @@
     $scope.disaster;
     $scope.answer=false;
 
+    $scope.knowledge;
+
 
     $scope.changeAnswer = function (item) {
       /*     $scope[item]=true;*/
@@ -45,6 +47,7 @@
 
     $scope.disaster = Data.disaster.get({id : $stateParams.disasterID});
     $scope.topten= Data.topten.query({id : $stateParams.disasterID})
+
   }
 
   $scope.messages = [
@@ -88,7 +91,7 @@
     text: 'Feuer',
     user: 'Olaf',
   }
-  ];        
+  ];
 
 
   /*----------------------------------------------MAP---------------------------------------------------------*/
@@ -98,7 +101,8 @@
   var heatmap;
   var map;
 
-  navigator.geolocation.getCurrentPosition(function(position){ 
+
+  navigator.geolocation.getCurrentPosition(function(position){
     initialize(position.coords);
   }, function(){
     var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
@@ -106,7 +110,7 @@
   });
 
   function initialize(coords) {
-   var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+   var latlng = new google.maps.LatLng($scope.disaster.lat, $scope.disaster.lon);
    var myOptions = {
     zoom: 8,
     center: latlng,
@@ -122,29 +126,66 @@
             map: map,
             radius: 60
           });
+  Data.actionHeatMap.query({id : $stateParams.disasterID},function(result){
+          result.forEach(function (action){
+              if(action.actionType == "SEEK"){
+                 var circle = new google.maps.Circle({
+                      map: map,
+                      radius: 3000,
+                      fillColor: '#FF4000',
+                      strokeOpacity: 0.2,
+                      center: (new google.maps.LatLng(action.lat, action.lon))
+
+                  })
+              }
+              if(action.actionType == "KNOWLEDGE"){
+                 var markers = new google.maps.Marker({
+                      position: (new google.maps.LatLng(action.lat, action.lon)),
+                      map: map,
+                      title: action.title,
+                      id : action.id,
+                  })
+                  markers.addListener('click', function() {
+                      $scope.knowledge = Data.action.get({id:action.id});
+
+                  });
+
+              }
+          })})
+      Data.action.query(function(result){
+          result.forEach(function (action) {
+              if (action.actionType == "OFFER") {
+                  var circle2 = new google.maps.Circle({
+                      map: map,
+                      radius: 3000,
+                      fillColor: '#0040FF',
+                      strokeOpacity: 0.2,
+                      center: (new google.maps.LatLng(action.lat, action.lon))
+                  })
+              }
+          })});
+  ;
+
 
 //mouselistener for click event
-map.addListener('click', function(event) {    
-  addMarker(event.latLng);    
-});       
+
 
 
 
 
 //sets the point of the user
-var marker = new google.maps.Marker({
-  position: latlng, 
-  map: map, 
-}); 
+
+
 };
 
 
-function addMarker(location) {  
-  var marker = new google.maps.Marker({  
-    position: location,  
-    map: map  
-  });  
-} 
+function addMarker(location) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+
+}
 
 //sets the points
 $scope.allHeatMapData = function(){
@@ -173,4 +214,7 @@ var heatMapDisasterData = [
 var heatMapOfferData = [
 {location: new google.maps.LatLng(38.782, -124.447), weight: 0.2}
 ];
-}})();
+
+
+  }})();
+

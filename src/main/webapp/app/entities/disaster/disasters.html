@@ -36,31 +36,30 @@
   </div>
 
 
-  <div id="map"></div>  
+  <div id="map"></div>
 
 
-  <div class="md-whiteframe-z1"  ng-show="!knowledge" >
+  <div class="md-whiteframe-z1"   >
     <md-virtual-repeat-container style="min-height:200px; max-height:200px;margin:20px;padding:10px">
 
       <md-list>
         <md-subheader class="md-sticky">Event-Katastrophe(n)</md-subheader>
-        <md-list-item class="md-2-line" ng-repeat="item in knowledgeItem">
           <div class="md-list-item-text">
-            <h3> {{ item.name }} </h3>
-            <p> {{ item.category.name }} </p>
+            <h3> {{ knowledge.title }} </h3>
+            <p> {{ knowledge.description }} </p>
           </div>
 
         </md-list-item>
         <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
           <md-icon md-svg-icon="content/images/like.svg"></md-icon>
         </md-button>
-      </md-list> 
+      </md-list>
 
     </md-virtual-repeat-container>
   </div>
 
 
-  <div class="md-whiteframe-z1"> 
+  <div class="md-whiteframe-z1">
     <md-list>
       <md-subheader class="md-sticky">TopTen-Gesuche</md-subheader>
       <md-list-item class="md-2-line" ng-repeat="item in topten" ui-sref="give">
@@ -68,7 +67,7 @@
           <h3 class="texte"> {{ item.name }} </h3>
         </div>
       </md-list-item>
-    </md-list> 
+    </md-list>
   </div>
 </div>
 
@@ -91,7 +90,7 @@
 
     <p>
       <u>{{ message.user }}</u> - {{ message.text }} -<a ng-click="changeAnswer($index)"> Answer</a> - <a ng-click="showAnswers($index)">Messages</a>
-    </p> 
+    </p>
 
     <div class="answer" ng-show="this[$index]"  layout="row">
       <md-input-container class="md-block" flex>
