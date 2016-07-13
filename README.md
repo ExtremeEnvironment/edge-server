@@ -74,6 +74,18 @@ Bower is used to manage CSS and JavaScript dependencies used in this application
 specifying a newer version in `bower.json`. You can also run `bower update` and `bower install` to manage dependencies.
 Add the `-h` flag on any command to see how you can use it. For example, `bower update -h`.
 
+## Building with JHipster Registry
+    
+    alle Services in https://github.com/ExtremeEnvironment über Git auschecken
+
+    Zusätzlich die Registry auschecken :
+
+    $ git clone https://github.com/jhipster/jhipster-registry.git
+    $ cd jhipster-registry
+    $ mvn 
+    
+    jeden Service über $ ./gradlew bootRun starten
+
 
 ## Building for production
 
