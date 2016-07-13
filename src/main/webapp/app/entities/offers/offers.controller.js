@@ -15,6 +15,8 @@
     $scope.selectedItem;
     $scope.User;
 
+    var geocoder = new google.maps.Geocoder;
+
     loadAll();
 
 
@@ -32,10 +34,12 @@
         result.forEach(function (item){
          if(item.actionType=='OFFER'&&item.user.id== $scope.User.id){
           $scope.offers.push(item);
-          geocodeLatLng(geocoder, map,{lat:item.lat,lng:item.lon});
+          $timeout(geocodeLatLng(geocoder, map,{lat:item.lat,lng:item.lon}), 500);
         }
       })
-      }), 2000);
+      }), 3000);
+
+
 
     }
 
@@ -61,12 +65,8 @@
 
       map.setOptions({
         center : {lat:offer.lat,lng:offer.lon},
-        zoom : 8
+        zoom : 10
       })
-    }
-
-    $scope.writeDB = function (){   
-      Data.action.update($scope.selectedItem.id,$scope.selectedItem);
     }
 
     /*----------------------------------------------------------STUFF--------------------------------------------------------------*/
@@ -95,7 +95,7 @@
     var longitude;
     var circle;
     var marker;
-    var geocoder = new google.maps.Geocoder;
+
 
     navigator.geolocation.getCurrentPosition(function(position){
       latitude = position.coords.latitude;
@@ -108,7 +108,7 @@
     function initialize(coords) {
      var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
      var myOptions = {
-      zoom: 8,
+      zoom: 10,
       center: latlng,
       layerId: '06673056454046135537-08896501997766553811'
     };
@@ -134,7 +134,7 @@
 
     circle = new google.maps.Circle({
       map: map,
-      radius: 50000,  
+      radius: 5000,  
       fillColor: '#66ff66',
       strokeOpacity: 0
     });
@@ -155,7 +155,7 @@
        if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {    
         setTimeout(function() {
           geocodeLatLng(latlng);
-        }, 200);}
+        }, 100);}
         else {
           window.alert('Bitte Seite neuladen!');
         }

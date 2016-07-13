@@ -17,9 +17,8 @@
         var resourceUr2 = 'userservice/api/ngos/:ngoId/:userId';
         var resourceUr4 =  'userservice/api/account';
         var resourceTopten = 'disasterservice/api/actions/:id/topTenKnowledge';
+        var resourceUrlHeat =  'disasterservice/api/disasters/:id/heatmap';
 
-
-        var resourceUrlHeat =  'disasterservice/api//disasters/:id/heatmap';
         return {
             disastertype: $resource(resourceUrl6, {}, {
                 'query': {cache: true, method: 'GET', isArray: true},
@@ -159,22 +158,22 @@
                 'save': { method:'POST' },
                 'delete':{ method:'DELETE'}
             }),
-        knowTopTen: $resource(resourceTopten, {}, {
-            'query': {cache: true, method: 'GET', isArray: true},
-            'get': {
-                method: 'GET',
-                transformResponse: function (data) {
-                    if (data) {
-                        data = angular.fromJson(data);
+            knowTopTen: $resource(resourceTopten, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
                     }
-                    return data;
-                }
-            },
-            'update': { method:'PUT' },
-            'save': { method:'POST' },
-            'delete':{ method:'DELETE'}
-        })
-    };
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
+            })
+        };
 
     }
 })();

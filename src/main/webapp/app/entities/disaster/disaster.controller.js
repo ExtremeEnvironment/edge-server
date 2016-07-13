@@ -9,6 +9,9 @@
 
   function DisasterController ($scope, $state, Data,  $stateParams, Principal,Message,$mdDialog, $mdMedia,$q, $timeout) {
     var vm = this;
+    var  disasterAction;
+    var topTenKnow;
+    var dID =  $stateParams.disasterID;
 
 
     loadAlls();
@@ -32,9 +35,9 @@
 
     function loadAlls () {
 
-      $scope.disaster = Data.disaster.get({id : $stateParams.disasterID});
+      $scope.disaster = Data.disaster.get({id : dID});
 
-      Message.messages.query({id : $stateParams.disasterID},function (argument) {
+      Message.messages.query({id : dID},function (argument) {
        argument.forEach(function (item) {
         $scope.messages.push(item);
         console.log(item);
@@ -49,9 +52,9 @@
         $scope.User = result;
         console.log(result)
       });
-      $scope.topten= Data.topten.query({id : $stateParams.disasterID});
-      $scope.topTenKnow = Data.knowTopTen.query({id : $stateParams.disasterID});
-      $scope.disasterAction = Data.actionHeatMap.query({id : $stateParams.disasterID},function (argument) {
+      $scope.topten= Data.topten.query({id : dID});
+      topTenKnow = Data.knowTopTen.query({id : dID});
+      disasterAction = Data.actionHeatMap.query({id : dID},function (argument) {
        argument.forEach(function (item) {
          console.log(item)
        })
@@ -123,17 +126,16 @@
     disableDefaultUI : false
   };
   map = new google.maps.Map(document.getElementById('map'), myOptions);
-  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controllerMaps'));
+  map.controls[google.maps.ControlPosition.BOTTOM].push(document.getElementById('controllerMaps'));
 
 
-
-  $scope.disasterAction.forEach(function (action){
+  disasterAction.forEach(function (action){
     if(action.actionType == "SEEK"){
      var circle = new google.maps.Circle({
       map: map,
-      radius: 3000,
+      radius: 10000,
       fillColor: '#FF4000',
-      strokeOpacity: 0.2,
+      strokeOpacity: 0,
       center: (new google.maps.LatLng(action.lat, action.lon))
 
     })
@@ -156,9 +158,9 @@
       if (action.actionType == "OFFER") {
         var circle2 = new google.maps.Circle({
           map: map,
-          radius: 3000,
+          radius: 10000,
           fillColor: '#0040FF',
-          strokeOpacity: 0.2,
+          strokeOpacity: 0,
           center: (new google.maps.LatLng(action.lat, action.lon))
         })
       }
@@ -176,7 +178,7 @@ function removeMarker(){
 
 $scope.topTenMarker = function(){
   removeMarker();
-  $scope.topTenKnow.forEach(function (action){
+  topTenKnow.forEach(function (action){
     var marker = new google.maps.Marker({
       position: (new google.maps.LatLng(action.lat, action.lon)),
       map: map,
@@ -192,7 +194,7 @@ $scope.topTenMarker = function(){
 
 $scope.allMarker = function(){
   removeMarker();
-  $scope.disasterAction.forEach(function (action){
+  disasterAction.forEach(function (action){
     if(action.actionType == "KNOWLEDGE"){
       var marker = new google.maps.Marker({
         position: (new google.maps.LatLng(action.lat, action.lon)),

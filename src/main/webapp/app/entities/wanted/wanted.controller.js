@@ -33,7 +33,7 @@
             $scope.offers.push(item);
           }
         })
-      }), 2000);
+      }), 3000);
 
     }
 
@@ -55,8 +55,8 @@
       $scope.selectedItem = offer; 
 
       circle2.setOptions({
-        radius: 100000,  
-        fillColor: '#AA00FF',
+        radius: 5000,  
+        fillColor: '#AA0000',
         strokeOpacity: 0,
         position : {lat:offer.disaster.lat,lng:offer.disaster.lon}
       });
@@ -69,7 +69,7 @@
 
       map.setOptions({
         center : {lat:offer.lat,lng:offer.lon},
-        zoom : 8
+        zoom : 10
       })
     }
 
@@ -107,7 +107,6 @@
     var latitude;
     var longitude;
     var marker;
-    var circle;
     var circle2;
 
     navigator.geolocation.getCurrentPosition(function(position){
@@ -121,7 +120,7 @@
     function initialize(coords) {
      var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
      var myOptions = {
-      zoom: 8,
+      zoom: 10,
       center: latlng,
       layerId: '06673056454046135537-08896501997766553811'
     };
@@ -145,24 +144,15 @@
 
     });
 
-    circle = new google.maps.Circle({
-      map: map,
-      radius: 25000,  
-      fillColor: '#AA0000',
-      strokeOpacity: 0
-
-    });
-
     circle2 = new google.maps.Circle({
       map: map,
-      radius: 100000,  
+      radius: 5000,  
       fillColor: '#AA00FF',
       strokeOpacity: 0,
-      center :  {lat:55,lng:55}
     });
 
 
-    circle.bindTo('center', marker, 'position');
+    circle2.bindTo('center', marker, 'position');
     
 
   };

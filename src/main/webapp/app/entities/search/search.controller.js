@@ -139,7 +139,8 @@ $scope.writeDB = function (){
   }else if($scope.SingleItem == null) {
     showAlert('Sie müssen ein Item wählen');
   }else{
-    $scope.itemToDB.actionObjects.push($scope.SingleItem),
+    $scope.itemToDB.actionObjects.push($scope.SingleItem);
+    console.log($scope.itemToDB)
     Data.action.save($scope.itemToDB);
     $state.go("home");
   }
@@ -154,14 +155,11 @@ $scope.getSelectedText = function() {
     });
     map.setOptions({
       center : {lat:$scope.selectedItem.lat,lng:$scope.selectedItem.lon},
-      zoom : 8
+      zoom : 10
     });
     circle.setOptions({
       center :  {lat:$scope.selectedItem.lat,lng:$scope.selectedItem.lon}
     });
-
-
-    console.log($scope.itemToDB)
     return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.date);
   } else {
     return "Wählen sie eine gemeldete Katastrophe:";
@@ -254,7 +252,7 @@ this.infiniteItems = {
         var marker = new google.maps.Marker({
           map: map,
           draggable: true,
-          position: {lat: latitude, lng: longitude}
+/*          position: {lat: latitude, lng: longitude}*/
         });
 
 
@@ -278,15 +276,15 @@ this.infiniteItems = {
 
         circle = new google.maps.Circle({
           map: map,
-          radius: 50000,  
-          fillColor: '#AA0000',
-          strokeOpacity: 0.1
+          radius: 5000,  
+          fillColor: '#BB0000',
+          strokeOpacity: 0
         });
 
         circle2 = new google.maps.Circle({
           map: map,
-          radius: 100000,  
-          fillColor: '#AA00FF',
+          radius: 10000,  
+          fillColor: '#AAFFFF',
           strokeOpacity: 0
       //position : {lat:offer.disaster.lat,lng:offer.disaster.lon}
     });
