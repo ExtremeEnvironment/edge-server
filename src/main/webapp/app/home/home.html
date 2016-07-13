@@ -1,4 +1,4 @@
-<div ng-cloak  data-ng-init="disasterHeatMapData()">
+<div ng-cloak>
   <div class="row">
     <div class="col-md-12">
       <h1 style="font-size:5vw" align="center" translate="home.title" >Welcome!!!</h1>
@@ -12,15 +12,10 @@
 
         <md-grid-list ng-switch-when="true" md-cols-xs="1" md-cols-sm="1" md-cols-md="3" md-cols-gt-md="3" md-row-height-gt-md="fit" md-row-height="fit" md-gutter="10px" md-gutter-gt-sm="10px" style="height:250px;margin-bottom:10px">
 
-
-
           <md-grid-tile class="gray" md-rowspan="2" md-colspan="1"  md-rowspan-sm="100%" md-colspan-sm="1" md-colspan-xs="1"  md-rowspan-xs="100%">
 
             <div layout="column" style="margin:15px" flex>
-
-              <a class="dashboard-link" ui-sref="give"  >      
-
-                
+              <a class="dashboard-link" ui-sref="give">      
                 <i class="material-icons dashboard-icons  ">card_giftcard</i>
                 <span class="dashboard-text">Anbieten</span>
               </a>
@@ -49,39 +44,42 @@
               </a>
             </div>
 
-            <div style="margin-bottom: 5px;"></div>
-          </md-grid-list>
+          </md-grid-tile>
+
+          <div style="margin-bottom: 5px;"></div>
+          
+        </md-grid-list>
 
 
-          <md-toolbar>
-            <div class="md-toolbar-tools">
-              <h2>
-                <span>Katastrophen</span>
-              </h2>
-              <span flex></span>
-            </div>
-          </md-toolbar>
-
-          <md-content>
-            <md-list flex>
-              <md-list-item class="md-3-line" ng-repeat="item in disasters" ng-click="loadDisaster(item.id)">
-                <img ng-src="{{imagePath}}" class="md-avatar" alt="{{item.who}}" />
-                <div  class="md-list-item-text" layout="column">
-                  <h3 class="texte">{{ item.title }}</h3>
-                  <h4 class="texte">{{ item.where }}</h4>
-                  <p class="texte" >{{ item.disasterType.name }}</p>
-                </div>
-                <div class="md-secondary items">
-                  <md-button class="texte" ui-sref="disaster({disasterID: item.id})" ng-click="doSecondaryAction($event)">More</md-button>
-                </div>
-              </md-list-item>
-            </md-list>
-          </md-content>
-
-          <div>
-            <div id="map"></div>
+        <md-toolbar>
+          <div class="md-toolbar-tools" ng-click="allDisaster()">
+            <h2>
+              <span>Katastrophen</span>
+            </h2>
+            <span flex></span>
           </div>
+        </md-toolbar>
+
+        <md-content>
+          <md-list flex>
+            <md-list-item class="md-3-line" ng-repeat="item in disasters" ng-click="loadDisaster(item.id)">
+              <img ng-src="{{imagePath}}" class="md-avatar" alt="{{item.who}}" />
+              <div  class="md-list-item-text" layout="column">
+                <h3 class="texte">{{ item.title }}</h3>
+                <h4 class="texte">{{ item.where }}</h4>
+                <p class="texte" >{{ item.disasterType.name }}</p>
+              </div>
+              <div class="md-secondary items">
+                <md-button class="texte" ui-sref="disaster({disasterID: item.id})" ng-click="doSecondaryAction($event)">More</md-button>
+              </div>
+            </md-list-item>
+          </md-list>
+        </md-content>
+
+        <div>
+          <div id="map"></div>
         </div>
       </div>
     </div>
   </div>
+</div>
