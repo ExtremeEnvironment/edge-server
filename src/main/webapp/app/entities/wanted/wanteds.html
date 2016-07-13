@@ -44,9 +44,14 @@
 </div>
 
 <div class="md-whiteframe-z1">
-  <md-subheader class="md-no-sticky" >Hier suchen sie an:</md-subheader>
+  <md-subheader class="md-no-sticky" >Möchten sie das Gebiet ihres Gesuchs ändern?</md-subheader>
   <div id=map></div>
 </div>
+
+<div class="md-whiteframe-z1" layout="column">
+  <md-button class="md-raised" ng-show="selectedItem!=null" ng-click="writeDB()" >Speichern</md-button>
+</div>
+
 </div>
 
 

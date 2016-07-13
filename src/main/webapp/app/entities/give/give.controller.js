@@ -22,9 +22,8 @@
       actionObjects: [],
       actionType : "OFFER",
       isExpired : null,
-      lat : null,
-      lon : null,
-      user : null
+      lat : latitude ,
+      lon : longitude,
     };
 
 /*    $scope.User={
@@ -84,6 +83,7 @@
 
       $scope.pushToArray = function (item){  
         $scope.SingleItem = item;
+        console.log($scope.SingleItem)
       };
 
       $scope.delFromArray = function (item){  
@@ -96,17 +96,6 @@
       $scope.itemToDB.actionObjects.push($scope.SingleItem),
       Data.action.save($scope.itemToDB);
     }
-
-
-    $scope.getSelectedText = function() {
-      if ($scope.selectedItem !== undefined) {
-        $scope.itemToDB.disaster=$scope.selectedItem;
-        console.log($scope.itemToDB)
-        return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
-      } else {
-        return "Wählen sie eine gemeldete Katastrophe:";
-      }
-    };
 
     /*-------------------------------------load all items asynchronously----------------------------*/
 

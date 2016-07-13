@@ -9,12 +9,10 @@
 
   function WantedController ( $scope, $state, $timeout, $q, $log, Data , Offers, $mdDialog, $mdMedia) {
 
-    $scope.filters = { };
-
     $scope.offers = []
 
     $scope.selectedItem;
-    $scope.selected = true;
+    $scope.User;
 
     loadAll();
 
@@ -23,14 +21,20 @@
 
 
     function loadAll() {
-      Data.action.query(function(result) {
+      Data.user.get(function(result) {
+        $scope.User = result;
+      });
+
+
+      $timeout(Data.action.query(function(result) {
         result.forEach(function (item){
-          if(item.actionType=='SEEK'){
+          if(item.actionType=='SEEK'&&item.user.id== $scope.User.id){
             console.log(item)
             $scope.offers.push(item);
           }
         })
-      });
+      }), 2000);
+
     }
 
     /*---------------------------------------------Modify items in the system-------------------------------------------*/
@@ -48,10 +52,7 @@
 
 
     $scope.pushToArray = function (offer) {
-      $scope.selectedItem = offer;
-      console.log(offer.disaster.lat)
-      console.log(offer.disaster.lon)
-      
+      $scope.selectedItem = offer; 
 
       circle2.setOptions({
         radius: 100000,  
@@ -61,13 +62,22 @@
       });
 
       marker.setOptions({
+        map: map,
+        draggable: true,
         position : {lat:offer.lat,lng:offer.lon}
       });
+
       map.setOptions({
         center : {lat:offer.lat,lng:offer.lon},
         zoom : 8
       })
     }
+
+    $scope.writeDB = function (){   
+      Data.action.update($scope.selectedItem.id,$scope.selectedItem);
+    }
+
+
     /*-----------------------------------------------------STUFF-----------------------------------------------*/
 
     function showAlert(erste,argument) {
@@ -94,7 +104,6 @@
 
 
     var map;
-
     var latitude;
     var longitude;
     var marker;
@@ -104,11 +113,10 @@
     navigator.geolocation.getCurrentPosition(function(position){
       latitude = position.coords.latitude;
       longitude= position.coords.longitude;
-/*      $scope.itemToDB.lat = position.coords.latitude
-$scope.itemToDB.lon = position.coords.longitude;*/
-initialize(position.coords);
 
-});
+      initialize(position.coords);
+
+    });
 
     function initialize(coords) {
      var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
@@ -120,16 +128,11 @@ initialize(position.coords);
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 
     marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: {lat: latitude, lng: longitude}
     });
 
 
 
     google.maps.event.addListener(marker, 'dragend', function(evt){
-      console.log(evt.latLng.lat())
-      console.log(evt.latLng.lng())
       $scope.selectedItem.lat = marker.position.lat();
       $scope.selectedItem.lon = marker.position.lng();
 

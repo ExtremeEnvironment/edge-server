@@ -9,13 +9,11 @@
 
   function OffersController ( $scope, $state, $timeout, $q, $log, Data , Offers ,$mdDialog, $mdMedia) {
 
-    $scope.filters = { };
-
-    $scope.offers = []
+    $scope.offers = [];
+    $scope.locations = []
 
     $scope.selectedItem;
-    $scope.selected = true;
-    $scope.User
+    $scope.User;
 
     loadAll();
 
@@ -24,18 +22,21 @@
 
 
     function loadAll() {
-      Data.action.query(function(result) {
-        result.forEach(function (item){
-          if(item.actionType=='OFFER'){
-            console.log(item)
-            $scope.offers.push(item);
-          }
-        })
-      });
+
       Data.user.get(function(result) {
         $scope.User = result;
-        console.log(result)
       });
+
+      
+      $timeout(Data.action.query(function(result) {
+        result.forEach(function (item){
+         if(item.actionType=='OFFER'&&item.user.id== $scope.User.id){
+          $scope.offers.push(item);
+          geocodeLatLng(geocoder, map,{lat:item.lat,lng:item.lon});
+        }
+      })
+      }), 2000);
+
     }
 
     /*---------------------------------------------Modify items in the system-------------------------------------------*/
@@ -51,16 +52,23 @@
 
     $scope.pushToArray = function (offer) {
       $scope.selectedItem = offer;
-      console.log(offer.lat)
-      console.log(offer.lon)
+
       marker.setOptions({
+        map: map,
+        draggable: true,
         position : {lat:offer.lat,lng:offer.lon}
       });
+
       map.setOptions({
         center : {lat:offer.lat,lng:offer.lon},
         zoom : 8
       })
     }
+
+    $scope.writeDB = function (){   
+      Data.action.update($scope.selectedItem.id,$scope.selectedItem);
+    }
+
     /*----------------------------------------------------------STUFF--------------------------------------------------------------*/
 
     function showAlert(erste,argument) {
@@ -71,7 +79,6 @@
       .ok('Nein')
       .cancel('Ja');
       $mdDialog.show(confirm).then(function() {
-        console.log('NEIN')
       }, function() {
         $scope.offers.forEach( function(entry) {
           if (argument===entry) {
@@ -81,31 +88,22 @@
       });
     };
 
-    $scope.$watch('selectedItem.lat', function(current, old){
-      console.log(current)
-      if(current!=old){
-
-        console.log('Position geändert')
-      }
-    });
-
     /*--------------------------------------------------------------MAP-------------------------------------------------------------*/
 
     var map;
-
     var latitude;
     var longitude;
     var circle;
     var marker;
+    var geocoder = new google.maps.Geocoder;
 
     navigator.geolocation.getCurrentPosition(function(position){
       latitude = position.coords.latitude;
       longitude= position.coords.longitude;
-/*      $scope.itemToDB.lat = position.coords.latitude
-$scope.itemToDB.lon = position.coords.longitude;*/
-initialize(position.coords);
 
-});
+      initialize(position.coords);
+
+    });
 
     function initialize(coords) {
      var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
@@ -117,12 +115,9 @@ initialize(position.coords);
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 
     marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: {lat: latitude, lng: longitude}
     });
 
-
+    
 
     google.maps.event.addListener(marker, 'dragend', function(evt){
       $scope.selectedItem.lat = marker.position.lat();
@@ -141,14 +136,35 @@ initialize(position.coords);
       map: map,
       radius: 50000,  
       fillColor: '#66ff66',
-      strokeOpacity: 0.1
-
+      strokeOpacity: 0
     });
 
     circle.bindTo('center', marker, 'position');
 
   };
 
+  function geocodeLatLng(geocoder, map, latlng) {
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (results[1]) {
+          $scope.locations.push(results[1]);
+        } else {
+          window.alert('Bitte Seite neuladen!');
+        }
+      } else {
+       if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {    
+        setTimeout(function() {
+          geocodeLatLng(latlng);
+        }, 200);}
+        else {
+          window.alert('Bitte Seite neuladen!');
+        }
+      }
+    });
+  }
+
+
 }
+
 })();
 
