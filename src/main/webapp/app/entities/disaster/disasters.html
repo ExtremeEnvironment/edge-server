@@ -14,7 +14,7 @@
       <md-list>
         <md-list-item class="md-1-line">
           <div class="md-list-item-text">
-          <h5 class="texte">Datum: {{disaster.date}}</h5>
+            <h5 class="texte">Datum: {{disaster.date}}</h5>
           </div>
         </md-list-item>
         <md-list-item class="md-1-line">
@@ -35,10 +35,10 @@
     </md-list>
   </div>
 
-      <div id="controllerMaps" class="btn-group">
-          <label class="btn btn-default" ng-model="radioModel" ng-click='topTenMarker()'>Show Top Ten</label>
-          <label class="btn btn-default" ng-model="radioModel" ng-click='allMarker()'>Show all Knowledges</label>
-      </div>
+  <div id="controllerMaps" class="btn-group">
+    <label class="btn btn-default" ng-model="radioModel" ng-click='topTenMarker()'>Show Top Ten</label>
+    <label class="btn btn-default" ng-model="radioModel" ng-click='allMarker()'>Show all Knowledges</label>
+  </div>
   <div id="map"></div>
 
 
@@ -47,31 +47,31 @@
 
       <md-list>
         <md-subheader class="md-sticky">Event-Katastrophe(n)</md-subheader>
-          <div class="md-list-item-text">
-            <h3> {{ knowledge.title }} </h3>
-            <p> {{ knowledge.description }} </p>
-          </div>
-
-        </md-list-item>
-        <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
-          <md-icon md-svg-icon="content/images/like.svg"></md-icon>
-        </md-button>
-      </md-list>
-
-    </md-virtual-repeat-container>
-  </div>
-
-
-  <div class="md-whiteframe-z1">
-    <md-list>
-      <md-subheader class="md-sticky">TopTen-Gesuche</md-subheader>
-      <md-list-item class="md-2-line" ng-repeat="item in topten" ui-sref="give">
         <div class="md-list-item-text">
-          <h3 class="texte"> {{ item.name }} </h3>
+          <h3> {{ knowledge.title }} </h3>
+          <p> {{ knowledge.description }} </p>
         </div>
+
       </md-list-item>
+      <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
+        <md-icon md-svg-icon="content/images/like.svg"></md-icon>
+      </md-button>
     </md-list>
-  </div>
+
+  </md-virtual-repeat-container>
+</div>
+
+
+<div class="md-whiteframe-z1">
+  <md-list>
+    <md-subheader class="md-sticky">TopTen-Gesuche</md-subheader>
+    <md-list-item class="md-2-line" ng-repeat="item in topten" ui-sref="give">
+      <div class="md-list-item-text">
+        <h3 class="texte"> {{ item.name }} </h3>
+      </div>
+    </md-list-item>
+  </md-list>
+</div>
 </div>
 
 <div flex layout="column" style="margin:15px">
@@ -79,49 +79,18 @@
   <div class="enterDiv" layout="row">
     <md-input-container class="md-block" flex>
       <label>Neuer Eintrag</label>
-      <textarea ng-model="message.details" rows="5" md-select-on-focus></textarea>
+      <textarea ng-model="message.messageText" rows="5" md-select-on-focus></textarea>
     </md-input-container>
-    <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
+    <md-button class="md-icon-button" ng-click="send()"  aria-label="Send">
       <md-icon md-svg-icon="content/images/plane.svg"></md-icon>
     </md-button>
   </div>
 
-
-  <!--   <md-virtual-repeat-container style="height:600px ; max-height:600px"> -->
   <div class="md-whiteframe-z1 messageDiv" ng-repeat="message in messages">
-
-
     <p>
-      <u>{{ message.user }}</u> - {{ message.text }} -<a ng-click="changeAnswer($index)"> Answer</a> - <a ng-click="showAnswers($index)">Messages</a>
+      <u>{{ message.messageUser }}</u> - {{ message.messageText }}
     </p>
-
-    <div class="answer" ng-show="this[$index]"  layout="row">
-      <md-input-container class="md-block" flex>
-        <label>Antworten</label>
-        <textarea ng-model="message.details" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
-      <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
-        <md-icon md-svg-icon="content/images/plane.svg"></md-icon>
-      </md-button>
-    </div>
-
-
-    <div class="md-whiteframe-z1" ng-show="this['answer_' + $index]">
-      <md-virtual-repeat-container style="height:200px; max-height:200px">
-        <div ng-repeat="answer in messages">
-
-          <div>
-            <p><u>{{ answer.user }}</u> - {{ answer.text }}</p>
-          </div>
-        </div>
-      </md-virtual-repeat-container>
-    </div>
-
-
-
-
   </div>
-  <!--   </md-virtual-repeat-container> -->
 
 </div>
 

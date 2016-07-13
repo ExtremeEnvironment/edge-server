@@ -44,6 +44,7 @@
       Data.disaster.query(function(result) {
        result.forEach(function (item) {
          $scope.disasters.push(item)
+         console.log(item)
        })
      })}
 
@@ -77,7 +78,7 @@
             map: map,
             radius: 65,
           });
-          $scope.heatMapPoints = [];
+           $scope.heatMapPoints = [];
 
      //listener for zoom
      google.maps.event.addListener(map, 'zoom_changed', function(event) {
@@ -180,8 +181,8 @@ function removeMarker(){
 
 $scope.disasterHeatMapData = function(){
 
-    $scope.loadHeatMap();
-    console.log($scope.heatMapPoints);
+  $scope.loadHeatMap();
+  console.log($scope.heatMapPoints);
 }
 
 $scope.offerHeatMapData = function(){
@@ -234,33 +235,33 @@ function writeAddressName(latLng) {
 $scope.loadDisaster= function(id){
   var coords;
   $scope.disasters.forEach(function (argument) {
-      if (argument.id == id) {
-          coords = ({location: new google.maps.LatLng(argument.lat, argument.lon), weight: 5});
-          console.log(argument.lat, argument.lon);
+    if (argument.id == id) {
+      coords = ({location: new google.maps.LatLng(argument.lat, argument.lon), weight: 5});
+      console.log(argument.lat, argument.lon);
 
-      }
+    }
   });
-    heatmap.setData(coords);
-    map.panTo(coords[0].location);
+  heatmap.setData(coords);
+  map.panTo(coords[0].location);
 };
 
 $scope.loadDisasterHeatMap= function(id){
 
-    Data.actionHeatMap.query({id : id},function(result){
-        result.forEach(function (action){
-            console.log(action.lat,action.lon);
-        $scope.heatMapPoints.push({location: new google.maps.LatLng(action.lat, action.lon), weight : 1});
-            })});
+  Data.actionHeatMap.query({id : id},function(result){
+    result.forEach(function (action){
+      console.log(action.lat,action.lon);
+      $scope.heatMapPoints.push({location: new google.maps.LatLng(action.lat, action.lon), weight : 1});
+    })});
 
-      };
+};
 
 $scope.loadHeatMap = function(){
 
-    Data.disaster.query(function(result){
-        result.forEach(function(disaster){
-       $scope.heatMapPoints.push({location: new google.maps.LatLng(disaster.lat, disaster.lon), weight : 6});
-       $scope.loadDisasterHeatMap(disaster.id);
-    })});
+  Data.disaster.query(function(result){
+    result.forEach(function(disaster){
+     $scope.heatMapPoints.push({location: new google.maps.LatLng(disaster.lat, disaster.lon), weight : 6});
+     $scope.loadDisasterHeatMap(disaster.id);
+   })});
 };
 
 // set of data for heatmap

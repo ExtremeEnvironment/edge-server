@@ -42,27 +42,21 @@
          console.log(item)
        })
      })
+
       USer.ngo.query(function(result) {
-
        result.forEach(function (item) {
-
          $scope.userNGOS.push(item);
          console.log(item)
 
-         item.users.forEach(function (argument) {
+/*         item.users.forEach(function (argument) {
            if(agument.id==user.id) {
             $scope.userNGOS.push(item);
           }       
-        })
+        })*/
 
-         item.users.forEach(function (argument) {
-           if(agument.id==user.id) {
-            $scope.userNGOS.push(item);
-          } 
-        })
+      })
 
 
-       })
      })
 
     }
@@ -115,8 +109,8 @@
 
 $scope.getSelectedText = function() {
   if ($scope.selectedItem !== undefined) {
-    $scope.itemToDB.disaster=$scope.selectedItem;
-    console.log($scope.itemToDB)
+    //$scope.itemToDB.disaster=$scope.selectedItem;
+    //console.log($scope.itemToDB)
     return ($scope.selectedItem.disasterType.name+" |  "+$scope.selectedItem.title+"  |  "+$scope.selectedItem.area);
   } else {
     return "Wählen sie eine geclaimte Katastrophe:";
@@ -160,7 +154,7 @@ $scope.changeAnswer = function (item) {
   /*     $scope[item]=true;*/
   if($scope[item]==true)
   {
-    $scope[item]=false;
+    $scope[item]=false; 
   }else {
    $scope[item]=true;
  }
