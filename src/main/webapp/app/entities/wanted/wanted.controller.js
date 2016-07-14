@@ -27,11 +27,9 @@
 
     function  letsgo () {
       Data.action.query(function(result) {
-        result.forEach(function (item){
-          if(item.actionType=='SEEK'&&item.user.id==$stateParams.UserId){
-            $scope.offers.push(item);
-          }
-        })
+          $scope.offers = result.filter(function (item) {
+              return item.actionType == 'SEEK' && item.user.UserId == $stateParams.UserId;
+          });
       })
     }
 
@@ -60,10 +58,10 @@
 
 
     $scope.pushToArray = function (offer) {
-      $scope.selectedItem = offer; 
+      $scope.selectedItem = offer;
 
       circle2.setOptions({
-        radius: 5000,  
+        radius: 5000,
         fillColor: '#AA0000',
         strokeOpacity: 0,
         position : {lat:offer.disaster.lat,lng:offer.disaster.lon}
@@ -81,7 +79,7 @@
       })
     }
 
-    $scope.writeDB = function (){   
+    $scope.writeDB = function (){
       Data.action.update($scope.selectedItem.id,$scope.selectedItem);
     }
 
@@ -154,16 +152,15 @@
 
     circle2 = new google.maps.Circle({
       map: map,
-      radius: 5000,  
+      radius: 5000,
       fillColor: '#AA00FF',
       strokeOpacity: 0,
     });
 
 
     circle2.bindTo('center', marker, 'position');
-    
+
 
   };
 }
 })();
-

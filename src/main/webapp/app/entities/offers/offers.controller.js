@@ -33,7 +33,7 @@
     function  letsgo () {
       Data.action.query(function(result) {
         result.forEach(function (item){
-          if(item.actionType=='OFFER'&&item.user.id== $stateParams.UserId){
+          if(item.actionType=='OFFER'&&item.user.userId== $stateParams.UserId){
             $scope.offers.push(item);
             $timeout(geocodeLatLng(geocoder, map,{lat:item.lat,lng:item.lon}), 0);
           }
@@ -138,7 +138,7 @@
 
     circle = new google.maps.Circle({
       map: map,
-      radius: 5000,  
+      radius: 5000,
       fillColor: '#66ff66',
       strokeOpacity: 0
     });
@@ -156,7 +156,7 @@
           window.alert('Bitte Seite neuladen!');
         }
       } else {
-       if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {    
+       if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
         setTimeout(function() {
           geocodeLatLng(latlng);
         }, 1000);}
@@ -171,4 +171,3 @@
 }
 
 })();
-
