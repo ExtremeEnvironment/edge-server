@@ -25,7 +25,7 @@
                 },
                 'update': { method:'PUT' }
             }),
-            ngouser: $resource(resourceUr2, {}, {
+            ngouser: $resource(resourceUr2, {ngoId:'@ngoId',userId:'@userId'}, {
                 'query': {cache: true, method: 'GET', isArray: true},
                 'get': {
                     method: 'GET',

@@ -108,8 +108,7 @@
      var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
      var myOptions = {
       zoom: 10,
-      center: latlng,
-      layerId: '06673056454046135537-08896501997766553811'
+      center: latlng
     };
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 
