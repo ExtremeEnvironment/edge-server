@@ -42,36 +42,33 @@
   <div id="map"></div>
 
 
-  <div class="md-whiteframe-z1"   >
-    <md-virtual-repeat-container style="min-height:200px; max-height:200px;margin:20px;padding:10px">
-
-      <md-list>
-        <md-subheader class="md-sticky">Event-Katastrophe(n)</md-subheader>
+  <div class="md-whiteframe-z1" ng-show="knowledge!=null" >
+    <md-list>
+      <md-subheader class="md-sticky">Event-Katastrophe(n)</md-subheader>
+      <md-list-item>
         <div class="md-list-item-text">
-          <h3> {{ knowledge.title }} </h3>
-          <p> {{ knowledge.description }} </p>
+          <h6> {{ knowledge.actionType }} - {{ knowledge.likeCounter}} Likes </h6>
+          <h7> {{ knowledge.actionType }} </h7>
         </div>
+        <md-button class="md-icon-button md-secondary" ng-click="like(knowledge.id)"  aria-label="Send">
+          <md-icon md-svg-icon="content/images/like.svg"></md-icon>
+        </md-button>
 
       </md-list-item>
-      <md-button class="md-icon-button" ng-click="send($index)"  aria-label="Send">
-        <md-icon md-svg-icon="content/images/like.svg"></md-icon>
-      </md-button>
     </md-list>
-
-  </md-virtual-repeat-container>
-</div>
+  </div>
 
 
-<div class="md-whiteframe-z1">
-  <md-list>
-    <md-subheader class="md-sticky">TopTen-Gesuche</md-subheader>
-    <md-list-item class="md-2-line" ng-repeat="item in topten" ui-sref="give">
-      <div class="md-list-item-text">
-        <h3 class="texte"> {{ item.name }} </h3>
-      </div>
-    </md-list-item>
-  </md-list>
-</div>
+  <div class="md-whiteframe-z1">
+    <md-list>
+      <md-subheader class="md-sticky">TopTen-Gesuche</md-subheader>
+      <md-list-item class="md-2-line" ng-repeat="item in topten" ui-sref="give">
+        <div class="md-list-item-text">
+          <h3 class="texte"> {{ item.name }} </h3>
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
 </div>
 
 <div flex layout="column" style="margin:15px">

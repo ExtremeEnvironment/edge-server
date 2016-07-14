@@ -5,13 +5,14 @@
     .module('edgeServerApp')
     .controller('MessageController', MessageController);
 
-    MessageController.$inject = ['$scope', '$state', 'Message','$mdDialog', '$mdMedia','$q', '$timeout'];
+    MessageController.$inject = ['$scope', '$state', 'Message','$mdDialog', '$mdMedia','$q', '$timeout','Data'];
 
-    function MessageController ($scope, $state, Message, $mdDialog, $mdMedia,$q, $timeout) {
+    function MessageController ($scope, $state, Message, $mdDialog, $mdMedia,$q, $timeout,Data) {
 
       loadAll();
 
       $scope.conversations=[];
+      $scope.data=[];
       $scope.messages=[];
       $scope.User;
       $scope.numLimit = 10;
@@ -22,8 +23,12 @@
       function loadAll() {
         Message.conversations.query(function(result) {
           result.forEach(function (argument) {
-            $scope.conversations.push(argument);
-            console.log(argument)
+            if(argument.type==="match"){
+              $scope.conversations.push(argument);
+              console.log(argument)
+              console.log(Data.action.get({id:argument.matchedActionId}))
+              $scope.data.push(Data.action.get({id:argument.matchedActionId}))
+            }
           })
         });
         Message.user.get(function(result) {

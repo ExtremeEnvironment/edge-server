@@ -74,6 +74,7 @@
    $scope.writeDB = function (){
     $scope.itemToDB.actionObjects.push($scope.SingleItem),
     Data.action.save($scope.itemToDB);
+    $state.go("home");
   }
 
   /*-------------------------------------load all items asynchronously----------------------------*/

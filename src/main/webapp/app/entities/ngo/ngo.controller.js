@@ -142,7 +142,12 @@ function showAlert(){
     );
 };
 
-
+$scope.$watch("selectedNGO", function(newvalue) {
+  if(newvalue!=null){
+    $timeout(function() {
+      google.maps.event.trigger(map,'resize')
+    }, 0);}
+  });
 /*------------------------------------------------STUFF---------------------------------------------------------------*/
 
 $scope.topten;

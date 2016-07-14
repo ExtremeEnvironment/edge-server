@@ -9,7 +9,7 @@
 
   function DisasterController ($scope, $state, Data,  $stateParams, Principal,Message,$mdDialog, $mdMedia,$q, $timeout) {
     var vm = this;
-    var  disasterAction;
+    var disasterAction;
     var topTenKnow;
     var dID =  $stateParams.disasterID;
 
@@ -26,6 +26,7 @@
     $scope.message={messageText : null};
     $scope.messages=[];
     $scope.User;
+    $scope.knowledge;
 
 
     $scope.send = function (item) {
@@ -100,6 +101,11 @@
       );
   };
 
+  $scope.like = function(lid){
+    console.log(lid)
+    Data.likes.update({id:lid});
+  };
+
 
 
   /*----------------------------------------------MAP---------------------------------------------------------*/
@@ -120,10 +126,8 @@
   function initialize(coords) {
    var latlng = new google.maps.LatLng($scope.disaster.lat, $scope.disaster.lon);
    var myOptions = {
-    zoom: 8,
+    zoom: 9,
     center: latlng,
-    layerId: '06673056454046135537-08896501997766553811',
-    disableDefaultUI : false
   };
   map = new google.maps.Map(document.getElementById('map'), myOptions);
   map.controls[google.maps.ControlPosition.BOTTOM].push(document.getElementById('controllerMaps'));
@@ -133,7 +137,7 @@
     if(action.actionType == "SEEK"){
      var circle = new google.maps.Circle({
       map: map,
-      radius: 10000,
+      radius: 5000,
       fillColor: '#FF4000',
       strokeOpacity: 0,
       center: (new google.maps.LatLng(action.lat, action.lon))
@@ -148,6 +152,7 @@
     });
      marker.addListener('click', function() {
       $scope.knowledge = Data.action.get({id:action.id});
+      console.log( $scope.knowledge)
     });
      $scope.markers.push(marker);
    }
@@ -158,8 +163,8 @@
       if (action.actionType == "OFFER") {
         var circle2 = new google.maps.Circle({
           map: map,
-          radius: 10000,
-          fillColor: '#0040FF',
+          radius: 5000,
+          fillColor: '#66ff66',
           strokeOpacity: 0,
           center: (new google.maps.LatLng(action.lat, action.lon))
         })
@@ -186,10 +191,11 @@ $scope.topTenMarker = function(){
     });
     marker.addListener('click', function() {
       $scope.knowledge = Data.action.get({id:action.id});
+      console.log( $scope.knowledge)
     });
     $scope.markers.push(marker);
   });
-  console.log("Top-Ten Marker;")
+  console.log("Top-Ten Marker")
 };
 
 $scope.allMarker = function(){
@@ -207,7 +213,7 @@ $scope.allMarker = function(){
       $scope.markers.push(marker);
     }
   })
-  console.log("all Marker;")
+  console.log("all Marker")
 };
 
 

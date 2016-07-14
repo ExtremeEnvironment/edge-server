@@ -14,7 +14,7 @@
   <md-list flex style="padding:0px">
     <md-list-item class="md-2-line" ng-repeat="conversation in conversations" layout="row" ng-click="showCon($index,conversation.id)">
       <div class="md-list-item-text">
-        <h3 style="margin:50px;padding:10px">Match mit {{conversation.id}}</h3>
+        <h3 style="margin:50px;padding:10px">Match wegen {{data[$index].actionObjects[0].name}} in {{data[$index].disaster.title}} </h3>
         <md-button class="md-secondary md-icon-button"  ng-show="!this['selectedItem_' + $index]" ng-click="delFromArray(conversation)"  aria-label="call">
           <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
         </md-button>

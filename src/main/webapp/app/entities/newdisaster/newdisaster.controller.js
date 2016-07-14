@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('NewdisasterController', NewdisasterController);
 
-  NewdisasterController.$inject = ['$scope', 'Principal', 'LoginService', '$state','$window','Data' ,'$mdDialog', '$mdMedia','$stateParams'];
+  NewdisasterController.$inject = ['$scope', 'Principal', 'LoginService', '$state','$window','Data' ,'$mdDialog', '$mdMedia','$stateParams','$timeout'];
 
-  function NewdisasterController ($scope, Principal, LoginService, $state , $window, Data, $mdDialog, $mdMedia, $stateParams ) {
+  function NewdisasterController ($scope, Principal, LoginService, $state , $window, Data, $mdDialog, $mdMedia, $stateParams,$timeout ) {
     var vm = this;
 
     loadAlls();
@@ -22,8 +22,8 @@
       description:null,
       disasterType:null,
       isExpired:null,
-      lat:36,
-      lon:36,
+      lat:null,
+      lon:null,
       title:null};
 
       $scope.actionDB={
@@ -32,10 +32,9 @@
         description : null,
         disaster : null,
         isExpired : null,
-        lat :34.03,
-        lon : 34.05,
+        lat :null,
+        lon : null,
         title : null,
-        user: null /*$stateParams.userID*/
       };
 
 
@@ -78,6 +77,36 @@
       /*-------------------------------------------Various Helper Functions-------------------------------------------------*/
 
 
+
+      $scope.$watch('actionDB.disaster', function(current, old){
+        if(current!=null){
+          map.setOptions({
+            center : {lat:current.lat,lng:current.lon},
+            zoom: 12
+          });
+
+          circle2.setOptions({
+            radius :10000,
+            center : {lat:current.lat,lng:current.lat},
+          });
+
+          circle.setOptions({
+            radius :250,
+            center : {lat:current.lat,lng:current.lat},
+            fillColor : '#AA0000',
+          });
+
+        }
+      });
+
+      $scope.getSelectedText2 = function() {
+        if ( $scope.actionDB.disaster == null) {
+          return "Katastrophe (Pflicht)";
+        } else {
+          return $scope.actionDB.disaster.title;
+        }
+      };
+
       function showAlert(text){
         $mdDialog.show(
           $mdDialog.alert()
@@ -92,27 +121,44 @@
       $scope.$watch('selectedIndex', function(current, old){
         if(current==0){
 
-          circle.setOptions({
-            radius :1000,
-            fillColor : '#AA0000',
-          });
+          $timeout(function() {
+            google.maps.event.trigger(map,'resize')
+          }, 0);
 
           map.setOptions({
             center : {lat:latitude,lng:longitude},
             zoom: 12
           });
 
+          circle2.setOptions({
+            radius :10000,
+            fillColor: '#AAFFFF',
+            center : {lat:latitude,lng:longitude},
+          });
+
+          circle.setOptions({
+            radius :250,
+            center : {lat:latitude,lng:longitude},
+            fillColor : '#AA0000',
+          });
+
+
         }
         if(current==1){
 
           circle.setOptions({
-            radius :50000,
+            radius :10000,
+            center : {lat:latitude,lng:longitude},
             fillColor : '#AA0000',
           });
 
           map.setOptions({
             center : {lat:latitude,lng:longitude},
-            zoom: 8
+            zoom: 9
+          });
+
+          circle2.setOptions({
+            radius :0
           });
 
         }
@@ -125,10 +171,10 @@
 
 
       var map;
-
       var latitude;
       var longitude;
       var circle;
+      var circle2;
 
       navigator.geolocation.getCurrentPosition(function(position){
         latitude = position.coords.latitude;
@@ -138,11 +184,10 @@
       });
 
       function initialize(coords) {
-       var  latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+       var  latlng = new google.maps.LatLng(latitude,longitude);
        var myOptions = {
-        zoom: 12,
-        center: latlng,
-        layerId: '06673056454046135537-08896501997766553811'
+        zoom: 11,
+        center: {lat:latitude,lng:longitude}
       };
       map = new google.maps.Map(document.getElementById("map"), myOptions);
 
@@ -158,9 +203,6 @@
         $scope.disasterDB.lon = marker.position.lng();
         $scope.actionDB.lat = marker.position.lat();
         $scope.actionDB.lon = marker.position.lng();
-
-        console.log(marker.position.lat())
-        console.log(marker.position.lng())
       });
 
 
@@ -174,10 +216,18 @@
 
       circle = new google.maps.Circle({
         map: map,
-        radius: 1000,  
+        radius: 250,  
         fillColor: '#AA0000',
         strokeOpacity: 0.1
       });
+
+      circle2 = new google.maps.Circle({
+        map: map,
+        radius: 10000,  
+        fillColor: '#AAFFFF',
+        strokeOpacity: 0.1
+      });
+
       circle.bindTo('center', marker, 'position');
 
     };

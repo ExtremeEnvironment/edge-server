@@ -27,8 +27,8 @@
             </div>
             <div layout="row">
               <md-input-container class="md-block" flex-gt-xs>
-                <label>Katastrophe</label>
-                <md-select ng-model="actionDB.disaster">
+                  <label>Details</label>
+                <md-select ng-model="actionDB.disaster" md-selected-text="getSelectedText2()">
                   <md-option ng-repeat="disaster in disasters" ng-value="{{disaster}}">{{disaster.title}}</md-option>
                 </md-select>
 
