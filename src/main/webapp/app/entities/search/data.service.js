@@ -19,6 +19,7 @@
         var resourceTopten = 'disasterservice/api/actions/:id/topTenKnowledge';
         var resourceUrlHeat =  'disasterservice/api/disasters/:id/heatmap';
         var resourceUrLike = 'disasterservice/api/actions/:id/likes';
+        var resourceArea=  'disasterservice/api/areas/:id';
 
         return {
            likes: $resource(resourceUrLike, {}, {
@@ -177,8 +178,24 @@
             'update': { method:'PUT' },
             'save': { method:'POST' },
             'delete':{ method:'DELETE'}
-        })
-       };
+        }),
+            area: $resource(resourceArea, {}, {
+                'query': {cache: true, method: 'GET', isArray: true},
+                'get': {
+                    method: 'GET',
+                    transformResponse: function (data) {
+                        if (data) {
+                            data = angular.fromJson(data);
+                        }
+                        return data;
+                    }
+                },
+                'update': { method:'PUT' },
+                'save': { method:'POST' },
+                'delete':{ method:'DELETE'}
+            })
+
+    };
 
    }
 })();

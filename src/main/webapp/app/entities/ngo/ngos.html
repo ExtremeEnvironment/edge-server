@@ -5,7 +5,7 @@
     <md-input-container class="md-select-menu">
       <md-select ng-model="selectedNGO" md-selected-text="getSelectedText2()">
       <md-optgroup label="Ihre NGO's">
-          <md-option ng-value="ngo" ng-repeat="ngo in userNGOS"> 
+          <md-option ng-value="ngo" ng-repeat="ngo in userNGOS">
             <div class="md-ripple-container" layout="row">
               <div flex>
                 <h5>{{ ngo.name }}</h5>
@@ -36,7 +36,7 @@
       <md-input-container class="md-select-menu">
         <md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
           <md-optgroup label="Katastrophen">
-            <md-option ng-value="disaster" ng-repeat="disaster in disasters"> 
+            <md-option ng-value="disaster" ng-repeat="disaster in disasters">
               <div class="md-ripple-container" layout="row">
                 <div flex>
                   <h5>{{ disaster.title }}</h5>
@@ -56,9 +56,10 @@
     </div>
 
     <md-subheader class="md-no-sticky" >Ihr geclaimtes Gebiet:</md-subheader>
-    <div id="controllerMaps">
-      <label class="btn btn-default" ng-model="radioModel" ng-click='removeMarker()'>Delete Marker</label>
-    </div>
+      <div id="controllerMaps" class="btn-group">
+          <label class="btn btn-default" ng-model="radioModel" ng-click='polygonDelete()'>Delete Area</label>
+          <label class="btn btn-default" ng-model="radioModel" ng-click='savePolygon()'>create Area</label>
+      </div>
     <div id=map></div>
   </div>
 
@@ -91,7 +92,7 @@
     </md-list>
   </div>
 
-  <div class="md-whiteframe-z1"> 
+  <div class="md-whiteframe-z1">
     <md-list>
       <md-subheader class="md-sticky">Mitglieder
         <md-icon class="pull-right" ui-sref="ngo.new" md-svg-icon="content/images/add.svg"></md-icon>
@@ -106,7 +107,7 @@
         </div>
         <md-button class="md-secondary md-raised md-primary">Bieten</md-button>
       </md-list-item>
-    </md-list> 
+    </md-list>
   </div>
 </div>
 
@@ -127,7 +128,7 @@
 
     <p>
       <u>{{ message.user }}</u> - {{ message.text }} -<a ng-click="changeAnswer($index)"> Answer</a> - <a ng-click="showAnswers($index)">Messages</a>
-    </p> 
+    </p>
 
     <div class="answer" ng-show="this[$index]"  layout="row">
       <md-input-container class="md-block" flex>
