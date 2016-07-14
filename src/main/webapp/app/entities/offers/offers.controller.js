@@ -5,9 +5,9 @@
   .module('edgeServerApp')
   .controller('OffersController', OffersController);
 
-  OffersController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers' ,'$mdDialog', '$mdMedia'];
+  OffersController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers' ,'$mdDialog', '$mdMedia','$stateParams'];
 
-  function OffersController ( $scope, $state, $timeout, $q, $log, Data , Offers ,$mdDialog, $mdMedia) {
+  function OffersController ( $scope, $state, $timeout, $q, $log, Data , Offers ,$mdDialog, $mdMedia, $stateParams) {
 
     $scope.offers = [];
     $scope.locations = []
@@ -17,30 +17,38 @@
 
     var geocoder = new google.maps.Geocoder;
 
-    loadAll();
-
 
     /*-----------------------------------Load Data----------------------------------&& $scope.User.login==item.user--------------------------------*/
 
 
-    function loadAll() {
+    thirdFn().then(letsgo());
 
-      Data.user.get(function(result) {
+    function send () {
+      return Data.user.get(function(result) {
         $scope.User = result;
-      });
-      
-      $timeout(Data.action.query(function(result) {
-        result.forEach(function (item){
-         if(item.actionType=='OFFER'&&item.user.id== $scope.User.id){
-          $scope.offers.push(item);
-          $timeout(geocodeLatLng(geocoder, map,{lat:item.lat,lng:item.lon}), 500);
-        }
       })
-      }), 3000);
-
-
-
     }
+
+
+    function  letsgo () {
+      Data.action.query(function(result) {
+        result.forEach(function (item){
+          if(item.actionType=='OFFER'&&item.user.id== $stateParams.UserId){
+            $scope.offers.push(item);
+            $timeout(geocodeLatLng(geocoder, map,{lat:item.lat,lng:item.lon}), 0);
+          }
+        })
+      })
+    }
+
+    function thirdFn () {
+      var deferred = $q.defer();
+      if(send()){
+        deferred.resolve;
+      }
+      return deferred.promise;
+    }
+
 
     /*---------------------------------------------Modify items in the system-------------------------------------------*/
 

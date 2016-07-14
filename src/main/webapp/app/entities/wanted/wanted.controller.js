@@ -5,37 +5,45 @@
   .module('edgeServerApp')
   .controller('WantedController', WantedController);
 
-  WantedController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers','$mdDialog', '$mdMedia'];
+  WantedController.$inject = ['$scope', '$state', '$timeout', '$q', '$log','Data' ,'Offers','$mdDialog', '$mdMedia','$stateParams'];
 
-  function WantedController ( $scope, $state, $timeout, $q, $log, Data , Offers, $mdDialog, $mdMedia) {
+  function WantedController ( $scope, $state, $timeout, $q, $log, Data , Offers, $mdDialog, $mdMedia,$stateParams) {
 
     $scope.offers = []
 
     $scope.selectedItem;
     $scope.User;
 
-    loadAll();
-
-
     /*-----------------------------------Load Data------------------------------------------------------------------*/
 
+    thirdFn().then(letsgo());
 
-    function loadAll() {
-      Data.user.get(function(result) {
+    function send () {
+      return Data.user.get(function(result) {
         $scope.User = result;
-      });
+      })
+    }
 
 
-      $timeout(Data.action.query(function(result) {
+    function  letsgo () {
+      Data.action.query(function(result) {
         result.forEach(function (item){
-          if(item.actionType=='SEEK'&&item.user.id== $scope.User.id){
-            console.log(item)
+          if(item.actionType=='SEEK'&&item.user.id==$stateParams.UserId){
             $scope.offers.push(item);
           }
         })
-      }), 3000);
-
+      })
     }
+
+    function thirdFn () {
+      var deferred = $q.defer();
+      if(send()){
+        deferred.resolve;
+      }
+      return deferred.promise;
+    }
+
+
 
     /*---------------------------------------------Modify items in the system-------------------------------------------*/
 

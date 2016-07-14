@@ -5,15 +5,16 @@
   .module('edgeServerApp')
   .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Data'];
+  HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Data' ,'$rootScope'];
 
-  function HomeController ($scope, Principal, LoginService, $state, Data ) {
+  function HomeController ($scope, Principal, LoginService, $state, Data,$rootScope ) {
     var vm = this;
     var moment;
 
     $scope.disasters=[];
     $scope.heatMapPoints=[];
     $scope.imagePath="content/images/globe.png"
+    $rootScope.itemid;
 
 
     vm.account = null;
@@ -31,6 +32,7 @@
     function getAccount() {
       Principal.identity().then(function(account) {
         vm.account = account;
+        $rootScope.itemid = account.id;
         vm.isAuthenticated = Principal.isAuthenticated;
       });
     }

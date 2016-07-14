@@ -25,8 +25,6 @@
           result.forEach(function (argument) {
             if(argument.type==="match"){
               $scope.conversations.push(argument);
-              console.log(argument)
-              console.log(Data.action.get({id:argument.matchedActionId}))
               $scope.data.push(Data.action.get({id:argument.matchedActionId}))
             }
           })
