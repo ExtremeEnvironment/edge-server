@@ -12,15 +12,15 @@
 
 <div class="md-whiteframe-3dp">
   <md-list flex style="padding:0px">
-    <md-list-item class="md-2-line" ng-repeat="conversation in conversations" layout="row" ng-click="showCon($index,conversation.id)">
+    <md-list-item class="md-2-line" ng-repeat="conversation in conversations" layout="row" >
       <div class="md-list-item-text">
-        <h3 style="margin:50px;padding:10px">Match wegen {{data[$index].actionObjects[0].name}} in {{data[$index].disaster.title}} </h3>
-        <md-button class="md-secondary md-icon-button"  ng-show="!this['selectedItem_' + $index]" ng-click="delFromArray(conversation)"  aria-label="call">
+        <h3 ng-click="showCon($index,conversation.id)" style="margin:50px;padding:10px" >Match wegen {{data[$index].actionObjects[0].name}} in {{data[$index].disaster.title}} </h3>
+        <md-button class="md-secondary md-icon-button" ng-show="!this['selectedItem_' + $index]" ng-click="delFromArray(conversation)"  aria-label="call">
           <md-icon md-svg-icon="content/images/clear.svg"></md-icon>
         </md-button>
 
-        <div ng-show="this['selectedItem_' + $index]" >
-          <md-virtual-repeat-container style="min-height:500px; max-height:500px;margin:20px;padding:10px"  md-top-index="top" >
+        <div ng-show="this['selectedItem_' + $index]" style="margin:20px;padding:10px" >
+          <md-virtual-repeat-container style="min-height:500px; max-height:500px;"  md-top-index="top" >
 
             <md-grid-list md-virtual-repeat="message in this['messages'+ $index]" md-cols-xs="1" md-cols-sm="1" md-cols-md="8" md-cols-gt-md="8" md-row-height-gt-md="fit" md-row-height="fit" md-gutter="50px" md-gutter-gt-sm="100px" style="height:100px;">
 
@@ -67,9 +67,9 @@
         <div layout="row" style="padding-top:50px">
           <md-input-container class="md-block" flex>
             <label>Antworten</label>
-            <textarea ng-model="message.messageText"  md-maxlength="65" rows="5" md-select-on-focus></textarea>
+            <textarea ng-model="message.messageText"  md-maxlength="65" rows="5"></textarea>
           </md-input-container>
-          <md-button class="md-icon-button" ng-click="send(conversation.id,$index)"  aria-label="Send">
+          <md-button class="md-icon-button" ng-click="send(conversation.id,$index)" aria-label="Send">
             <md-icon md-svg-icon="content/images/plane.svg"></md-icon>
           </md-button>
         </div>
