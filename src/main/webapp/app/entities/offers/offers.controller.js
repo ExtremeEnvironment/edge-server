@@ -28,7 +28,6 @@
       Data.user.get(function(result) {
         $scope.User = result;
       });
-
       
       $timeout(Data.action.query(function(result) {
         result.forEach(function (item){
@@ -117,8 +116,6 @@
     marker = new google.maps.Marker({
     });
 
-    
-
     google.maps.event.addListener(marker, 'dragend', function(evt){
       $scope.selectedItem.lat = marker.position.lat();
       $scope.selectedItem.lon = marker.position.lng();
@@ -155,7 +152,7 @@
        if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {    
         setTimeout(function() {
           geocodeLatLng(latlng);
-        }, 100);}
+        }, 1000);}
         else {
           window.alert('Bitte Seite neuladen!');
         }
