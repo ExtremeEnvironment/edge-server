@@ -316,23 +316,24 @@ ui bootstrap tweaks
         background-color: #3f51b5;
       }
       .dashboard-text, .dashboard-icons {
-        color: #ff6d05;
-      }
+       color : black !important;
+     }
 
-      .dashboard-text {
-        font-size: 1em;
-        text-align: center;
-        display: block;
-        height: 20px;
-        font-weight: 300;
-      }
+     .dashboard-text {
+      color : black !important;
+      font-size: 1em;
+      text-align: center;
+      display: block;
+      height: 20px;
+      font-weight: 300;
+    }
 
-      .dashboard-linke{
-        text-decoration: none;
-        color: white;
-        text-align: center;
-        position: relative;
-        width: 100%;
+    .dashboard-linke{
+      text-decoration: none;
+      color: white;
+      text-align: center;
+      position: relative;
+      width: 100%;
 /*         margin: 0px;
       margin-left: 8px;
       margin-right: 8px;
@@ -448,33 +449,33 @@ ui bootstrap tweaks
     padding:10px;
 /*     display: block;
 position: relative; */
-  }
+}
 
-  .md-inline-form{
-    margin: 15px;
-  }
+.md-inline-form{
+  margin: 15px;
+}
 
-  .enterDiv{
-    /*        margin: 15px;  */
-    padding-top: 15px; 
-  }
+.enterDiv{
+  /*        margin: 15px;  */
+  padding-top: 15px; 
+}
 
-  @media all and (max-width: 360px) {
-    .dashboard-icons { 
-      display: none; 
-    }
-    .tabellen{
-      background-color: white !important;
-      display: none; 
-    }
-    .texte{
-      font-size: 3.4vw !important;
-    }
-    .items{
-      font-size: 5.5vw !important;
-    }
-    .md-toolbar-tools{
-      font-size: 5.5vw;
-    }
+@media all and (max-width: 360px) {
+  .dashboard-icons { 
+    display: none; 
   }
+  .tabellen{
+    background-color: white !important;
+    display: none; 
+  }
+  .texte{
+    font-size: 3.4vw !important;
+  }
+  .items{
+    font-size: 5.5vw !important;
+  }
+  .md-toolbar-tools{
+    font-size: 5.5vw;
+  }
+}
 
